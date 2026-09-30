@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réseaux et télécommunication</title>
+     <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/RT.css?v=2">
+    <!-- Remix Icon -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg" style="border-radius: 20px;">
+    <title>Banque finances assurances</title>
+    <style>
+        /* Espace sous le header fixe */
+        .formation-container { padding-top: 110px; }
+    </style>
+</head>
+<body>
+
+        <header class="header">
+
+    <nav class="navbar">
+
+        <!-- LOGO -->
+      <a href="#" class="logo">
+    <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+    <span>HEMIP</span>
+</a>
+
+
+        <!-- BOUTON MOBILE -->
+        <button class="menu-btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+        </button>
+
+
+        <!-- MENU -->
+        <ul class="nav-list" id="nav-list">
+
+            <li>
+                <a href="index.php">Accueil</a>
+            </li>
+
+        
+
+
+            <!-- DROPDOWN FORMATION -->
+            <li class="dropdown">
+
+                <button class="dropdown-btn">
+                    Formation
+                    <i class="ri-arrow-down-s-line"></i>
+                </button>
+
+                <ul class="dropdown-menu">
+
+                    <!-- SOUS MENU pole technique-->
+                    <li class="submenu">
+
+                        <button class="submenu-btn">
+                            Pôle technique
+
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+
+                        <ul class="submenu-menu">
+                            <li><a href="GP.html">Génie Pétrolier</a></li>
+                            <li><a href="GL.html">Génie Logiciel</a></li>
+                            <li><a href="RT.html">Réseaux et Télécommunication</a></li>
+                            <li><a href="MI.html">Maintenance industrielle</a></li>
+                            <li><a href="AII.html">Automatisation et informatique industriel</a></li>
+                            
+                            
+                          
+                        </ul>
+
+                    </li>
+                    
+
+                    <!-- SOUS MENU -->
+                    <li class="submenu">
+
+                        <button class="submenu-btn">
+                            Pôle Commercial
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+
+                        <ul class="submenu-menu">
+                            <li><a href="DAE.html">Droit des affaires et des entreprises</a></li>
+                            <li><a href="GLT.html">Gestion Logistique et transport</a></li>
+                            <li><a href="BFA.html">Banque et Finance des assurances</a></li>
+                            <li><a href="CIT.html">Commerce international et transit</a></li>
+                           <li><a href="GFC.html">Gestion finance et comptable</a></li>       
+                         <li><a href="MRH.html">Management des Ressources Humaines</a></li> 
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </li>
+            <li>
+                <a href="Inscription.php" onclick="afficherFormulaire()">Inscription</a>
+            </li>
+
+            <li>
+                <a href="actualite.html">Actualité</a>
+            </li>
+
+
+            <li>
+                <a href="#footer">Contact</a>
+            </li>
+ <li>
+                <a href="#"><i class="ri-admin-line"></i></a>
+            </li>
+            
+
+        </ul>
+
+    </nav>
+
+</header>
+    <div>
+       <div class="formation-container">
+  <!-- En-tête principal -->
+  <div class="entete-banner">
+    <span class="banner-title">Réseaux et télécommunication</span>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section-block">
+    <div class="section-title">Stratégie de l'entreprise</div>
+    <div class="section-content">
+    Les Réseaux et télécommunications visent à garantir une connectivité ultra-performante, résiliente et sécurisée pour soutenir la transformation numérique et la continuité d'activités.
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section-block">
+    <div class="section-title">Objectifs de formation</div>
+    <div class="section-content">
+      <ul>
+        <li> <strong>Maîtriser la programmabilité des réseaux :</strong><br> Former les ingénieurs aux langages d'automatisation (Python, Ansible) pour configurer les routeurs et commutateurs via API.</li>
+        <li><strong>Déployer les réseaux mobiles modernes :</strong> <br>Assurer la maîtrise des architectures 5G (Standalone/Non-Standalone), du Network Slicing et anticiper les briques de la 6G.</li>
+        <li> <strong>Sécuriser les flux et les accès :</strong> <br>Entraîner les équipes à la mise en place d'architectures Zero Trust Network Access (ZTNA) et au chiffrement des flux critiques.</li>
+        <li><strong>Gérer le multi-cloud et l'IoT :</strong><br>Apprendre à interconnecter de manière fluide des environnements Cloud hétérogènes (AWS, Azure) et des parcs d'objets connectés industriels.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section-block">
+    <div class="section-title">Évolution</div>
+    <div class="section-content">
+      <p> Le rôle du technicien et de l'ingénieur réseau subit une profonde mutation logicielle sous l'effet de l'automatisation.</p>
+      <strong> L'ère du NetDevOps :</strong> Le profil traditionnel axé sur le matériel (CLI, câblage) évolue vers un profil de développeur réseau (NetDevOps) gérant l'infrastructure comme du code (IaC).<br>
+      <strong> Convergence Réseaux/Sécurité :</strong> Disparition des frontières étanches entre les équipes réseau et l'équipe cybersécurité au profit de profils experts en détection d'anomalies de trafic<br>
+      <strong> Réseaux autonomes et IA (AIOps) :</strong> Transition vers des réseaux  capables de s'auto-optimiser et de s'auto-guérir grâce à l'intégration  d'algorithmes d'intelligence artificielle.<br>
+    </div>
+  </div>
+  
+ </div class="header-titre" >
+
+<div class="table-container">
+    <table>
+<thead>
+            <tr>
+                <th>Niveau</th>
+                <th>Diplôme</th>
+                <th>Frais d'examen et travaux pratiques</th>
+                <th>Coût de la formation</th>
+                <th>Débouchés</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1ère année</td>
+                <td>BAC</td>
+                <td rowspan="3" class="centered-large">30000 soit 15000/mois (session ordinaire) <br>Payable avant les examens. <br>(7500FCFA Rattrapage) <br> <br> <br><strong>NB :</strong> scolarité payable en 9 mois</td>
+                <td>400.000FCFA S1 et S2 ou 1ère année 44.450FCFA/mois </td>
+                <td rowspan="3" class="centered-large">Technicien supérieur en réseaux informatiques. <br><br>Administrateur systèmes et réseaux. <br> <br>Technicien support/ Technicien. <br> <br>Technicien de déploiement fibre</td>
+            </tr>
+            <tr>
+                <td>2ème année</td>
+                <td>Relevé notes S1 et S2</td>
+                <td>450.000 S3 et S4 ou 2ème année soit 50.000/mois</td>
+            </tr>
+            <tr>
+                <td>3ème année</td>
+                <td>Relevé notes S3 et S4</td>
+                <td>550.000 S5 et S6 ou 3ème année soit 61.200/mois</td>
+            </tr>
+        </tbody>
+</table>
+
+</div>
+<footer class="footer reveal">
+    <div class="footer-container " id="footer">
+
+        <!-- Présentation -->
+        <div class="footer-col footer-about">
+            <div class="footer-logo">
+                <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+                <span>HEMIP</span>
+            </div>
+
+            <p class="footer-slogan">
+                « Nous formons des professionnels qualifiés et chevronnés »
+            </p>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-col">
+            <h3>Contactez-nous</h3>
+
+            <ul class="footer-contact">
+                <li>
+                    <i class="ri-mail-line"></i>
+                    <a href="mailto:hemilaperceeinformation@gmail.com">
+             hemilaperceeinformation@gmail.com
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+242069149242">
+                        +242 06 914 92 42
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+242053560677">
+                        +242 06 356 06 77
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-whatsapp-line"></i>
+                    <a href="https://wa.me/242055865094" target="_blank">
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div class="footer-col">
+            <h3>Suivez-nous</h3>
+
+            <p class="social-text">
+                Retrouvez HEMIP sur nos réseaux sociaux.
+            </p>
+
+            <div class="social-links">
+
+                <a href="https://vm.tiktok.com/ZS9kFSarLrbTD-96s9G/" class="social-link" aria-label="TikTok">
+                    <i class="ri-tiktok-line"></i>
+                </a>
+
+                <a href="https://www.facebook.com/hemipcongo" class="social-link" aria-label="Facebook">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+
+                <a href="https://wa.me/242055865094"
+                   class="social-link"
+                   aria-label="WhatsApp"
+                   target="_blank">
+                    <i class="ri-whatsapp-line"></i>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
