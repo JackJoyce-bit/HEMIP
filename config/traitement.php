@@ -3,6 +3,7 @@
 session_start();
 
 require_once "connexion.php";
+require_once "historique.php";
 
 
 // Vérifier que l'administrateur est connecté
@@ -29,34 +30,55 @@ if (
 $codeUnique = $_POST['codeUnique'];
 $action = $_POST['action'];
 
+$actionsValides = [
+    'accepter',             // accepter la candidature
+    'refuser',              // refuser la candidature
+    'accepter_inscription', // accepter la demande d'inscription (Préinscriptions)
+    'refuser_inscription',  // refuser la demande d'inscription (Préinscriptions)
+    'effacer'               // effacer une candidature refusée (Candidatures)
+];
 
-// Déterminer le nouveau statut
-if ($action === 'accepter') {
+if (!in_array($action, $actionsValides, true)) {
+    header("Location: dashboard.php");
+    exit();
+}
 
-    $statut = 'Validée';
-    $typeNotification = 'Validation';
+// Les décisions sur l'inscription se prennent dans « Préinscriptions »
+$section = in_array($action, ['accepter_inscription', 'refuser_inscription'], true)
+    ? 'preinscription'
+    : 'candidatures';
 
-    $message =
-        'Félicitations ! Votre candidature a été acceptée par HEMIP. '
-        . 'Vous êtes désormais admis(e) au sein de l’établissement.';
 
-} elseif ($action === 'refuser') {
+/**
+ * Enregistre le message à afficher sur le tableau de bord
+ * puis retourne au tableau de bord.
+ */
+function terminer(string $type, string $titre, string $message, string $section): void
+{
+    global $connexion;
 
-    $statut = 'Rejetée';
-    $typeNotification = 'Rejet';
+    // Garder une trace dans « Historique des notifications »
+    historique_ajouter(
+        $connexion,
+        (int) ($_SESSION['idAdmin'] ?? 0) ?: null,
+        $type,
+        $titre,
+        $message
+    );
 
-    $message =
-        'Nous vous informons que votre candidature à HEMIP '
-        . 'n’a pas été retenue. Nous vous remercions pour votre candidature.';
-
-} else {
+    $_SESSION['flash'] = [
+        'type' => $type,
+        'titre' => $titre,
+        'message' => $message,
+        'section' => $section
+    ];
 
     header("Location: dashboard.php");
     exit();
 }
 
 
-// Rechercher le candidat
+// Rechercher le candidat (sa demande d'inscription, pas une réinscription)
 $requete = $connexion->prepare("
     SELECT
         c.idCandidat,
@@ -71,6 +93,7 @@ $requete = $connexion->prepare("
     INNER JOIN preinscription p
         ON p.idCandidat = c.idCandidat
     WHERE c.codeUnique = :codeUnique
+    AND (p.type_demande = 'Inscription' OR p.type_demande IS NULL)
     ORDER BY p.idPreinscription DESC
     LIMIT 1
 ");
@@ -91,152 +114,408 @@ if (!$candidat) {
 
 $nomComplet = trim($candidat['prenom'] . ' ' . $candidat['nom']);
 
+$statutActuel = $candidat['statut_actuel'];
+
+$aDejaUnNumero = trim((string) ($candidat['matricule_ancien'] ?? '')) !== '';
+
 
 // ==========================================
 // RÈGLES SUR LES DÉCISIONS DÉJÀ PRISES
 // ==========================================
 
-// Une candidature validée ne peut plus être refusée
-if ($action === 'refuser' && $candidat['statut_actuel'] === 'Validée') {
+if ($action === 'refuser') {
 
-    $_SESSION['flash'] = [
-        'type' => 'erreur',
-        'titre' => 'Action impossible',
-        'message' => "La candidature de $nomComplet est déjà validée : "
-            . "elle ne peut plus être refusée."
-    ];
+    // Une candidature validée ne peut plus être refusée
+    if ($statutActuel === 'Validée') {
+        terminer(
+            'erreur',
+            'Action impossible',
+            "La candidature de $nomComplet est déjà validée : "
+                . "elle ne peut plus être refusée.",
+            $section
+        );
+    }
 
-    header("Location: dashboard.php");
-    exit();
+    if ($statutActuel === 'Rejetée') {
+        terminer(
+            'info',
+            'Déjà refusée',
+            "La candidature de $nomComplet est déjà refusée.",
+            $section
+        );
+    }
 }
 
-// Inutile de valider deux fois (et de régénérer un matricule)
-if ($action === 'accepter' && $candidat['statut_actuel'] === 'Validée') {
-
-    $_SESSION['flash'] = [
-        'type' => 'info',
-        'titre' => 'Déjà validée',
-        'message' => "La candidature de $nomComplet est déjà validée."
-    ];
-
-    header("Location: dashboard.php");
-    exit();
+if ($action === 'accepter' && $statutActuel === 'Validée') {
+    terminer(
+        'info',
+        'Déjà validée',
+        "La candidature de $nomComplet est déjà validée.",
+        $section
+    );
 }
 
-// Inutile de refuser deux fois
-if ($action === 'refuser' && $candidat['statut_actuel'] === 'Rejetée') {
+if (in_array($action, ['accepter_inscription', 'refuser_inscription'], true)) {
 
-    $_SESSION['flash'] = [
-        'type' => 'info',
-        'titre' => 'Déjà refusée',
-        'message' => "La candidature de $nomComplet est déjà refusée."
-    ];
+    // La candidature doit d'abord avoir été acceptée
+    if ($statutActuel !== 'Validée') {
+        terminer(
+            'erreur',
+            'Action impossible',
+            "La candidature de $nomComplet doit d'abord être acceptée.",
+            $section
+        );
+    }
 
-    header("Location: dashboard.php");
-    exit();
+    // Le numéro étudiant n'est attribué qu'une seule fois
+    if ($aDejaUnNumero) {
+        terminer(
+            'info',
+            'Déjà inscrit(e)',
+            "$nomComplet est déjà inscrit(e) "
+                . "(N° étudiant : " . $candidat['matricule_ancien'] . ").",
+            $section
+        );
+    }
 }
 
 
 // ==========================================
-// SI LA CANDIDATURE EST ACCEPTÉE
+// EFFACER UNE CANDIDATURE REFUSÉE
 // ==========================================
+
+if ($action === 'effacer') {
+
+    // Seule une candidature refusée peut être effacée
+    if ($statutActuel !== 'Rejetée') {
+        terminer(
+            'erreur',
+            'Action impossible',
+            "Seule une candidature refusée peut être effacée.",
+            $section
+        );
+    }
+
+    // Un étudiant déjà inscrit (numéro attribué) ne s'efface pas
+    if ($aDejaUnNumero) {
+        terminer(
+            'erreur',
+            'Action impossible',
+            "$nomComplet a déjà un numéro étudiant : sa candidature ne peut pas être effacée.",
+            $section
+        );
+    }
+
+    $cheminsFichiers = [];
+
+    try {
+
+        $connexion->beginTransaction();
+
+        // Toutes les demandes de ce candidat
+        $requeteIds = $connexion->prepare("
+            SELECT idPreinscription
+            FROM preinscription
+            WHERE idCandidat = :idCandidat
+        ");
+
+        $requeteIds->execute([':idCandidat' => $candidat['idCandidat']]);
+
+        $idsPreinscriptions = $requeteIds->fetchAll(PDO::FETCH_COLUMN);
+
+        $marques = implode(',', array_fill(0, count($idsPreinscriptions), '?'));
+
+        // Documents : retrouver les fichiers à supprimer sur le disque
+        $conditionDocuments = "codeUnique = ?";
+
+        if (!empty($idsPreinscriptions)) {
+            $conditionDocuments .= " OR idPreinscription IN ($marques)";
+        }
+
+        $parametresDocuments = array_merge(
+            [$candidat['codeUnique']],
+            $idsPreinscriptions
+        );
+
+        $requeteChemins = $connexion->prepare(
+            "SELECT chemin_fichier FROM document WHERE $conditionDocuments"
+        );
+
+        $requeteChemins->execute($parametresDocuments);
+
+        $cheminsFichiers = $requeteChemins->fetchAll(PDO::FETCH_COLUMN);
+
+        // Notifications (emails) liées à ces demandes
+        if (!empty($idsPreinscriptions)) {
+
+            $suppressionNotifications = $connexion->prepare(
+                "DELETE FROM notification WHERE id_preinscription IN ($marques)"
+            );
+
+            $suppressionNotifications->execute($idsPreinscriptions);
+        }
+
+        // Documents
+        $suppressionDocuments = $connexion->prepare(
+            "DELETE FROM document WHERE $conditionDocuments"
+        );
+
+        $suppressionDocuments->execute($parametresDocuments);
+
+        // Demandes (préinscriptions)
+        $suppressionPreinscriptions = $connexion->prepare(
+            "DELETE FROM preinscription WHERE idCandidat = :idCandidat"
+        );
+
+        $suppressionPreinscriptions->execute([
+            ':idCandidat' => $candidat['idCandidat']
+        ]);
+
+        // Candidat
+        $suppressionCandidat = $connexion->prepare(
+            "DELETE FROM candidat WHERE idCandidat = :idCandidat"
+        );
+
+        $suppressionCandidat->execute([
+            ':idCandidat' => $candidat['idCandidat']
+        ]);
+
+        $connexion->commit();
+
+    } catch (Throwable $e) {
+
+        if ($connexion->inTransaction()) {
+            $connexion->rollBack();
+        }
+
+        error_log("Traitement HEMIP (effacer) : " . $e->getMessage());
+
+        terminer(
+            'erreur',
+            'Suppression impossible',
+            "La candidature de $nomComplet n'a pas pu être effacée "
+                . "(elle est peut-être liée à d'autres données). Rien n'a été modifié.",
+            $section
+        );
+    }
+
+    // La base est à jour : on supprime aussi les fichiers déposés
+    $dossierUploads = realpath(__DIR__ . '/uploads');
+
+    foreach ($cheminsFichiers as $cheminFichier) {
+
+        $fichierReel = realpath(__DIR__ . '/' . $cheminFichier);
+
+        if (
+            $dossierUploads !== false &&
+            $fichierReel !== false &&
+            strpos($fichierReel, $dossierUploads . DIRECTORY_SEPARATOR) === 0 &&
+            is_file($fichierReel)
+        ) {
+            @unlink($fichierReel);
+        }
+    }
+
+    terminer(
+        'succes',
+        'Candidature effacée',
+        "La candidature de $nomComplet a été effacée définitivement "
+            . "(dossier et documents).",
+        $section
+    );
+}
+
+
+// ==========================================
+// PRÉPARER LA DÉCISION
+// ==========================================
+
+$numeroEtudiant = null;
 
 if ($action === 'accepter') {
 
-    // Générer le matricule étudiant
-    $matriculeAncien =
-        'HEMIP-' .
-        date('Y') .
-        '-' .
-        strtoupper(
-            substr(
-                bin2hex(random_bytes(4)),
-                0,
-                6
-            )
-        );
+    // La candidature est acceptée, mais PAS encore le numéro étudiant :
+    // la demande d'inscription passe « en attente » dans Préinscriptions.
+    $statut = 'Validée';
+    $typeNotification = 'Validation';
 
+    $message =
+        'Félicitations ! Votre candidature a été acceptée par HEMIP. '
+        . 'Votre demande d’inscription est maintenant en cours de traitement : '
+        . 'vous recevrez votre numéro étudiant dès que votre inscription '
+        . 'sera confirmée.';
 
-    // Enregistrer le matricule dans candidat
-    $requeteMatricule = $connexion->prepare("
-        UPDATE candidat
-        SET matricule_ancien = :matricule_ancien
-        WHERE idCandidat = :idCandidat
+    $sujet = 'HEMIP - Votre candidature a été acceptée';
+
+} elseif ($action === 'refuser') {
+
+    $statut = 'Rejetée';
+    $typeNotification = 'Rejet';
+
+    $message =
+        'Nous vous informons que votre candidature à HEMIP '
+        . 'n’a pas été retenue. Nous vous remercions pour votre candidature.';
+
+    $sujet = 'HEMIP - Résultat de votre candidature';
+
+} elseif ($action === 'accepter_inscription') {
+
+    $statut = 'Validée';
+    $typeNotification = 'Validation';
+
+    // Générer un numéro étudiant qui n'existe pas déjà
+    $verifNumero = $connexion->prepare("
+        SELECT COUNT(*)
+        FROM candidat
+        WHERE matricule_ancien = :numero
     ");
 
-    $requeteMatricule->execute([
-        ':matricule_ancien' => $matriculeAncien,
-        ':idCandidat' => $candidat['idCandidat']
-    ]);
+    for ($essai = 0; $essai < 10; $essai++) {
+
+        $numeroEtudiant =
+            'HEMIP-' .
+            date('Y') .
+            '-' .
+            strtoupper(substr(bin2hex(random_bytes(4)), 0, 6));
+
+        $verifNumero->execute([':numero' => $numeroEtudiant]);
+
+        if ((int) $verifNumero->fetchColumn() === 0) {
+            break;
+        }
+
+        $numeroEtudiant = null;
+    }
+
+    if ($numeroEtudiant === null) {
+        terminer(
+            'erreur',
+            'Erreur',
+            "Impossible de générer un numéro étudiant. Veuillez réessayer.",
+            $section
+        );
+    }
+
+    $message =
+        'Félicitations ! Votre inscription à HEMIP est confirmée. '
+        . 'Votre numéro étudiant est : ' . $numeroEtudiant . '. '
+        . 'Conservez-le précieusement : il vous sera demandé pour vos '
+        . 'réinscriptions.';
+
+    $sujet = 'HEMIP - Votre inscription est confirmée';
+
+} else { // refuser_inscription
+
+    // La demande est refusée : la candidature repasse en « Rejetée »
+    $statut = 'Rejetée';
+    $typeNotification = 'Rejet';
+
+    $message =
+        'Nous vous informons que votre demande d’inscription à HEMIP '
+        . 'n’a pas pu être acceptée. Pour plus d’informations, '
+        . 'vous pouvez contacter l’établissement.';
+
+    $sujet = 'HEMIP - Votre demande d’inscription';
 }
 
 
 // ==========================================
-// MODIFIER LE STATUT DE LA CANDIDATURE
+// ENREGISTRER (tout ou rien)
 // ==========================================
 
-$requeteStatut = $connexion->prepare("
-    UPDATE preinscription
-    SET statut = :statut
-    WHERE idPreinscription = :idPreinscription
-");
+try {
 
-$requeteStatut->execute([
-    ':statut' => $statut,
-    ':idPreinscription' => $candidat['idPreinscription']
-]);
+    $connexion->beginTransaction();
 
+    // Numéro étudiant (uniquement quand l'inscription est acceptée)
+    if ($numeroEtudiant !== null) {
 
-// ==========================================
-// CRÉER LA NOTIFICATION
-// ==========================================
+        $requeteNumero = $connexion->prepare("
+            UPDATE candidat
+            SET matricule_ancien = :matricule_ancien
+            WHERE idCandidat = :idCandidat
+        ");
 
-$requeteNotification = $connexion->prepare("
-    INSERT INTO notification
-    (
-        type_notification,
-        message,
-        canal,
-        id_preinscription
-    )
-    VALUES
-    (
-        :type_notification,
-        :message,
-        :canal,
-        :id_preinscription
-    )
-");
+        $requeteNumero->execute([
+            ':matricule_ancien' => $numeroEtudiant,
+            ':idCandidat' => $candidat['idCandidat']
+        ]);
+    }
 
-$requeteNotification->execute([
-    ':type_notification' => $typeNotification,
-    ':message' => $message,
-    ':canal' => 'Email',
-    ':id_preinscription' => $candidat['idPreinscription']
-]);
+    // Statut de la demande
+    $requeteStatut = $connexion->prepare("
+        UPDATE preinscription
+        SET statut = :statut
+        WHERE idPreinscription = :idPreinscription
+    ");
+
+    $requeteStatut->execute([
+        ':statut' => $statut,
+        ':idPreinscription' => $candidat['idPreinscription']
+    ]);
+
+    // Notification
+    $requeteNotification = $connexion->prepare("
+        INSERT INTO notification
+        (
+            type_notification,
+            message,
+            canal,
+            id_preinscription
+        )
+        VALUES
+        (
+            :type_notification,
+            :message,
+            :canal,
+            :id_preinscription
+        )
+    ");
+
+    $requeteNotification->execute([
+        ':type_notification' => $typeNotification,
+        ':message' => $message,
+        ':canal' => 'Email',
+        ':id_preinscription' => $candidat['idPreinscription']
+    ]);
+
+    $connexion->commit();
+
+} catch (Throwable $e) {
+
+    if ($connexion->inTransaction()) {
+        $connexion->rollBack();
+    }
+
+    error_log("Traitement HEMIP : " . $e->getMessage());
+
+    terminer(
+        'erreur',
+        'Erreur',
+        "Une erreur est survenue : rien n'a été modifié. Veuillez réessayer.",
+        $section
+    );
+}
 
 
 // ==========================================
 // ENVOYER L'EMAIL
 // ==========================================
 
-$sujet = 'HEMIP - Résultat de votre candidature';
+require_once "mail.php";
 
-$headers = "From: HEMIP <noreply@hemip.com>\r\n";
-$headers .= "Reply-To: noreply@hemip.com\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$erreurEmail = null;
 
-// Le @ évite qu'un avertissement PHP n'empêche la redirection
-$emailEnvoye = @mail(
+$emailEnvoye = envoyer_email(
     $candidat['email'],
     $sujet,
     $message,
-    $headers
+    $erreurEmail
 );
 
 $noteEmail = $emailEnvoye
     ? " Un email lui a été envoyé."
-    : " L'email n'a pas pu être envoyé.";
+    : " L'email n'a pas pu être envoyé : " . $erreurEmail;
 
 
 // ==========================================
@@ -245,26 +524,42 @@ $noteEmail = $emailEnvoye
 
 if ($action === 'accepter') {
 
-    $_SESSION['flash'] = [
-        'type' => 'succes',
-        'titre' => 'Candidature validée',
-        'message' => "$nomComplet est admis(e). Matricule : $matriculeAncien."
-            . $noteEmail
-    ];
+    terminer(
+        'succes',
+        'Candidature acceptée',
+        "$nomComplet est admis(e). Sa demande d'inscription est maintenant "
+            . "en attente dans Préinscriptions." . $noteEmail,
+        $section
+    );
+
+} elseif ($action === 'refuser') {
+
+    terminer(
+        'rejet',
+        'Candidature refusée',
+        "La candidature de $nomComplet a été refusée." . $noteEmail,
+        $section
+    );
+
+} elseif ($action === 'accepter_inscription') {
+
+    terminer(
+        'succes',
+        'Inscription acceptée',
+        "$nomComplet est inscrit(e). N° étudiant : $numeroEtudiant."
+            . $noteEmail,
+        $section
+    );
 
 } else {
 
-    $_SESSION['flash'] = [
-        'type' => 'rejet',
-        'titre' => 'Candidature refusée',
-        'message' => "La candidature de $nomComplet a été refusée."
-            . $noteEmail
-    ];
+    terminer(
+        'rejet',
+        'Inscription refusée',
+        "La demande d'inscription de $nomComplet a été refusée. "
+            . "Sa candidature repasse en « Rejetée »." . $noteEmail,
+        $section
+    );
 }
-
-
-// Retour au tableau de bord
-header("Location: dashboard.php");
-exit();
 
 ?>

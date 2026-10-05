@@ -15,6 +15,7 @@ if (
 }
 
 require_once "connexion.php";
+require_once "historique.php";
 
 // Message de résultat (validation / rejet) laissé par traitement.php
 $flash = $_SESSION['flash'] ?? null;
@@ -76,12 +77,12 @@ foreach ($documents as $document) {
     $documentsParPreinscription[$idPreinscription][] = $document;
 }
 
-// Récupérer les notifications
-$requeteNotifications = $connexion->prepare("SELECT * FROM notification ORDER BY date_envoi DESC");
-
-$requeteNotifications->execute();
-
-$notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
+// Historique des notifications affichées sur le tableau de bord
+// (pas les emails envoyés aux candidats)
+$notifications = historique_lire(
+    $connexion,
+    (int) ($_SESSION['idAdmin'] ?? 0)
+);
 ?>
 
 <!DOCTYPE html>
@@ -134,6 +135,20 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
             align-items: center;
             justify-content: space-between;
             gap: 15px;
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .document-view-btn i {
+            margin-right: 6px;
+        }
+
+        .document-view-btn.telecharger {
+            color: #475569;
         }
 
 
@@ -226,6 +241,135 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
         @keyframes toastSortie {
             from { opacity: 1; transform: translateX(0); }
             to   { opacity: 0; transform: translateX(40px); }
+        }
+
+        .action-btn.delete {
+            background: #d73737;
+            color: #ffffff;
+        }
+
+        .action-btn.delete:hover {
+            background: #b02a2a;
+        }
+
+        .action-btn i {
+            margin-right: 4px;
+        }
+
+        /* =========================
+           HISTORIQUE DES NOTIFICATIONS
+        ========================= */
+
+        .historique-panel {
+            position: fixed;
+            top: 76px;
+            right: 20px;
+            z-index: 9000;
+
+            width: 400px;
+            max-width: calc(100vw - 40px);
+            max-height: 70vh;
+
+            display: flex;
+            flex-direction: column;
+
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.22);
+
+            overflow: hidden;
+        }
+
+        .historique-entete {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 16px 18px;
+
+            border-bottom: 1px solid #edf0f4;
+
+            font-weight: 700;
+            font-size: 15px;
+            color: #1e293b;
+        }
+
+        .historique-entete button {
+            border: none;
+            background: transparent;
+            font-size: 22px;
+            line-height: 1;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+
+        .historique-entete button:hover {
+            color: #475569;
+        }
+
+        .historique-liste {
+            overflow-y: auto;
+        }
+
+        .historique-vide {
+            padding: 30px 18px;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .historique-item {
+            display: flex;
+            gap: 12px;
+
+            padding: 14px 18px;
+
+            border-bottom: 1px solid #f1f5f9;
+            border-left: 4px solid #16a34a;
+        }
+
+        .historique-item:last-child {
+            border-bottom: none;
+        }
+
+        .historique-item i {
+            font-size: 20px;
+            line-height: 1.2;
+            color: #16a34a;
+        }
+
+        .historique-item .texte {
+            flex: 1;
+            min-width: 0;
+            font-size: 13px;
+            line-height: 1.45;
+            color: #334155;
+        }
+
+        .historique-item .texte strong {
+            display: block;
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .historique-item .date {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .historique-item.rejet { border-left-color: #ea580c; }
+        .historique-item.rejet i { color: #ea580c; }
+
+        .historique-item.erreur { border-left-color: #dc2626; }
+        .historique-item.erreur i { color: #dc2626; }
+
+        .historique-item.info { border-left-color: #2563eb; }
+        .historique-item.info i { color: #2563eb; }
+
+        @media (max-width: 450px) {
+            .historique-panel { top: 66px; right: 10px; left: 10px; width: auto; }
         }
 
         .decision-note {
@@ -545,6 +689,20 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
                 <div class="stat-card">
 
                     <div class="stat-info">
+                        <span>Inscriptions en attente</span>
+                        <strong id="inscriptionsEnAttenteCount">0</strong>
+                    </div>
+
+                    <div class="stat-icon orange">
+                        <i class="ri-time-line"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-info">
                         <span>Étudiants inscrits</span>
                         <strong id="inscritsCount">0</strong>
                     </div>
@@ -648,6 +806,10 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
 
                         <option value="">
                             Tous
+                        </option>
+
+                        <option value="en attente">
+                            En attente
                         </option>
 
                         <option value="inscrit">
@@ -813,11 +975,20 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
                 <span class="decision-note" id="decisionNote"></span>
 
                 <button
+                    class="action-btn delete"
+                    id="deleteBtn"
+                    style="display: none;"
+                >
+                    <i class="ri-delete-bin-line"></i>
+                    <span>Effacer candidature</span>
+                </button>
+
+                <button
                     class="action-btn reject"
                     id="rejectBtn"
                 >
                     <i class="ri-close-circle-line"></i>
-                    Refuser
+                    <span id="rejectLabel">Refuser</span>
                 </button>
 
                 <button
@@ -825,7 +996,7 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
                     id="acceptBtn"
                 >
                     <i class="ri-checkbox-circle-line"></i>
-                    Accepter la candidature
+                    <span id="acceptLabel">Accepter la candidature</span>
                 </button>
 
             </div>
@@ -857,35 +1028,35 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
 
         let candidatures = <?= json_encode(array_map(function($c) use ($documentsParPreinscription) {
 
-    $niveau = $c['niveau'] ?? '';
+        $niveau = $c['niveau'] ?? '';
 
-    switch ($niveau) {
+        switch ($niveau) {
 
-        case '1ere-annee':
-            $niveau = '1ère année';
-            break;
+            case '1ere-annee':
+                $niveau = '1ère année';
+                break;
 
-        case '2eme-annee':
-            $niveau = '2ème année';
-            break;
+            case '2eme-annee':
+                $niveau = '2ème année';
+                break;
 
-        case '3eme-annee':
-            $niveau = '3ème année';
-            break;
+            case '3eme-annee':
+                $niveau = '3ème année';
+                break;
 
-        case 'master-1':
-            $niveau = 'Master 1';
-            break;
+            case 'master-1':
+                $niveau = 'Master 1';
+                break;
 
-        case 'master-2':
-            $niveau = 'Master 2';
-            break;
+            case 'master-2':
+                $niveau = 'Master 2';
+                break;
 
-        default:
-            $niveau = 'Non renseigné';
-    }
+            default:
+                $niveau = 'Non renseigné';
+        }
 
-    return [
+        return [
         'id' => $c['codeUnique'],
         'idPreinscription' => $c['idPreinscription'],
         'typeDemande' => $c['type_demande'] ?? 'Inscription',
@@ -893,7 +1064,10 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
         'prenom' => $c['prenom'],
         'email' => $c['email'],
         'telephone' => $c['telephone'],
-        'numeroEtudiant' => $c['matricule_ancien'] ?? 'Non renseigné',
+        'numeroEtudiant' => !empty($c['matricule_ancien'])
+            ? $c['matricule_ancien']
+            : 'Non attribué',
+        'aMatricule' => !empty($c['matricule_ancien']),
 
         'filiere' => $c['nomFiliere'] ?? 'Non renseignée',
 
@@ -906,9 +1080,9 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
         'statut' => $c['statut_preinscription'] ?? 'En attente',
 
         'documents' => $documentsParPreinscription[$c['idPreinscription']] ?? []
-    ];
+        ];
 
-}, $candidatures), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+        }, $candidatures), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
 
          /* =========================
         FILTRES PÔLE ET FILIÈRE
@@ -933,7 +1107,7 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
         ];
 
 
-    /* Comparaison tolérante : sans accents, sans majuscules */
+        /* Comparaison tolérante : sans accents, sans majuscules */
 
         const norm = texte =>
             (texte || "")
@@ -943,7 +1117,27 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
                 .trim();
 
 
-    /* Déterminer le pôle de chaque candidat */
+        /* État de l'inscription d'un étudiant (section Préinscriptions) :
+           - En attente : candidature acceptée, inscription pas encore décidée
+           - Inscrit    : inscription acceptée (numéro étudiant attribué)
+           - Réinscrit  : demande de réinscription
+           - null       : n'apparaît pas dans Préinscriptions */
+
+        function statutInscription(c) {
+
+            if (c.typeDemande === "Réinscription") {
+                return "Réinscrit";
+            }
+
+            if (c.typeDemande === "Inscription" && c.statut === "Validée") {
+                return c.aMatricule ? "Inscrit" : "En attente";
+            }
+
+            return null;
+        }
+
+
+        /* Déterminer le pôle de chaque candidat */
 
         candidatures.forEach(candidat => {
 
@@ -964,14 +1158,14 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
         });
 
 
-    /* Récupérer les filtres */
+        /* Récupérer les filtres */
 
         const poleFilter = document.getElementById("poleFilter");
 
         const filiereFilter = document.getElementById("filiereFilter");
 
 
-    /* Ajouter les 12 filières dans le filtre */
+        /* Ajouter les 12 filières dans le filtre */
 
         const toutesLesFilieres = [
             ...filieresTechniques,
@@ -1013,6 +1207,8 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
 
 
         let selectedCandidate = null;
+
+        let selectedMode = "candidature";
 
 
         /* =========================
@@ -1237,41 +1433,34 @@ $notifications = $requeteNotifications->fetchAll(PDO::FETCH_ASSOC);
             document.getElementById("preinscriptionStatusFilter");
 
 
-function afficherPreinscriptions() {
+        function afficherPreinscriptions() {
 
-    const recherche =
-        preinscriptionSearchInput.value.toLowerCase();
+        const recherche =
+            preinscriptionSearchInput.value.toLowerCase();
 
-    const filiere =
-        preinscriptionFiliereFilter.value;
-
-
-    const pole =
-        preinscriptionPoleFilter.value;
-
-    const niveau =
-        preinscriptionNiveauFilter.value;
-
-    const statut =
-        preinscriptionStatusFilter.value;
+        const filiere =
+            preinscriptionFiliereFilter.value;
 
 
-    const resultats = candidatures.filter(candidat => {
+        const pole =
+            preinscriptionPoleFilter.value;
 
-        const estInscrit =
-            candidat.typeDemande === "Inscription" &&
-            candidat.statut === "Validée";
+        const niveau =
+            preinscriptionNiveauFilter.value;
 
-        const estReinscrit =
-            candidat.typeDemande === "Réinscription";
+        const statut =
+            preinscriptionStatusFilter.value;
 
-        if (!estInscrit && !estReinscrit) {
+
+        const resultats = candidatures.filter(candidat => {
+
+        const etat = statutInscription(candidat);
+
+        if (etat === null) {
             return false;
         }
 
-
-        const statutPreinscription =
-            estReinscrit ? "réinscrit" : "inscrit";
+        const statutPreinscription = etat.toLowerCase();
 
 
         const texteRecherche =
@@ -1313,13 +1502,13 @@ function afficherPreinscriptions() {
 
         );
 
-    });
+        });
 
 
-    preinscriptionTable.innerHTML = "";
+        preinscriptionTable.innerHTML = "";
 
 
-    if (resultats.length === 0) {
+        if (resultats.length === 0) {
 
         preinscriptionTable.innerHTML = `
             <tr>
@@ -1337,22 +1526,20 @@ function afficherPreinscriptions() {
         `;
 
         return;
-    }
+        }
 
 
-    resultats.forEach(candidat => {
+        resultats.forEach(candidat => {
 
         const initials =
             candidat.prenom.charAt(0) +
             candidat.nom.charAt(0);
 
 
-        const estReinscrit =
-            candidat.typeDemande === "Réinscription";
+        const statutAffiche = statutInscription(candidat);
 
-
-        const statutAffiche =
-            estReinscrit ? "réinscrit" : "inscrit";
+        const classeStatut =
+            statutAffiche === "En attente" ? "pending" : "accepted";
 
 
         const row =
@@ -1413,7 +1600,7 @@ function afficherPreinscriptions() {
 
             <td>
 
-                <span class="status accepted">
+                <span class="status ${classeStatut}">
 
                     <span class="status-dot"></span>
 
@@ -1446,22 +1633,22 @@ function afficherPreinscriptions() {
 
         preinscriptionTable.appendChild(row);
 
-    });
+        });
 
-}
+        }
 
-    /* =========================
-    FILTRES PRÉINSCRIPTION
-    ========================= */
+        /* =========================
+        FILTRES PRÉINSCRIPTION
+        ========================= */
 
-    preinscriptionSearchInput.addEventListener(
+        preinscriptionSearchInput.addEventListener(
         "input",
         afficherPreinscriptions
-    );
+        );
 
-    /* Liste des filières selon le pôle choisi */
+        /* Liste des filières selon le pôle choisi */
 
-    function remplirFilieresPreinscription() {
+        function remplirFilieresPreinscription() {
 
         const pole = preinscriptionPoleFilter.value;
 
@@ -1492,135 +1679,143 @@ function afficherPreinscriptions() {
 
         });
 
-    }
+        }
 
-    remplirFilieresPreinscription();
+        remplirFilieresPreinscription();
 
 
-    preinscriptionPoleFilter.addEventListener(
+        preinscriptionPoleFilter.addEventListener(
         "change",
         () => {
             remplirFilieresPreinscription();
             afficherPreinscriptions();
         }
-    );
+        );
 
-    preinscriptionFiliereFilter.addEventListener(
+        preinscriptionFiliereFilter.addEventListener(
         "change",
         afficherPreinscriptions
-    );
+        );
 
-    preinscriptionNiveauFilter.addEventListener(
+        preinscriptionNiveauFilter.addEventListener(
         "change",
         afficherPreinscriptions
-    );
+        );
 
-    preinscriptionStatusFilter.addEventListener(
+        preinscriptionStatusFilter.addEventListener(
         "change",
         afficherPreinscriptions
-    );
+        );
 
-    // =========================
-    // OUVRIR UNE CANDIDATURE
-    // =========================
+        // =========================
+        // OUVRIR UNE CANDIDATURE
+        // =========================
 
-function ouvrirCandidature(id, mode = "candidature") {
+        function ouvrirCandidature(id, mode = "candidature") {
 
-    const candidat =
+        const candidat =
         mode === "preinscription"
             ? candidatures.find(
                 c => String(c.idPreinscription) === String(id)
             )
             : candidatures.find(
-                c => c.id === id
+                c => c.id === id &&
+                     c.typeDemande === "Inscription"
             );
 
-    if (!candidat) {
+        if (!candidat) {
         return;
-    }
+        }
 
-    selectedCandidate = candidat;
+        selectedCandidate = candidat;
+        selectedMode = mode;
 
 
-    // =========================
-    // ÉLÉMENTS DU MODAL
-    // =========================
+        // =========================
+        // ÉLÉMENTS DU MODAL
+        // =========================
 
-    const documentsContainer =
+        const documentsContainer =
         document.getElementById("modalDocuments");
 
-    const documentsTitle =
+        const documentsTitle =
         document.getElementById("documentsTitle");
 
-    const rejectBtn =
+         rejectBtn =
         document.getElementById("rejectBtn");
 
-    const acceptBtn =
+        const acceptBtn =
         document.getElementById("acceptBtn");
 
+        const deleteBtn =
+        document.getElementById("deleteBtn");
 
-    // =========================
-    // INFORMATIONS
-    // =========================
 
-    const initials =
+        // =========================
+        // INFORMATIONS
+        // =========================
+
+        const initials =
         candidat.prenom.charAt(0) +
         candidat.nom.charAt(0);
 
-    document.getElementById("modalAvatar")
+        document.getElementById("modalAvatar")
         .textContent = initials;
 
-    document.getElementById("modalName")
+        document.getElementById("modalName")
         .textContent =
         `${candidat.prenom} ${candidat.nom}`;
 
-    document.getElementById("modalId")
+        document.getElementById("modalId")
         .textContent =
         `#${candidat.id}`;
 
-    document.getElementById("modalFullName")
+        document.getElementById("modalFullName")
         .textContent =
         `${candidat.prenom} ${candidat.nom}`;
 
-    document.getElementById("modalEmail")
+        document.getElementById("modalEmail")
         .textContent =
         candidat.email;
 
-    document.getElementById("modalPhone")
+        document.getElementById("modalPhone")
         .textContent =
         candidat.telephone;
 
-    document.getElementById("modalStudentId")
+        document.getElementById("modalStudentId")
         .textContent =
         candidat.numeroEtudiant;
 
-    document.getElementById("modalFiliere")
+        document.getElementById("modalFiliere")
         .textContent =
         candidat.filiere;
 
-    document.getElementById("modalNiveau")
+        document.getElementById("modalNiveau")
         .textContent =
         candidat.niveau;
 
 
-    // =========================
-    // DOCUMENTS
-    // =========================
+        // =========================
+        // DOCUMENTS
+        // =========================
 
-    documentsContainer.innerHTML = "";
+        documentsContainer.innerHTML = "";
 
 
-    // Dans Préinscriptions :
-    // aucun document n'est affiché
-    if (mode === "preinscription") {
+        // Dans Préinscriptions, les documents ne sont visibles
+        // que pour une demande d'inscription « En attente »
+        // (dans Candidatures, ils sont toujours visibles)
+        if (
+            mode === "preinscription" &&
+            statutInscription(candidat) !== "En attente"
+        ) {
 
         documentsTitle.style.display = "none";
         documentsContainer.style.display = "none";
 
-    } else {
+        } else {
 
-        // Dans Candidatures :
-        // les documents sont affichés
+        // Documents du candidat : aperçu + téléchargement
         documentsTitle.style.display = "block";
         documentsContainer.style.display = "block";
 
@@ -1637,25 +1832,53 @@ function ouvrirCandidature(id, mode = "candidature") {
 
                 element.className = "document";
 
+                const adresse =
+                    "document.php?f=" +
+                    encodeURIComponent(doc.chemin_fichier);
+
+                const extension =
+                    (doc.chemin_fichier.split(".").pop() || "")
+                    .toLowerCase();
+
+                const iconeDocument =
+                    extension === "pdf"
+                        ? "ri-file-pdf-2-line"
+                        : "ri-image-line";
+
                 element.innerHTML = `
                     <div class="document-info">
 
-                        <i class="ri-file-pdf-2-line"></i>
+                        <i class="${iconeDocument}"></i>
 
-                        <span>
-                            ${doc.type_document}
-                        </span>
+                        <span class="document-nom"></span>
 
                     </div>
 
-                    <a
-                        href="${doc.chemin_fichier}"
-                        target="_blank"
-                        class="document-view-btn"
-                    >
-                        Voir
-                    </a>
+                    <div class="document-actions">
+
+                        <a
+                            href="${adresse}"
+                            target="_blank"
+                            rel="noopener"
+                            class="document-view-btn"
+                            title="Ouvrir dans une nouvelle fenêtre"
+                        >
+                            <i class="ri-eye-line"></i>Aperçu
+                        </a>
+
+                        <a
+                            href="${adresse}&dl=1"
+                            class="document-view-btn telecharger"
+                            title="Télécharger le document"
+                        >
+                            <i class="ri-download-2-line"></i>Télécharger
+                        </a>
+
+                    </div>
                 `;
+
+                element.querySelector(".document-nom")
+                    .textContent = doc.type_document;
 
                 documentsContainer.appendChild(element);
 
@@ -1673,27 +1896,68 @@ function ouvrirCandidature(id, mode = "candidature") {
 
         }
 
-    }
+        }
 
 
-    // =========================
-    // BOUTONS
-    // =========================
+        // =========================
+        // BOUTONS
+        // =========================
 
-    const decisionNote =
+        const decisionNote =
         document.getElementById("decisionNote");
 
-    decisionNote.textContent = "";
+        const rejectLabel =
+        document.getElementById("rejectLabel");
 
-    if (mode === "preinscription") {
+        const acceptLabel =
+        document.getElementById("acceptLabel");
 
-        rejectBtn.style.display = "none";
-        acceptBtn.style.display = "none";
+        decisionNote.textContent = "";
 
-    } else {
+        if (mode === "preinscription") {
+
+        // Préinscriptions : décision sur la demande d'inscription
+        const etat = statutInscription(candidat);
+
+        rejectLabel.textContent = "Refuser l'inscription";
+        acceptLabel.textContent = "Accepter l'inscription";
+
+        // Effacer une candidature n'existe que dans Candidatures
+        deleteBtn.style.display = "none";
+
+        if (etat === "En attente") {
+
+            rejectBtn.style.display = "";
+            acceptBtn.style.display = "";
+
+            decisionNote.textContent =
+                "Candidature acceptée : cette demande d'inscription attend votre décision.";
+
+        } else {
+
+            rejectBtn.style.display = "none";
+            acceptBtn.style.display = "none";
+
+        }
+
+        // =========================
+        // STATUT
+        // =========================
+
+        afficherStatutModal(etat || candidat.statut);
+
+        } else {
+
+        // Candidatures : décision sur la candidature
+        rejectLabel.textContent = "Refuser";
+        acceptLabel.textContent = "Accepter la candidature";
 
         const dejaValidee = candidat.statut === "Validée";
         const dejaRejetee = candidat.statut === "Rejetée";
+
+        // Une candidature refusée peut être effacée définitivement
+        deleteBtn.style.display =
+            dejaRejetee ? "" : "none";
 
         // Une candidature validée ne peut plus être refusée
         rejectBtn.style.display =
@@ -1706,32 +1970,32 @@ function ouvrirCandidature(id, mode = "candidature") {
         if (dejaValidee) {
 
             decisionNote.textContent =
-                "Candidature déjà validée : elle ne peut plus être refusée.";
+                "Candidature déjà validée : elle ne peut plus être refusée. " +
+                "La suite se gère dans Préinscriptions.";
 
         } else if (dejaRejetee) {
 
             decisionNote.textContent =
-                "Candidature refusée : vous pouvez encore la valider.";
+                "Candidature refusée : vous pouvez la valider ou l'effacer définitivement.";
 
         }
 
-    }
+        // =========================
+        // STATUT
+        // =========================
+
+        afficherStatutModal(candidat.statut);
+
+        }
 
 
-    // =========================
-    // STATUT
-    // =========================
+        // =========================
+        // OUVRIR LE MODAL
+        // =========================
 
-    afficherStatutModal(candidat.statut);
+        modalOverlay.classList.add("show");
 
-
-    // =========================
-    // OUVRIR LE MODAL
-    // =========================
-
-    modalOverlay.classList.add("show");
-
-}
+        }
 
         // =========================
         // STATUT DANS MODAL
@@ -1741,7 +2005,11 @@ function ouvrirCandidature(id, mode = "candidature") {
 
             let classe = "pending";
 
-            if (statut === "Validée") {
+            if (
+                statut === "Validée" ||
+                statut === "Inscrit" ||
+                statut === "Réinscrit"
+            ) {
                 classe = "accepted";
             }
 
@@ -1774,15 +2042,21 @@ function ouvrirCandidature(id, mode = "candidature") {
 
                 if (!selectedCandidate) return;
 
-                if (
-                    !confirm("Voulez-vous vraiment accepter cette candidature ?")
-                ) {
+                const inscription = selectedMode === "preinscription";
+
+                const question = inscription
+                    ? "Voulez-vous vraiment accepter l'inscription de " +
+                      selectedCandidate.prenom + " " + selectedCandidate.nom +
+                      " ? Un numéro étudiant lui sera attribué et envoyé par email."
+                    : "Voulez-vous vraiment accepter cette candidature ?";
+
+                if (!confirm(question)) {
                     return;
                 }
 
                 envoyerDecision(
                     selectedCandidate.id,
-                    "accepter"
+                    inscription ? "accepter_inscription" : "accepter"
                 );
 
             });
@@ -1797,7 +2071,9 @@ function ouvrirCandidature(id, mode = "candidature") {
 
                 if (!selectedCandidate) return;
 
-                if (selectedCandidate.statut === "Validée") {
+                const inscription = selectedMode === "preinscription";
+
+                if (!inscription && selectedCandidate.statut === "Validée") {
 
                     afficherToast(
                         "erreur",
@@ -1808,16 +2084,50 @@ function ouvrirCandidature(id, mode = "candidature") {
                     return;
                 }
 
-                if (
-                    !confirm("Voulez-vous vraiment refuser cette candidature ?")
-                ) {
+                const question = inscription
+                    ? "Voulez-vous vraiment refuser l'inscription de " +
+                      selectedCandidate.prenom + " " + selectedCandidate.nom +
+                      " ? Sa candidature repassera en « Rejetée »."
+                    : "Voulez-vous vraiment refuser cette candidature ?";
+
+                if (!confirm(question)) {
                     return;
                 }
 
                 envoyerDecision(
                     selectedCandidate.id,
-                    "refuser"
+                    inscription ? "refuser_inscription" : "refuser"
                 );
+
+            });
+
+        /* =========================
+           EFFACER UNE CANDIDATURE REFUSÉE
+        ========================== */
+
+        document.getElementById("deleteBtn")
+            .addEventListener("click", () => {
+
+                if (!selectedCandidate) return;
+
+                if (
+                    selectedMode === "preinscription" ||
+                    selectedCandidate.statut !== "Rejetée"
+                ) {
+                    return;
+                }
+
+                const question =
+                    "Effacer définitivement la candidature de " +
+                    selectedCandidate.prenom + " " + selectedCandidate.nom +
+                    " ?\n\nSon dossier et tous ses documents seront supprimés " +
+                    "de la base de données. Cette action est irréversible.";
+
+                if (!confirm(question)) {
+                    return;
+                }
+
+                envoyerDecision(selectedCandidate.id, "effacer");
 
             });
 
@@ -1974,7 +2284,7 @@ function ouvrirCandidature(id, mode = "candidature") {
         menuCandidatures.classList.add("active");
         menuPreinscription.classList.remove("active");
 
-    });
+        });
 
 
         menuPreinscription.addEventListener("click", function(e) {
@@ -1985,7 +2295,7 @@ function ouvrirCandidature(id, mode = "candidature") {
         preinscriptionSection.style.display = "block";
 
         pageTitle.textContent = "Gestion des préinscriptions";
-        pageDescription.textContent = "Consultez les étudiants inscrits et réinscrits.";
+        pageDescription.textContent = "Gérez les demandes d'inscription et consultez les étudiants inscrits et réinscrits.";
 
         menuPreinscription.classList.add("active");
         menuCandidatures.classList.remove("active");
@@ -2068,8 +2378,12 @@ function ouvrirCandidature(id, mode = "candidature") {
 
             const inscrits =
                 candidatures.filter(c =>
-                    c.typeDemande === "Inscription" &&
-                    c.statut === "Validée"
+                    statutInscription(c) === "Inscrit"
+                ).length;
+
+            const inscriptionsEnAttente =
+                candidatures.filter(c =>
+                    statutInscription(c) === "En attente"
                 ).length;
 
             const reinscrits =
@@ -2081,6 +2395,9 @@ function ouvrirCandidature(id, mode = "candidature") {
             document.getElementById("inscritsCount")
                 .textContent = inscrits;
 
+            document.getElementById("inscriptionsEnAttenteCount")
+                .textContent = inscriptionsEnAttente;
+
             document.getElementById("reinscritsCount")
                 .textContent = reinscrits;
         }
@@ -2091,21 +2408,130 @@ function ouvrirCandidature(id, mode = "candidature") {
 
         const boutonNotification = document.querySelector(".notification");
 
-        boutonNotification.addEventListener("click", function () {
+        const iconesHistorique = {
+            succes: "ri-checkbox-circle-fill",
+            rejet: "ri-close-circle-fill",
+            erreur: "ri-error-warning-fill",
+            info: "ri-information-fill"
+        };
 
-            if (notifications.length === 0) {
-                alert("Aucune notification.");
+        // "2026-10-03 14:05:00" -> "03/10/2026 à 14:05"
+        function formaterDate(texte) {
+
+            const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(texte || "");
+
+            return m
+                ? m[3] + "/" + m[2] + "/" + m[1] + " à " + m[4] + ":" + m[5]
+                : (texte || "");
+        }
+
+        function fermerHistorique() {
+
+            const panneau = document.getElementById("historiquePanel");
+
+            if (panneau) {
+                panneau.remove();
+            }
+        }
+
+        boutonNotification.addEventListener("click", function (evenement) {
+
+            evenement.stopPropagation();
+
+            // Deuxième clic : on referme
+            if (document.getElementById("historiquePanel")) {
+                fermerHistorique();
                 return;
             }
 
-            let message = "🔔 Historique des notifications\n\n";
+            const panneau = document.createElement("div");
+            panneau.id = "historiquePanel";
+            panneau.className = "historique-panel";
 
-            notifications.forEach(function(notification) {
-                message += "• " + notification.message + "\n";
-                message += "  Date : " + notification.date_envoi + "\n\n";
-            });
+            const entete = document.createElement("div");
+            entete.className = "historique-entete";
 
-            alert(message);
+            const titre = document.createElement("span");
+            titre.textContent = "Historique des notifications";
+
+            const fermer = document.createElement("button");
+            fermer.setAttribute("aria-label", "Fermer");
+            fermer.innerHTML = "&times;";
+            fermer.addEventListener("click", fermerHistorique);
+
+            entete.appendChild(titre);
+            entete.appendChild(fermer);
+            panneau.appendChild(entete);
+
+            const liste = document.createElement("div");
+            liste.className = "historique-liste";
+
+            if (notifications.length === 0) {
+
+                const vide = document.createElement("div");
+                vide.className = "historique-vide";
+                vide.textContent = "Aucune notification pour le moment.";
+                liste.appendChild(vide);
+
+            } else {
+
+                notifications.forEach(function (notification) {
+
+                    const type = iconesHistorique[notification.type]
+                        ? notification.type
+                        : "info";
+
+                    const element = document.createElement("div");
+                    element.className =
+                        "historique-item " + (type === "succes" ? "" : type);
+
+                    const icone = document.createElement("i");
+                    icone.className = iconesHistorique[type];
+
+                    const texte = document.createElement("div");
+                    texte.className = "texte";
+
+                    const strong = document.createElement("strong");
+                    strong.textContent = notification.titre;
+
+                    const message = document.createElement("span");
+                    message.textContent = notification.message;
+
+                    const date = document.createElement("span");
+                    date.className = "date";
+                    date.textContent = formaterDate(notification.date_creation);
+
+                    texte.appendChild(strong);
+                    texte.appendChild(message);
+                    texte.appendChild(date);
+
+                    element.appendChild(icone);
+                    element.appendChild(texte);
+
+                    liste.appendChild(element);
+                });
+            }
+
+            panneau.appendChild(liste);
+
+            document.body.appendChild(panneau);
+        });
+
+        // Clic en dehors du panneau ou touche Échap : on referme
+        document.addEventListener("click", function (evenement) {
+
+            const panneau = document.getElementById("historiquePanel");
+
+            if (panneau && !panneau.contains(evenement.target)) {
+                fermerHistorique();
+            }
+        });
+
+        document.addEventListener("keydown", function (evenement) {
+
+            if (evenement.key === "Escape") {
+                fermerHistorique();
+            }
         });
 
 
@@ -2116,6 +2542,11 @@ function ouvrirCandidature(id, mode = "candidature") {
         afficherCandidatures();
 
         mettreAJourStats();
+
+        // Après une décision sur une inscription, rester dans Préinscriptions
+        if (flash && flash.section === "preinscription") {
+            menuPreinscription.click();
+        }
 
     </script>
 

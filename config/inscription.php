@@ -1,7 +1,6 @@
 <?php
 
 try {
-
     $connexion = new PDO(
         'mysql:host=localhost;dbname=tp_php;charset=utf8',
         'root',
@@ -14,9 +13,7 @@ try {
     );
 
 } catch (Exception $e) {
-
     die("Erreur de connexion : " . $e->getMessage());
-
 }
 
 
@@ -667,14 +664,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             <li>
-                <a href="actualite.html">Actualité</a>
+                <a href="actualite.php">Actualité</a>
             </li>
 
 
             <li>
                 <a href="#footer">Contact</a>
             </li>
- <li>
+
+            <!-- AJOUT : À PROPOS -->
+
+            <li>
+
+                <a href="a-propos.php">
+                    À propos
+                </a>
+
+            </li>
+            
+            <li>
                 <a href="login.php"><i class="ri-admin-line"></i></a>
             </li>
             

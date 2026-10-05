@@ -117,13 +117,18 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 
 
             <li>
-                <a href="actualite.html">Actualité</a>
+                <a href="actualite.php">Actualité</a>
             </li>
 
 
             <li>
                 <a href="#footer">Contact</a>
             </li>
+
+            <li>
+                <a href="a-propos.php">À propos</a>
+            </li>
+
            <?php if ($adminConnecte): ?>
 
             <!-- Accès au tableau de bord -->
@@ -307,8 +312,8 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
      <img src="assets/img/class-hemip-cours.jpg" alt="cours avec projection">
      <div class="image_content_pourquoi">
     <ul>
-      <li>• agree par l'etat</li>
-   <li>• multiples partenaire</li>
+      <li>• Reconnue par l'Etat</li>
+   <li>• Multiples partenaires</li>
     </ul>     
      </div>
      
@@ -429,7 +434,7 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
             </div>
 
             <a
-                href="https://www.google.com/maps/search/?api=1&query=VOTRE_ADRESSE_HEMIP"
+                href="https://www.google.com/maps/place/HEMIP-haute+ecole+de+management+et+d'ingenieurie/@-4.7942983,11.8461233,17z/data=!3m1!4b1!4m6!3m5!1s0x1a60a573fa62b02f:0x5bbf0c8430ce4707!8m2!3d-4.7943037!4d11.8486982!16s%2Fg%2F11l8gl9p3l?hl=fr-FR&entry=ttu&g_ep=EgoyMDI2MDkyOS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 class="map-button"
             >
@@ -442,7 +447,7 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
         <div class="map-container reveal">
 
             <iframe
-                src="https://www.google.com/maps?q=VOTRE_ADRESSE_HEMIP&output=embed"
+                src="https://www.google.com/maps?q=HEMIP-haute+ecole+de+management+et+d'ingenieurie/@-4.7942983,11.8461233,17z/data=!3m1!4b1!4m6!3m5!1s0x1a60a573fa62b02f:0x5bbf0c8430ce4707!8m2!3d-4.7943037!4d11.8486982!16s%2Fg%2F11l8gl9p3l?hl=fr-FR&entry=ttu&g_ep=EgoyMDI2MDkyOS4wIKXMDSoASAFQAw%3D%3D&output=embed"
                 loading="lazy"
                 allowfullscreen
                 referrerpolicy="no-referrer-when-downgrade">
