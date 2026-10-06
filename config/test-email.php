@@ -23,6 +23,7 @@ $config = config_email();
 
 $resultat = null;
 $erreur = null;
+$reponseServeur = null;
 $adresse = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'HEMIP - Test d\'envoi d\'email',
             "Bonjour,\n\nCeci est un email de test envoyé depuis le site HEMIP.\n"
             . "Si vous lisez ce message, l'envoi des emails fonctionne.\n",
-            $erreur
+            $erreur,
+            $reponseServeur
         );
     }
 }
@@ -173,6 +175,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Avec Mailpit, ouvrez
             <a href="http://localhost:8025" target="_blank" rel="noopener">http://localhost:8025</a>
             pour le lire. Avec Gmail, regardez aussi vos courriers indésirables.
+            <?php if ($reponseServeur): ?>
+                <br><br>
+                Réponse du serveur mail : <code><?= htmlspecialchars($reponseServeur) ?></code><br>
+                Elle prouve que le serveur a accepté le message. Avec Gmail, il doit aussi apparaître
+                dans le dossier « Messages envoyés » du compte expéditeur. Si le destinataire ne le
+                reçoit pas, cherchez dans la boîte de réception de l'expéditeur un message
+                « Delivery Status Notification » : il en donne la raison.
+            <?php endif; ?>
         </div>
 
     <?php elseif ($resultat === false): ?>
