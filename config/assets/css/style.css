@@ -151,6 +151,12 @@ button {
 
 .menu-btn {
     display: none;
+    min-width: 44px;
+    min-height: 44px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
 
     border: none;
     background: transparent;
@@ -158,6 +164,7 @@ button {
     color: white;
 
     font-size: 28px;
+    line-height: 1;
 
     cursor: pointer;
 }
@@ -229,7 +236,8 @@ button {
 
 @media (min-width: 769px) {
 
-    .dropdown:hover > .dropdown-menu {
+    .dropdown:hover > .dropdown-menu,
+    .dropdown.active > .dropdown-menu {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
@@ -1439,7 +1447,7 @@ backdrop-filter: blur(8px);
     /* bouton hamburger */
 
     .menu-btn {
-        display: block;
+        display: flex;
     }
 
 

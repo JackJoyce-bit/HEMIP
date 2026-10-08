@@ -12,23 +12,10 @@ const submenus = document.querySelectorAll(".submenu");
 
 menuBtn.addEventListener("click", () => {
 
-    navList.classList.toggle("active");
-
-    /* Changer l'icône */
-
-    if (navList.classList.contains("active")) {
-
-        menuBtn.innerHTML = `
-            <i class="ri-close-line"></i>
-        `;
-
-    } else {
-
-        menuBtn.innerHTML = `
-            <i class="ri-menu-line"></i>
-        `;
-
-    }
+    const isOpen = navList.classList.toggle("active");
+    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    menuBtn.setAttribute("aria-label", isOpen ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation");
+    menuBtn.textContent = isOpen ? "×" : "☰";
 
 });
 
@@ -50,7 +37,8 @@ dropdowns.forEach(dropdown => {
 
             event.stopPropagation();
 
-            dropdown.classList.toggle("active");
+            const isOpen = dropdown.classList.toggle("active");
+            button.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
         }
 
@@ -96,12 +84,13 @@ window.addEventListener("resize", () => {
 
         navList.classList.remove("active");
 
-        menuBtn.innerHTML = `
-            <i class="ri-menu-line"></i>
-        `;
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Ouvrir le menu de navigation");
+        menuBtn.textContent = "☰";
 
         dropdowns.forEach(dropdown => {
             dropdown.classList.remove("active");
+            dropdown.querySelector(".dropdown-btn")?.setAttribute("aria-expanded", "false");
         });
 
         submenus.forEach(submenu => {
@@ -110,6 +99,22 @@ window.addEventListener("resize", () => {
 
     }
 
+});
+
+
+navList.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        if (window.innerWidth > 768 || !navList.classList.contains("active")) return;
+        navList.classList.remove("active");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Ouvrir le menu de navigation");
+        menuBtn.textContent = "☰";
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove("active");
+            dropdown.querySelector(".dropdown-btn")?.setAttribute("aria-expanded", "false");
+        });
+        submenus.forEach(submenu => submenu.classList.remove("active"));
+    });
 });
 
 
@@ -129,4 +134,3 @@ const observer = new IntersectionObserver((entries) => {
 elements.forEach(element => {
     observer.observe(element);
 });
-

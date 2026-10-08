@@ -42,12 +42,12 @@ return [
     // '' = aucune, 'tls' = STARTTLS (port 587), 'ssl' = SSL (port 465)
     'securite' => 'tls',
 
-    'utilisateur' => 'hemipinstitut@gmail.com',
-    'mot_de_passe' => 'zxjv lkdr qutk txlk',
+    'utilisateur' => 'joycemondza@gmail.com',
+    'mot_de_passe' => 'tlml tfrg selr etko',
 
     // Adresse qui apparaît comme expéditeur.
     // Avec Gmail, mettez la même adresse que 'utilisateur'.
-    'expediteur_email' => 'hemipinstitut@gmail.com',
+    'expediteur_email' => 'joycemondza@gmail.com',
     'expediteur_nom' => 'HEMIP',
 
     // Mettez false seulement si vous voyez l'erreur

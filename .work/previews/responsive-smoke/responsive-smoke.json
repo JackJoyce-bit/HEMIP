@@ -1,0 +1,593 @@
+{
+  "ok": true,
+  "testCount": 14,
+  "widths": [
+    320,
+    360,
+    390,
+    430,
+    640,
+    768
+  ],
+  "failures": [],
+  "results": [
+    {
+      "route": "index.php",
+      "width": 320,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\home-320x780.png",
+      "viewport": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "slider": {
+        "top": 65,
+        "right": 320,
+        "bottom": 295,
+        "left": 0,
+        "width": 320,
+        "height": 230
+      },
+      "controls": {
+        "top": 229,
+        "right": 304,
+        "bottom": 263,
+        "left": 94,
+        "width": 210,
+        "height": 34
+      },
+      "status": {
+        "top": 274,
+        "right": 304,
+        "bottom": 286,
+        "left": 186,
+        "width": 118,
+        "height": 12
+      },
+      "slides": [
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        }
+      ],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 308,
+        "bottom": 55,
+        "left": 264,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 360,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\home-360x780.png",
+      "viewport": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "slider": {
+        "top": 65,
+        "right": 360,
+        "bottom": 324,
+        "left": 0,
+        "width": 360,
+        "height": 259
+      },
+      "controls": {
+        "top": 258,
+        "right": 344,
+        "bottom": 292,
+        "left": 134,
+        "width": 210,
+        "height": 34
+      },
+      "status": {
+        "top": 303,
+        "right": 344,
+        "bottom": 315,
+        "left": 226,
+        "width": 118,
+        "height": 12
+      },
+      "slides": [
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        }
+      ],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 348,
+        "bottom": 55,
+        "left": 304,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 390,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\home-390x780.png",
+      "viewport": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "slider": {
+        "top": 65,
+        "right": 390,
+        "bottom": 346,
+        "left": 0,
+        "width": 390,
+        "height": 281
+      },
+      "controls": {
+        "top": 280,
+        "right": 374,
+        "bottom": 316,
+        "left": 152,
+        "width": 222,
+        "height": 36
+      },
+      "status": {
+        "top": 325,
+        "right": 374,
+        "bottom": 337,
+        "left": 256,
+        "width": 118,
+        "height": 12
+      },
+      "slides": [
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        }
+      ],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 378,
+        "bottom": 55,
+        "left": 334,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 430,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\home-430x900.png",
+      "viewport": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "slider": {
+        "top": 65,
+        "right": 430,
+        "bottom": 375,
+        "left": 0,
+        "width": 430,
+        "height": 310
+      },
+      "controls": {
+        "top": 309,
+        "right": 414,
+        "bottom": 345,
+        "left": 192,
+        "width": 222,
+        "height": 36
+      },
+      "status": {
+        "top": 354,
+        "right": 414,
+        "bottom": 366,
+        "left": 296,
+        "width": 118,
+        "height": 12
+      },
+      "slides": [
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        }
+      ],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 418,
+        "bottom": 55,
+        "left": 374,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 640,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\home-640x900.png",
+      "viewport": 640,
+      "htmlWidth": 640,
+      "bodyWidth": 640,
+      "slider": {
+        "top": 65,
+        "right": 640,
+        "bottom": 385,
+        "left": 0,
+        "width": 640,
+        "height": 320
+      },
+      "controls": {
+        "top": 319,
+        "right": 624,
+        "bottom": 355,
+        "left": 402,
+        "width": 222,
+        "height": 36
+      },
+      "status": {
+        "top": 364,
+        "right": 624,
+        "bottom": 376,
+        "left": 506,
+        "width": 118,
+        "height": 12
+      },
+      "slides": [
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        },
+        {
+          "loaded": true,
+          "objectFit": "contain"
+        }
+      ],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 624,
+        "bottom": 55,
+        "left": 580,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\home-768x900.png",
+      "viewport": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "slider": {
+        "top": 0,
+        "right": 768,
+        "bottom": 771,
+        "left": 0,
+        "width": 768,
+        "height": 771
+      },
+      "controls": {
+        "top": 675,
+        "right": 748,
+        "bottom": 713,
+        "left": 491,
+        "width": 257,
+        "height": 38
+      },
+      "status": {
+        "top": 736,
+        "right": 748,
+        "bottom": 750,
+        "left": 619,
+        "width": 129,
+        "height": 14
+      },
+      "slides": [
+        {
+          "loaded": true,
+          "objectFit": "cover"
+        },
+        {
+          "loaded": true,
+          "objectFit": "cover"
+        },
+        {
+          "loaded": true,
+          "objectFit": "cover"
+        },
+        {
+          "loaded": true,
+          "objectFit": "cover"
+        }
+      ],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 752,
+        "bottom": 55,
+        "left": 708,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 320,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\contact-320x780.png",
+      "viewport": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": "12px",
+      "emailBoxWidth": 288,
+      "menu": {
+        "top": 11,
+        "right": 308,
+        "bottom": 55,
+        "left": 264,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 360,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\contact-360x780.png",
+      "viewport": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": "14px",
+      "emailBoxWidth": 328,
+      "menu": {
+        "top": 11,
+        "right": 348,
+        "bottom": 55,
+        "left": 304,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 390,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\contact-390x780.png",
+      "viewport": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": "14px",
+      "emailBoxWidth": 358,
+      "menu": {
+        "top": 11,
+        "right": 378,
+        "bottom": 55,
+        "left": 334,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 430,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\contact-430x900.png",
+      "viewport": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": "14px",
+      "emailBoxWidth": 396,
+      "menu": {
+        "top": 11,
+        "right": 418,
+        "bottom": 55,
+        "left": 374,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\contact-768x900.png",
+      "viewport": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": "14px",
+      "emailBoxWidth": 707,
+      "menu": {
+        "top": 11,
+        "right": 752,
+        "bottom": 55,
+        "left": 708,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 320,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\realisations-320x780.png",
+      "viewport": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 308,
+        "bottom": 55,
+        "left": 264,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 390,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\realisations-390x780.png",
+      "viewport": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 378,
+        "bottom": 55,
+        "left": 334,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-smoke\\realisations-768x900.png",
+      "viewport": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "slider": null,
+      "controls": null,
+      "status": null,
+      "slides": [],
+      "emailFontSize": null,
+      "emailBoxWidth": null,
+      "menu": {
+        "top": 11,
+        "right": 752,
+        "bottom": 55,
+        "left": 708,
+        "width": 44,
+        "height": 44,
+        "expanded": "false"
+      },
+      "pageErrors": [],
+      "fileFailures": []
+    }
+  ]
+}

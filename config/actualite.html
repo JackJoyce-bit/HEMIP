@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Actualités — HEMIP</title>
@@ -19,6 +20,15 @@
 
      <!-- favicon -->
     <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg" style="border-radius: 20px;">
+    <meta name="theme-color" content="#0b4ea2">
+    <meta name="application-name" content="HEMIP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEMIP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
+    <link rel="stylesheet" href="assets/css/pwa.css">
 </head>
 <body>
 
@@ -32,12 +42,10 @@
     <span>HEMIP</span>
 </a>
 
-
         <!-- BOUTON MOBILE -->
         <button class="menu-btn" id="menu-btn">
             <i class="ri-menu-line"></i>
         </button>
-
 
         <!-- MENU -->
         <ul class="nav-list" id="nav-list">
@@ -45,7 +53,6 @@
             <li>
                 <a href="index.php">Accueil</a>
             </li>
-
 
             <!-- DROPDOWN FORMATION -->
             <li class="dropdown">
@@ -110,9 +117,8 @@
             <a href="actualite.html">Actualité</a>
             </li>
 
-
             <li>
-                <a href="#footer">Contact</a>
+                <a href="index.php#contact">Contact</a>
             </li>
  <li>
                 <a href="#"><i class="ri-admin-line"></i></a>
@@ -124,7 +130,6 @@
     </nav>
 
 </header>
-
 
 <div class="news-header">
   <div class="container-actu">
@@ -327,5 +332,7 @@ document.getElementById("newsModal").addEventListener("click", e => {
   if (e.target.id === "newsModal") closeNews();
 });
 </script>
+  <script src="assets/js/pwa.js" defer></script>
 </body>
 </html>
+

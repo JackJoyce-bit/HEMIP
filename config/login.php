@@ -76,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- Remix Icon -->
@@ -114,6 +115,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="icon" type="image/png" href="assets/img/logo hemip.jpg" style="border-radius: 20px;">
     
      <title>Connexion | HEMIP</title>
+    <meta name="theme-color" content="#0b4ea2">
+    <meta name="application-name" content="HEMIP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEMIP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
+    <link rel="stylesheet" href="assets/css/pwa.css">
 </head>
 <body>
     <header class="header">
@@ -209,7 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             <li>
-                <a href="#footer">Contact</a>
+                <a href="index.php#contact">Contact</a>
             </li>
  <li>
                 <a href="login.php"><i class="ri-admin-line"></i></a>
@@ -368,5 +378,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!-- JS -->
 <script src="assets/js/connexion.js"></script>
 <script src="assets/js/main.js"></script>
+  <script src="assets/js/pwa.js" defer></script>
 </body>
 </html>
+

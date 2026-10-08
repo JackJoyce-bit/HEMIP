@@ -53,7 +53,7 @@ function journaliser_email(
     string $sujet,
     string $message,
     ?string $erreur,
-    ?string $reponseServeur = null
+    bool $inclureMessage = true
 ): void {
 
     $dossier = __DIR__ . '/logs';
@@ -76,108 +76,21 @@ function journaliser_email(
         . ' | sujet : ' . $sujet . "\n";
 
     if (!$reussi && $erreur) {
-        $ligne .= 'Erreur : ' . $erreur . "\n";
-    }
-
-    if ($reussi && $reponseServeur) {
-        $ligne .= 'Réponse du serveur mail : ' . $reponseServeur . "\n";
-    }
-
-    $ligne .= $message . "\n" . str_repeat('-', 60) . "\n";
-
-    @file_put_contents($dossier . '/emails.log', $ligne, FILE_APPEND | LOCK_EX);
-}
-
-
-/**
- * Cherche un fichier de certificats pour vérifier la connexion sécurisée
- * (sous XAMPP, PHP n'en trouve souvent pas tout seul).
- */
-function trouver_cafile(): ?string
-{
-    $ini = (string) ini_get('openssl.cafile');
-
-    if ($ini !== '' && @is_file($ini)) {
-        return null; // PHP utilisera déjà ce fichier
-    }
-
-    $dossiersPhp = [];
-
-    $phpIni = php_ini_loaded_file();
-
-    if ($phpIni) {
-        $dossiersPhp[] = dirname($phpIni);
-    }
-
-    $extensions = (string) ini_get('extension_dir');
-
-    if ($extensions !== '') {
-        $dossiersPhp[] = dirname($extensions);
-    }
-
-    $candidats = [];
-
-    $curl = (string) ini_get('curl.cainfo');
-
-    if ($curl !== '') {
-        $candidats[] = $curl;
-    }
-
-    foreach ($dossiersPhp as $dossier) {
-        $candidats[] = $dossier . '/extras/ssl/cacert.pem';
-        $candidats[] = dirname($dossier) . '/apache/bin/curl-ca-bundle.crt';
-    }
-
-    $candidats[] = 'C:/xampp/php/extras/ssl/cacert.pem';
-    $candidats[] = 'C:/xampp/apache/bin/curl-ca-bundle.crt';
-    $candidats[] = '/etc/ssl/certs/ca-certificates.crt';
-    $candidats[] = '/etc/pki/tls/certs/ca-bundle.crt';
-
-    foreach ($candidats as $fichier) {
-
-        if (@is_file($fichier)) {
-            return $fichier;
+        if ($inclureMessage) {
+            $ligne .= 'Erreur : ' . $erreur . "\n";
+        } else {
+            $ligne .= "Erreur : échec du transport mail (détails omis pour confidentialité).\n";
         }
     }
 
-    return null;
-}
-
-
-/**
- * Traduit les refus fréquents du serveur mail (Gmail surtout) en conseil clair.
- */
-function conseil_smtp(int $code, string $reponse): string
-{
-    $texte = strtolower($reponse);
-
-    if (
-        $code === 534 ||
-        strpos($texte, 'application-specific') !== false ||
-        strpos($texte, 'web login') !== false
-    ) {
-        return " Conseil : Google bloque cette connexion. Ouvrez ce compte Gmail dans un navigateur,"
-            . " confirmez l'alerte de sécurité (« C'était bien moi ») puis réessayez."
-            . " Un mot de passe d'application est obligatoire.";
+    if ($inclureMessage) {
+        $ligne .= $message . "\n";
+    } else {
+        $ligne .= "[contenu omis pour confidentialité]\n";
     }
+    $ligne .= str_repeat('-', 60) . "\n";
 
-    if (
-        $code === 535 ||
-        strpos($texte, '5.7.8') !== false ||
-        strpos($texte, 'username and password not accepted') !== false
-    ) {
-        return " Conseil : Gmail refuse l'identifiant. Vérifiez que la validation en 2 étapes est activée"
-            . " sur ce compte, que le mot de passe d'application a été créé pour CE compte (et non pour"
-            . " l'ancien), et que 'utilisateur' est la bonne adresse. Au besoin, créez un nouveau mot de"
-            . " passe d'application.";
-    }
-
-    if ($code === 550 || $code === 553 || $code === 554) {
-        return " Conseil : le serveur refuse l'adresse ou le message. Vérifiez l'adresse du destinataire"
-            . " et que 'expediteur_email' est bien l'adresse du compte connecté.";
-    }
-
-    return '';
+    @file_put_contents($dossier . '/emails.log', $ligne, FILE_APPEND | LOCK_EX);
 }
 
 
@@ -222,7 +135,6 @@ function smtp_commande($flux, string $commande, array $codesAcceptes, string $li
     if (!in_array($code, $codesAcceptes, true)) {
         throw new RuntimeException(
             "Le serveur mail a refusé l'étape « $libelle » : $reponse"
-            . conseil_smtp($code, $reponse)
         );
     }
 
@@ -232,39 +144,22 @@ function smtp_commande($flux, string $commande, array $codesAcceptes, string $li
 
 /**
  * Envoi par SMTP (sans bibliothèque externe).
- * Retourne la dernière réponse du serveur (preuve que le message est accepté).
  * Lance une exception en cas de problème.
  */
-function smtp_envoyer(array $config, string $destinataire, string $sujet, string $message): string
+function smtp_envoyer(array $config, string $destinataire, string $sujet, string $message): void
 {
     $hote = $config['hote'];
     $port = (int) $config['port'];
     $securite = strtolower((string) $config['securite']);
     $verifier = !empty($config['verifier_certificat']);
 
-    $optionsSsl = [
-        'verify_peer' => $verifier,
-        'verify_peer_name' => $verifier,
-        'allow_self_signed' => !$verifier,
-        'peer_name' => $hote,
-        'SNI_enabled' => true
-    ];
-
-    $cafile = $verifier ? trouver_cafile() : null;
-
-    if ($cafile !== null) {
-        $optionsSsl['cafile'] = $cafile;
-    }
-
-    $contexte = stream_context_create(['ssl' => $optionsSsl]);
-
-    // Un mot de passe d'application Gmail s'écrit sans espaces
-    $utilisateur = trim((string) $config['utilisateur']);
-    $motDePasse = (string) $config['mot_de_passe'];
-
-    if (stripos($hote, 'gmail') !== false || stripos($hote, 'google') !== false) {
-        $motDePasse = preg_replace('/\s+/', '', $motDePasse);
-    }
+    $contexte = stream_context_create([
+        'ssl' => [
+            'verify_peer' => $verifier,
+            'verify_peer_name' => $verifier,
+            'allow_self_signed' => !$verifier
+        ]
+    ]);
 
     $cible = ($securite === 'ssl' ? 'ssl://' : 'tcp://') . $hote . ':' . $port;
 
@@ -286,10 +181,6 @@ function smtp_envoyer(array $config, string $destinataire, string $sujet, string
 
         if ($hote === 'localhost' || $hote === '127.0.0.1') {
             $aide = " Mailpit est-il lancé (fenêtre noire mailpit.exe ouverte) ?";
-        } else {
-            $aide = " Vérifiez la connexion Internet et que le pare-feu ou l'antivirus"
-                . " autorise le port $port (vous pouvez aussi essayer le port 465 avec"
-                . " 'securite' => 'ssl').";
         }
 
         throw new RuntimeException(
@@ -320,21 +211,14 @@ function smtp_envoyer(array $config, string $destinataire, string $sujet, string
                 $methode |= STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT;
             }
 
-            error_clear_last();
-
             if (!@stream_socket_enable_crypto($flux, true, $methode)) {
-
-                $derniere = error_get_last();
-                $detail = $derniere['message'] ?? '';
 
                 $aide = $verifier
                     ? " Si l'erreur parle de « certificate », mettez 'verifier_certificat' => false dans config-mail.php."
                     : '';
 
                 throw new RuntimeException(
-                    "Impossible de sécuriser la connexion (TLS)."
-                    . ($detail !== '' ? " Détail : $detail." : '')
-                    . $aide
+                    "Impossible de sécuriser la connexion (TLS)." . $aide
                 );
             }
 
@@ -342,20 +226,20 @@ function smtp_envoyer(array $config, string $destinataire, string $sujet, string
         }
 
         // Identification
-        if ($utilisateur !== '') {
+        if ($config['utilisateur'] !== '') {
 
             smtp_commande($flux, 'AUTH LOGIN', [334], 'AUTH LOGIN');
 
             smtp_commande(
                 $flux,
-                base64_encode($utilisateur),
+                base64_encode($config['utilisateur']),
                 [334],
                 'nom d\'utilisateur'
             );
 
             smtp_commande(
                 $flux,
-                base64_encode($motDePasse),
+                base64_encode($config['mot_de_passe']),
                 [235],
                 'mot de passe (vérifiez l\'utilisateur et le mot de passe d\'application)'
             );
@@ -394,8 +278,6 @@ function smtp_envoyer(array $config, string $destinataire, string $sujet, string
 
         @fwrite($flux, "QUIT\r\n");
 
-        return $reponse;
-
     } finally {
 
         fclose($flux);
@@ -412,11 +294,10 @@ function envoyer_email(
     string $sujet,
     string $message,
     ?string &$erreur = null,
-    ?string &$reponseServeur = null
+    bool $inclureMessageDansJournal = true
 ): bool {
 
     $erreur = null;
-    $reponseServeur = null;
 
     $config = config_email();
 
@@ -431,7 +312,7 @@ function envoyer_email(
 
         if (!empty($config['smtp'])) {
 
-            $reponseServeur = smtp_envoyer($config, $destinataire, $sujet, $message);
+            smtp_envoyer($config, $destinataire, $sujet, $message);
 
         } else {
 
@@ -448,7 +329,7 @@ function envoyer_email(
             }
         }
 
-        journaliser_email(true, $destinataire, $sujet, $message, null, $reponseServeur);
+        journaliser_email(true, $destinataire, $sujet, $message, null, $inclureMessageDansJournal);
 
         return true;
 
@@ -456,7 +337,7 @@ function envoyer_email(
 
         $erreur = $e->getMessage();
 
-        journaliser_email(false, $destinataire, $sujet, $message, $erreur);
+        journaliser_email(false, $destinataire, $sujet, $message, $erreur, $inclureMessageDansJournal);
 
         return false;
     }

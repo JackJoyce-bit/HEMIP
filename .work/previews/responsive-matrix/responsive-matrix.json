@@ -1,0 +1,1772 @@
+{
+  "ok": false,
+  "routes": 5,
+  "viewports": [
+    320,
+    360,
+    390,
+    430,
+    768,
+    820,
+    1024,
+    1280,
+    1440,
+    1920
+  ],
+  "screenshots": [
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-320x740.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-360x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-390x844.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-430x932.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-768x1024.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-820x1180.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1024x768.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1280x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1440x900.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1920x1080.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-320x740.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-360x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-390x844.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-430x932.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-768x1024.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-820x1180.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1024x768.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1280x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1440x900.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1920x1080.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-320x740.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-360x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-390x844.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-430x932.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-768x1024.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-820x1180.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1024x768.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1280x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1440x900.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1920x1080.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-320x740.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-360x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-390x844.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-430x932.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-768x1024.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-820x1180.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1024x768.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1280x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1440x900.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1920x1080.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-320x740.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-360x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-390x844.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-430x932.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-768x1024.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-820x1180.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1024x768.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1280x800.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1440x900.png",
+    "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1920x1080.png"
+  ],
+  "failures": [
+    "actualite.html @ 320px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 360px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 390px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 430px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 768px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 820px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 1024px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 1280px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 1440px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"].",
+    "actualite.html @ 1920px : ressources locales manquantes [\"file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4\"]."
+  ],
+  "records": [
+    {
+      "route": "index.php",
+      "width": 320,
+      "height": 740,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-320x740.png",
+      "viewportWidth": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "contain"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 65,
+        "sliderBottom": 295,
+        "contentTop": 317,
+        "heroHeight": 956
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 360,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-360x800.png",
+      "viewportWidth": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "contain"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 65,
+        "sliderBottom": 324,
+        "contentTop": 346,
+        "heroHeight": 967
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 390,
+      "height": 844,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-390x844.png",
+      "viewportWidth": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "contain"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 65,
+        "sliderBottom": 346,
+        "contentTop": 368,
+        "heroHeight": 1000
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 430,
+      "height": 932,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-430x932.png",
+      "viewportWidth": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "contain"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "contain"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 65,
+        "sliderBottom": 375,
+        "contentTop": 397,
+        "heroHeight": 1038
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 768,
+      "height": 1024,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-768x1024.png",
+      "viewportWidth": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "cover"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 0,
+        "sliderBottom": 771,
+        "contentTop": 96,
+        "heroHeight": 771
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 820,
+      "height": 1180,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-820x1180.png",
+      "viewportWidth": 820,
+      "htmlWidth": 820,
+      "bodyWidth": 820,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "cover"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 0,
+        "sliderBottom": 760,
+        "contentTop": 111,
+        "heroHeight": 760
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 1024,
+      "height": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1024x768.png",
+      "viewportWidth": 1024,
+      "htmlWidth": 1024,
+      "bodyWidth": 1024,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "cover"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 0,
+        "sliderBottom": 759,
+        "contentTop": 96,
+        "heroHeight": 759
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 1280,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1280x800.png",
+      "viewportWidth": 1280,
+      "htmlWidth": 1280,
+      "bodyWidth": 1280,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "cover"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 0,
+        "sliderBottom": 787,
+        "contentTop": 96,
+        "heroHeight": 787
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 1440,
+      "height": 900,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1440x900.png",
+      "viewportWidth": 1440,
+      "htmlWidth": 1440,
+      "bodyWidth": 1440,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "cover"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 0,
+        "sliderBottom": 787,
+        "contentTop": 96,
+        "heroHeight": 787
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "index.php",
+      "width": 1920,
+      "height": 1080,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\home-1920x1080.png",
+      "viewportWidth": 1920,
+      "htmlWidth": 1920,
+      "bodyWidth": 1920,
+      "activeSlides": 1,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [
+        {
+          "file": "assets/img/hemip-campus.jpg",
+          "loaded": true,
+          "naturalWidth": 1280,
+          "naturalHeight": 960,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-ceremonie.jpg",
+          "loaded": true,
+          "naturalWidth": 1080,
+          "naturalHeight": 810,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-atelier.jpg",
+          "loaded": true,
+          "naturalWidth": 509,
+          "naturalHeight": 448,
+          "objectFit": "cover"
+        },
+        {
+          "file": "assets/img/hemip-informatique.jpg",
+          "loaded": true,
+          "naturalWidth": 526,
+          "naturalHeight": 358,
+          "objectFit": "cover"
+        }
+      ],
+      "heroGeometry": {
+        "sliderTop": 0,
+        "sliderBottom": 787,
+        "contentTop": 96,
+        "heroHeight": 787
+      },
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 320,
+      "height": 740,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-320x740.png",
+      "viewportWidth": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 360,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-360x800.png",
+      "viewportWidth": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 390,
+      "height": 844,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-390x844.png",
+      "viewportWidth": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 430,
+      "height": 932,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-430x932.png",
+      "viewportWidth": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 768,
+      "height": 1024,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-768x1024.png",
+      "viewportWidth": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 820,
+      "height": 1180,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-820x1180.png",
+      "viewportWidth": 820,
+      "htmlWidth": 820,
+      "bodyWidth": 820,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 1024,
+      "height": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1024x768.png",
+      "viewportWidth": 1024,
+      "htmlWidth": 1024,
+      "bodyWidth": 1024,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 1280,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1280x800.png",
+      "viewportWidth": 1280,
+      "htmlWidth": 1280,
+      "bodyWidth": 1280,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 1440,
+      "height": 900,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1440x900.png",
+      "viewportWidth": 1440,
+      "htmlWidth": 1440,
+      "bodyWidth": 1440,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "contact.php",
+      "width": 1920,
+      "height": 1080,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\contact-1920x1080.png",
+      "viewportWidth": 1920,
+      "htmlWidth": 1920,
+      "bodyWidth": 1920,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [
+        "prenom",
+        "nom",
+        "email",
+        "telephone",
+        "objet",
+        "message",
+        "consentement"
+      ],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 320,
+      "height": 740,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-320x740.png",
+      "viewportWidth": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 360,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-360x800.png",
+      "viewportWidth": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 390,
+      "height": 844,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-390x844.png",
+      "viewportWidth": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 430,
+      "height": 932,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-430x932.png",
+      "viewportWidth": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 768,
+      "height": 1024,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-768x1024.png",
+      "viewportWidth": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 820,
+      "height": 1180,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-820x1180.png",
+      "viewportWidth": 820,
+      "htmlWidth": 820,
+      "bodyWidth": 820,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 1024,
+      "height": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1024x768.png",
+      "viewportWidth": 1024,
+      "htmlWidth": 1024,
+      "bodyWidth": 1024,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 1280,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1280x800.png",
+      "viewportWidth": 1280,
+      "htmlWidth": 1280,
+      "bodyWidth": 1280,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 1440,
+      "height": 900,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1440x900.png",
+      "viewportWidth": 1440,
+      "htmlWidth": 1440,
+      "bodyWidth": 1440,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "realisations.html",
+      "width": 1920,
+      "height": 1080,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\realisations-1920x1080.png",
+      "viewportWidth": 1920,
+      "htmlWidth": 1920,
+      "bodyWidth": 1920,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": "false"
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 320,
+      "height": 740,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-320x740.png",
+      "viewportWidth": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 360,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-360x800.png",
+      "viewportWidth": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 390,
+      "height": 844,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-390x844.png",
+      "viewportWidth": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 430,
+      "height": 932,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-430x932.png",
+      "viewportWidth": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 768,
+      "height": 1024,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-768x1024.png",
+      "viewportWidth": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 820,
+      "height": 1180,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-820x1180.png",
+      "viewportWidth": 820,
+      "htmlWidth": 820,
+      "bodyWidth": 820,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 1024,
+      "height": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1024x768.png",
+      "viewportWidth": 1024,
+      "htmlWidth": 1024,
+      "bodyWidth": 1024,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 1280,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1280x800.png",
+      "viewportWidth": 1280,
+      "htmlWidth": 1280,
+      "bodyWidth": 1280,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 1440,
+      "height": 900,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1440x900.png",
+      "viewportWidth": 1440,
+      "htmlWidth": 1440,
+      "bodyWidth": 1440,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "GP.html",
+      "width": 1920,
+      "height": 1080,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\formation-gp-1920x1080.png",
+      "viewportWidth": 1920,
+      "htmlWidth": 1920,
+      "bodyWidth": 1920,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": []
+    },
+    {
+      "route": "actualite.html",
+      "width": 320,
+      "height": 740,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-320x740.png",
+      "viewportWidth": 320,
+      "htmlWidth": 320,
+      "bodyWidth": 320,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 360,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-360x800.png",
+      "viewportWidth": 360,
+      "htmlWidth": 360,
+      "bodyWidth": 360,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 390,
+      "height": 844,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-390x844.png",
+      "viewportWidth": 390,
+      "htmlWidth": 390,
+      "bodyWidth": 390,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 430,
+      "height": 932,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-430x932.png",
+      "viewportWidth": 430,
+      "htmlWidth": 430,
+      "bodyWidth": 430,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 768,
+      "height": 1024,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-768x1024.png",
+      "viewportWidth": 768,
+      "htmlWidth": 768,
+      "bodyWidth": 768,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 44,
+        "height": 44,
+        "display": "flex",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 820,
+      "height": 1180,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-820x1180.png",
+      "viewportWidth": 820,
+      "htmlWidth": 820,
+      "bodyWidth": 820,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 1024,
+      "height": 768,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1024x768.png",
+      "viewportWidth": 1024,
+      "htmlWidth": 1024,
+      "bodyWidth": 1024,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 1280,
+      "height": 800,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1280x800.png",
+      "viewportWidth": 1280,
+      "htmlWidth": 1280,
+      "bodyWidth": 1280,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 1440,
+      "height": 900,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1440x900.png",
+      "viewportWidth": 1440,
+      "htmlWidth": 1440,
+      "bodyWidth": 1440,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    },
+    {
+      "route": "actualite.html",
+      "width": 1920,
+      "height": 1080,
+      "screenshot": "C:\\Users\\Le MADISON\\OneDrive\\Desktop\\HEMIP-main\\.work\\previews\\responsive-matrix\\actualite-1920x1080.png",
+      "viewportWidth": 1920,
+      "htmlWidth": 1920,
+      "bodyWidth": 1920,
+      "activeSlides": 0,
+      "mobileMenu": {
+        "width": 0,
+        "height": 0,
+        "display": "none",
+        "expanded": null
+      },
+      "navHasContact": true,
+      "navHasRealisations": true,
+      "contactHref": "contact.php",
+      "realizationHref": "realisations.html",
+      "contactFields": [],
+      "slideImages": [],
+      "heroGeometry": null,
+      "pageErrors": [],
+      "localFailures": [
+        "file:///C:/xampp/htdocs/HEMIP-main/config/assets/img/dac-presentation.mp4"
+      ]
+    }
+  ]
+}
