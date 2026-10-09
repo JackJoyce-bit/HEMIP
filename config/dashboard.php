@@ -94,12 +94,10 @@ $notifications = historique_lire(
     <title>Gestion des candidatures | HEMIP</title>
 
     <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
 
     <!-- Remix Icon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.1/fonts/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/admin-dashboard.css">
 
@@ -112,10 +110,10 @@ $notifications = historique_lire(
 
             padding: 8px 14px;
 
-            background: #f1f5f9;
-            color: #2563eb;
+            background: var(--hemip-bg);
+            color: var(--hemip-primary-strong);
 
-            border: 1px solid #dbe3ef;
+            border: 1px solid var(--hemip-neutral-soft);
             border-radius: 6px;
 
             text-decoration: none;
@@ -127,7 +125,7 @@ $notifications = historique_lire(
         }
 
         .document-view-btn:hover {
-            background: #e2e8f0;
+            background: var(--hemip-neutral-soft);
         }
 
         .documents .document {
@@ -148,7 +146,7 @@ $notifications = historique_lire(
         }
 
         .document-view-btn.telecharger {
-            color: #475569;
+            color: var(--hemip-muted);
         }
 
 
@@ -179,14 +177,14 @@ $notifications = historique_lire(
 
             padding: 14px 16px;
 
-            background: #ffffff;
-            border-left: 5px solid #16a34a;
+            background: var(--hemip-bg);
+            border-left: 5px solid var(--hemip-primary-strong);
             border-radius: 10px;
 
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+            box-shadow: 0 10px 30px rgba(var(--hemip-text-rgb), 0.18);
 
             font-size: 14px;
-            color: #1e293b;
+            color: var(--hemip-text);
 
             animation: toastEntree 0.35s ease forwards;
         }
@@ -198,7 +196,7 @@ $notifications = historique_lire(
         .toast i.toast-icone {
             font-size: 22px;
             line-height: 1;
-            color: #16a34a;
+            color: var(--hemip-primary-strong);
         }
 
         .toast .toast-texte {
@@ -216,22 +214,22 @@ $notifications = historique_lire(
             background: transparent;
             cursor: pointer;
             font-size: 18px;
-            color: #94a3b8;
+            color: var(--hemip-muted);
             line-height: 1;
         }
 
         .toast .toast-fermer:hover {
-            color: #475569;
+            color: var(--hemip-muted);
         }
 
-        .toast.erreur { border-left-color: #dc2626; }
-        .toast.erreur i.toast-icone { color: #dc2626; }
+        .toast.erreur { border-left-color: var(--hemip-accent); }
+        .toast.erreur i.toast-icone { color: var(--hemip-accent-strong); }
 
-        .toast.rejet { border-left-color: #ea580c; }
-        .toast.rejet i.toast-icone { color: #ea580c; }
+        .toast.rejet { border-left-color: var(--hemip-accent); }
+        .toast.rejet i.toast-icone { color: var(--hemip-accent-strong); }
 
-        .toast.info { border-left-color: #2563eb; }
-        .toast.info i.toast-icone { color: #2563eb; }
+        .toast.info { border-left-color: var(--hemip-primary); }
+        .toast.info i.toast-icone { color: var(--hemip-primary-strong); }
 
         @keyframes toastEntree {
             from { opacity: 0; transform: translateX(40px); }
@@ -244,12 +242,12 @@ $notifications = historique_lire(
         }
 
         .action-btn.delete {
-            background: #d73737;
-            color: #ffffff;
+            background: var(--hemip-accent);
+            color: var(--hemip-bg);
         }
 
         .action-btn.delete:hover {
-            background: #b02a2a;
+            background: var(--hemip-accent-strong);
         }
 
         .action-btn i {
@@ -273,9 +271,9 @@ $notifications = historique_lire(
             display: flex;
             flex-direction: column;
 
-            background: #ffffff;
+            background: var(--hemip-bg);
             border-radius: 14px;
-            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.22);
+            box-shadow: 0 15px 40px rgba(var(--hemip-text-rgb), 0.22);
 
             overflow: hidden;
         }
@@ -287,11 +285,11 @@ $notifications = historique_lire(
 
             padding: 16px 18px;
 
-            border-bottom: 1px solid #edf0f4;
+            border-bottom: 1px solid var(--hemip-neutral-soft);
 
             font-weight: 700;
             font-size: 15px;
-            color: #1e293b;
+            color: var(--hemip-text);
         }
 
         .historique-entete button {
@@ -299,12 +297,12 @@ $notifications = historique_lire(
             background: transparent;
             font-size: 22px;
             line-height: 1;
-            color: #94a3b8;
+            color: var(--hemip-muted);
             cursor: pointer;
         }
 
         .historique-entete button:hover {
-            color: #475569;
+            color: var(--hemip-muted);
         }
 
         .historique-liste {
@@ -315,7 +313,7 @@ $notifications = historique_lire(
             padding: 30px 18px;
             text-align: center;
             font-size: 14px;
-            color: #64748b;
+            color: var(--hemip-muted);
         }
 
         .historique-item {
@@ -324,8 +322,8 @@ $notifications = historique_lire(
 
             padding: 14px 18px;
 
-            border-bottom: 1px solid #f1f5f9;
-            border-left: 4px solid #16a34a;
+            border-bottom: 1px solid var(--hemip-bg);
+            border-left: 4px solid var(--hemip-primary-strong);
         }
 
         .historique-item:last-child {
@@ -335,7 +333,7 @@ $notifications = historique_lire(
         .historique-item i {
             font-size: 20px;
             line-height: 1.2;
-            color: #16a34a;
+            color: var(--hemip-primary-strong);
         }
 
         .historique-item .texte {
@@ -343,30 +341,30 @@ $notifications = historique_lire(
             min-width: 0;
             font-size: 13px;
             line-height: 1.45;
-            color: #334155;
+            color: var(--hemip-muted);
         }
 
         .historique-item .texte strong {
             display: block;
             font-size: 14px;
-            color: #1e293b;
+            color: var(--hemip-text);
         }
 
         .historique-item .date {
             display: block;
             margin-top: 4px;
             font-size: 12px;
-            color: #94a3b8;
+            color: var(--hemip-muted);
         }
 
-        .historique-item.rejet { border-left-color: #ea580c; }
-        .historique-item.rejet i { color: #ea580c; }
+        .historique-item.rejet { border-left-color: var(--hemip-accent); }
+        .historique-item.rejet i { color: var(--hemip-accent-strong); }
 
-        .historique-item.erreur { border-left-color: #dc2626; }
-        .historique-item.erreur i { color: #dc2626; }
+        .historique-item.erreur { border-left-color: var(--hemip-accent); }
+        .historique-item.erreur i { color: var(--hemip-accent-strong); }
 
-        .historique-item.info { border-left-color: #2563eb; }
-        .historique-item.info i { color: #2563eb; }
+        .historique-item.info { border-left-color: var(--hemip-primary); }
+        .historique-item.info i { color: var(--hemip-primary-strong); }
 
         @media (max-width: 450px) {
             .historique-panel { top: 66px; right: 10px; left: 10px; width: auto; }
@@ -377,7 +375,7 @@ $notifications = historique_lire(
             align-self: center;
 
             font-size: 13px;
-            color: #64748b;
+            color: var(--hemip-muted);
         }
 
         @media (max-width: 450px) {
@@ -388,7 +386,8 @@ $notifications = historique_lire(
     </style>
     
    <!-- favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg" style="border-radius: 20px;">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>
@@ -1283,7 +1282,7 @@ $notifications = historique_lire(
                     <tr>
 
                         <td colspan="7"
-                            style="text-align:center;padding:40px;color:#9aa2b1;">
+                            style="text-align:center;padding:40px;color:var(--hemip-muted);">
 
                             <i class="ri-search-line"
                                style="font-size:30px;display:block;margin-bottom:10px;">
@@ -1513,7 +1512,7 @@ $notifications = historique_lire(
         preinscriptionTable.innerHTML = `
             <tr>
                 <td colspan="7"
-                    style="text-align:center;padding:40px;color:#9aa2b1;">
+                    style="text-align:center;padding:40px;color:var(--hemip-muted);">
 
                     <i class="ri-search-line"
                        style="font-size:30px;display:block;margin-bottom:10px;">
@@ -1741,7 +1740,7 @@ $notifications = historique_lire(
         const documentsTitle =
         document.getElementById("documentsTitle");
 
-         rejectBtn =
+         const rejectBtn =
         document.getElementById("rejectBtn");
 
         const acceptBtn =

@@ -105,14 +105,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        href="assets/vendor/remixicon/remixicon.css"
         rel="stylesheet"
     >
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/inscription.css">
      <!-- favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg" style="border-radius: 20px;">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
 
     <title>Ajouter un administrateur - HEMIP</title>
 
@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             height: 68px;
             width: 100%;
 
-            background: #101a23;
+            background: var(--hemip-text);
 
             display: flex;
             align-items: center;
@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             padding: 0 30px;
 
-            color: white;
+            color: var(--hemip-bg);
         }
 
         .logo {
@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-radius: 50%;
             object-fit: cover;
 
-            background: white;
+            background: var(--hemip-bg);
         }
 
         .logo span {
@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .menu a {
-            color: white;
+            color: var(--hemip-bg);
             text-decoration: none;
 
             font-size: 14px;
@@ -182,11 +182,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .menu a:hover {
-            color: #b6a5ff;
+            color: var(--hemip-accent-soft);
         }
 
         .menu .active {
-            color: #b6a5ff;
+            color: var(--hemip-accent-soft);
         }
 
         /* =========================
@@ -210,12 +210,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .form-card {
             width: 390px;
 
-            background: rgba(238, 241, 249, 0.94);
+            background: rgba(var(--hemip-primary-rgb), 0.94);
 
             padding: 30px 25px 35px;
 
             box-shadow:
-                0 10px 35px rgba(0, 0, 0, 0.18);
+                0 10px 35px rgba(var(--hemip-text-rgb), 0.18);
 
             backdrop-filter: blur(3px);
 
@@ -225,7 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .form-title {
             text-align: center;
 
-            color: #101a23;
+            color: var(--hemip-text);
 
             font-size: 24px;
             font-weight: 600;
@@ -236,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .form-subtitle {
             text-align: center;
 
-            color: #555;
+            color: var(--hemip-muted);
 
             font-size: 13px;
 
@@ -248,11 +248,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ========================= */
 
         .message {
-            background: #ffe5e5;
+            background: var(--hemip-accent-soft);
 
-            color: #b00020;
+            color: var(--hemip-accent-strong);
 
-            border-left: 4px solid #b00020;
+            border-left: 4px solid var(--hemip-accent);
 
             padding: 11px 12px;
 
@@ -262,9 +262,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .message.succes {
-            background: #e6f6ec;
-            color: #14683d;
-            border-left-color: #14683d;
+            background: var(--hemip-primary-soft);
+            color: var(--hemip-primary-strong);
+            border-left-color: var(--hemip-primary-strong);
         }
 
         .select-group {
@@ -274,14 +274,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .select-group label {
             display: block;
             font-size: 11px;
-            color: #4c2de0;
+            color: var(--hemip-primary-strong);
             margin-bottom: 4px;
         }
 
         .select-group select {
             width: 100%;
             border: none;
-            border-bottom: 1px solid #7357e8;
+            border-bottom: 1px solid var(--hemip-primary);
             background: transparent;
             padding: 9px 4px;
             font-size: 14px;
@@ -310,9 +310,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             font-size: 14px;
 
-            color: #111;
+            color: var(--hemip-text);
 
-            border-bottom: 1px solid #7357e8;
+            border-bottom: 1px solid var(--hemip-primary);
 
             transition: 0.3s;
         }
@@ -325,7 +325,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             font-size: 14px;
 
-            color: #172060;
+            color: var(--hemip-primary-strong);
 
             pointer-events: none;
 
@@ -333,7 +333,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .input-group input:focus {
-            border-bottom: 2px solid #4c2de0;
+            border-bottom: 2px solid var(--hemip-primary-strong);
         }
 
         .input-group input:focus + label,
@@ -342,7 +342,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             font-size: 11px;
 
-            color: #4c2de0;
+            color: var(--hemip-primary-strong);
         }
 
         /* =========================
@@ -360,22 +360,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             border-radius: 25px;
 
-            background: #101a23;
+            background: var(--hemip-text);
 
-            color: white;
+            color: var(--hemip-bg);
 
             font-size: 15px;
 
             cursor: pointer;
 
             box-shadow:
-                0 5px 12px rgba(0, 0, 0, 0.18);
+                0 5px 12px rgba(var(--hemip-text-rgb), 0.18);
 
             transition: 0.3s;
         }
 
         .btn:hover {
-            background: #7357e8;
+            background: var(--hemip-primary);
 
             transform: translateY(-1px);
         }
@@ -391,7 +391,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             margin-top: 20px;
 
-            color: #172060;
+            color: var(--hemip-primary-strong);
 
             text-decoration: none;
 
@@ -399,7 +399,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .back:hover {
-            color: #7357e8;
+            color: var(--hemip-primary-strong);
             text-decoration: underline;
         }
 
@@ -452,6 +452,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     </style>
 
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>
@@ -475,17 +476,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <a href="index.php">Accueil</a>
 
-            <a href="apropos.php">À propos</a>
+            <a href="a-propos.php">À propos</a>
 
-            <a href="formation.php">Formation</a>
+            <a href="index.php#formations">Formation</a>
 
             <a href="inscription.php">Inscription</a>
 
             <a href="actualite.php">Actualité</a>
 
             <a href="contact.php">Contact</a>
-
-            <a href="test.php" class="active">♙</a>
 
         </nav>
 

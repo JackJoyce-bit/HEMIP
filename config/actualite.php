@@ -226,22 +226,9 @@ try {
       content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Actualités</title>
+  <title>Actualités — HEMIP</title>
 
-  <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-  >
-
-  <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-  >
-
-  <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-  >
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
 
   <link
       rel="stylesheet"
@@ -251,7 +238,7 @@ try {
   <!-- Remix Icon -->
 
   <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+      href="assets/vendor/remixicon/remixicon.css"
       rel="stylesheet"
   >
 
@@ -264,12 +251,7 @@ try {
 
   <!-- favicon -->
 
-  <link
-      rel="icon"
-      type="image/png"
-      href="assets/img/logo-hemip.jpg"
-      style="border-radius: 20px;"
-  >
+  <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
 
   <!-- =================================================
        STYLE UNIQUEMENT POUR LES NOUVELLES FONCTIONNALITÉS
@@ -277,13 +259,47 @@ try {
 
   <style>
 
+    .actu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 35px 0;
+      flex-wrap: wrap;
+    }
+
+    .actu-tab {
+      border: none;
+      padding: 12px 22px;
+      border-radius: 30px;
+      background: var(--hemip-bg);
+      color: var(--hemip-text);
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .actu-tab:hover,
+    .actu-tab.active {
+      background: var(--hemip-primary-strong);
+      color: var(--hemip-bg);
+    }
+
+    .actu-tab-content {
+      display: none;
+    }
+
+    .actu-tab-content.active {
+      display: block;
+    }
+
     .admin-publication {
       max-width: 900px;
       margin: 30px auto 45px;
       padding: 25px;
-      background: #fff;
+      background: var(--hemip-bg);
       border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+      box-shadow: 0 8px 25px rgba(var(--hemip-text-rgb), 0.07);
     }
 
     .admin-publication h2 {
@@ -304,7 +320,7 @@ try {
     .admin-publication textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--hemip-neutral-soft);
       border-radius: 8px;
       font-family: inherit;
     }
@@ -316,8 +332,8 @@ try {
 
     .admin-publication button {
       border: none;
-      background: #173f8a;
-      color: white;
+      background: var(--hemip-primary-strong);
+      color: var(--hemip-bg);
       padding: 12px 20px;
       border-radius: 8px;
       cursor: pointer;
@@ -332,13 +348,13 @@ try {
     }
 
     .admin-message.success {
-      background: #e7f7ed;
-      color: #176b36;
+      background: var(--hemip-primary-soft);
+      color: var(--hemip-primary-strong);
     }
 
     .admin-message.error {
-      background: #fdeaea;
-      color: #a32020;
+      background: var(--hemip-accent-soft);
+      color: var(--hemip-accent-strong);
     }
 
     .student-section-title {
@@ -358,10 +374,10 @@ try {
     }
 
     .academic-card {
-      background: white;
+      background: var(--hemip-bg);
       padding: 22px;
       border-radius: 12px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.06);
+      box-shadow: 0 7px 22px rgba(var(--hemip-text-rgb), 0.06);
     }
 
     .academic-card h3 {
@@ -376,19 +392,19 @@ try {
     .admin-count {
       text-align: center;
       padding: 30px;
-      background: white;
+      background: var(--hemip-bg);
       border-radius: 12px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.06);
+      box-shadow: 0 7px 22px rgba(var(--hemip-text-rgb), 0.06);
     }
 
     .admin-count strong {
       display: block;
       font-size: 42px;
-      color: #173f8a;
+      color: var(--hemip-primary-strong);
     }
 
     .testimonial-info {
-      background: #f7f8fa;
+      background: var(--hemip-bg);
       padding: 22px;
       border-radius: 12px;
       margin-bottom: 45px;
@@ -396,10 +412,19 @@ try {
 
   </style>
 
+    <meta name="theme-color" content="#1094d7">
+    <meta name="application-name" content="HEMIP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEMIP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
+    <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>
-
 
 <header class="header">
 
@@ -418,7 +443,6 @@ try {
 
         </a>
 
-
         <!-- BOUTON MOBILE -->
 
         <button
@@ -429,7 +453,6 @@ try {
             <i class="ri-menu-line"></i>
 
         </button>
-
 
         <!-- MENU -->
 
@@ -443,7 +466,6 @@ try {
                     Accueil
                 </a>
             </li>
-
 
             <!-- DROPDOWN FORMATION -->
 
@@ -507,7 +529,6 @@ try {
 
                     </li>
 
-
                     <!-- SOUS MENU -->
 
                     <li class="submenu">
@@ -566,7 +587,6 @@ try {
 
             </li>
 
-
             <li>
 
                 <a
@@ -578,7 +598,6 @@ try {
 
             </li>
 
-
             <li>
 
                 <a href="actualite.php">
@@ -587,15 +606,13 @@ try {
 
             </li>
 
-
             <li>
 
-                <a href="#footer">
+                <a href="contact.php#contact">
                     Contact
                 </a>
 
             </li>
-
 
             <!-- AJOUT : À PROPOS -->
 
@@ -606,7 +623,6 @@ try {
                 </a>
 
             </li>
-
 
             <!-- ADMIN -->
 
@@ -644,7 +660,6 @@ try {
 
 </header>
 
-
 <div class="news-header">
 
   <div class="container-actu">
@@ -665,7 +680,6 @@ try {
 
 </div>
 
-
 <!-- =====================================================
      MESSAGES ADMIN
      ===================================================== -->
@@ -680,7 +694,6 @@ try {
 
 <?php endif; ?>
 
-
 <?php if ($messageErreur !== ''): ?>
 
     <div class="admin-message error">
@@ -690,7 +703,6 @@ try {
     </div>
 
 <?php endif; ?>
-
 
 <!-- =====================================================
      PUBLICATION ADMIN
@@ -726,7 +738,6 @@ try {
 
             </div>
 
-
             <div class="form-group">
 
                 <label for="contenu">
@@ -740,7 +751,6 @@ try {
                 ></textarea>
 
             </div>
-
 
             <div class="form-group">
 
@@ -757,7 +767,6 @@ try {
 
             </div>
 
-
             <button type="submit">
 
                 <i class="ri-send-plane-line"></i>
@@ -772,6 +781,41 @@ try {
 
 <?php endif; ?>
 
+<!-- =====================================================
+     ONGLETS
+     ===================================================== -->
+
+<div class="container-actu">
+
+    <div class="actu-tabs">
+
+        <button
+            type="button"
+            class="actu-tab active"
+            onclick="afficherOnglet('actualites', this)"
+        >
+
+            <i class="ri-newspaper-line"></i>
+
+            Actualités
+
+        </button>
+
+        <button
+            type="button"
+            class="actu-tab"
+            onclick="afficherOnglet('vieEstudiantine', this)"
+        >
+
+            <i class="ri-graduation-cap-line"></i>
+
+            Vie Estudiantine
+
+        </button>
+
+    </div>
+
+</div>
 
 <!-- =====================================================
      ONGLET ACTUALITÉS
@@ -785,7 +829,6 @@ try {
 <main class="container-actu">
 
   <section class="news-grid">
-
 
     <!-- =================================================
          ACTUALITÉ ORIGINALE 1
@@ -849,7 +892,6 @@ try {
 
     </article>
 
-
     <!-- =================================================
          ACTUALITÉ ORIGINALE 2
          ================================================= -->
@@ -910,7 +952,6 @@ try {
       </div>
 
     </article>
-
 
     <!-- =================================================
          ACTUALITÉ ORIGINALE 3
@@ -976,7 +1017,6 @@ try {
 
     </article>
 
-
     <!-- =================================================
          ACTUALITÉS PUBLIÉES PAR L'ADMIN
          ================================================= -->
@@ -1019,7 +1059,6 @@ try {
 
             </div>
 
-
             <div class="news-content">
 
                 <span class="date">
@@ -1033,7 +1072,6 @@ try {
 
                 </span>
 
-
                 <h2>
 
                     <?= htmlspecialchars(
@@ -1041,7 +1079,6 @@ try {
                     ) ?>
 
                 </h2>
-
 
                 <p>
 
@@ -1052,7 +1089,6 @@ try {
                     ) ?>
 
                 </p>
-
 
                 <button
                     class="read-more"
@@ -1085,13 +1121,277 @@ try {
 
     <?php endforeach; ?>
 
-
   </section>
 
 </main>
 
 </div>
 
+<!-- =====================================================
+     ONGLET VIE ESTUDIANTINE
+     ===================================================== -->
+
+<div
+    id="vieEstudiantine"
+    class="actu-tab-content"
+>
+
+<main class="container-actu">
+
+    <!-- ================================================
+         ÉQUIPE ACADÉMIQUE
+         ================================================ -->
+
+    <div class="student-section-title">
+
+        <h2>
+            Notre équipe académique
+        </h2>
+
+        <p>
+            Corps enseignants et chercheurs -
+            Parcours Technologie & Industrie.
+        </p>
+
+    </div>
+
+    <section class="academic-grid">
+
+        <article class="academic-card">
+
+            <h3>
+                Prof. Arthur NSEKA
+            </h3>
+
+            <p>
+                Génie des Procédés & Pétrochimie
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Dr. KIEMBA
+            </h3>
+
+            <p>
+                Chimie pure
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Dr. MBENGUELE Martial
+            </h3>
+
+            <p>
+                Management
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Dr. NZAOU
+            </h3>
+
+            <p>
+                Littérature Française
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Dr. Fabrice KAMPIAMBA
+            </h3>
+
+            <p>
+                Génie des Procédés
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Dr. Wighens NGOIE
+            </h3>
+
+            <p>
+                Génie Chimique
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Dr. Lauriane MENANKUTIMA
+            </h3>
+
+            <p>
+                Raffinage & Pétrochimie
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Joseph KOMBI
+            </h3>
+
+            <p>
+                Raffinage & Pétrochimie
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Eugène DIAYIKA
+            </h3>
+
+            <p>
+                Génie Numérique
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Junior MALATOU
+            </h3>
+
+            <p>
+                Electronique
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Ferdinand MUKOKO
+            </h3>
+
+            <p>
+                Génie Electro-Mécanique
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Thryphon MUNGONGO
+            </h3>
+
+            <p>
+                Servo-Automatisme
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Dorian TETA
+            </h3>
+
+            <p>
+                Electromécanique & Production Pétrolière
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Van EKOKO
+            </h3>
+
+            <p>
+                Génie des Procédés
+            </p>
+
+        </article>
+
+        <article class="academic-card">
+
+            <h3>
+                Ir. Christian KAYEMBE
+            </h3>
+
+            <p>
+                Génie Electrique et Energies Renouvelables
+            </p>
+
+        </article>
+
+    </section>
+
+    <!-- ================================================
+         ÉQUIPE ADMINISTRATIVE
+         ================================================ -->
+
+    <div class="student-section-title">
+
+        <h2>
+            Notre équipe administrative
+        </h2>
+
+        <p>
+            Personnel administratif de HEMIP.
+        </p>
+
+    </div>
+
+    <div class="admin-count">
+
+        <strong>
+            10
+        </strong>
+
+        Administratifs
+
+    </div>
+
+    <!-- ================================================
+         TÉMOIGNAGES
+         ================================================ -->
+
+    <div class="student-section-title">
+
+        <h2>
+            Nos témoignages de anciens étudiants
+        </h2>
+
+    </div>
+
+    <div class="testimonial-info">
+
+        <p style="margin-top:10px;">
+
+            Cette section est prête à recevoir
+            les témoignages réels des anciens étudiants
+            lorsqu'ils seront disponibles.
+
+        </p>
+
+    </div>
+
+</main>
+
+</div>
 
 <!-- =====================================================
      MODAL ORIGINAL
@@ -1126,7 +1426,6 @@ try {
 
 </div>
 
-
 <footer class="footer reveal">
 
     <div class="footer-container ">
@@ -1157,7 +1456,6 @@ try {
 
         </div>
 
-
         <!-- Contact -->
 
         <div class="footer-col">
@@ -1185,7 +1483,6 @@ try {
 
                 </li>
 
-
                 <li>
 
                     <i class="ri-phone-line"></i>
@@ -1198,7 +1495,6 @@ try {
 
                 </li>
 
-
                 <li>
 
                     <i class="ri-phone-line"></i>
@@ -1210,7 +1506,6 @@ try {
                     </a>
 
                 </li>
-
 
                 <li>
 
@@ -1231,7 +1526,6 @@ try {
 
         </div>
 
-
         <!-- Réseaux sociaux -->
 
         <div class="footer-col">
@@ -1248,7 +1542,6 @@ try {
 
             <div class="social-links">
 
-
                 <a
                     href="https://vm.tiktok.com/ZS9kFSarLrbTD-96s9G/"
                     class="social-link"
@@ -1259,7 +1552,6 @@ try {
 
                 </a>
 
-
                 <a
                     href="https://www.facebook.com/hemipcongo"
                     class="social-link"
@@ -1269,7 +1561,6 @@ try {
                     <i class="ri-facebook-fill"></i>
 
                 </a>
-
 
                 <a
                     href="https://wa.me/242055865094"
@@ -1282,13 +1573,11 @@ try {
 
                 </a>
 
-
             </div>
 
         </div>
 
     </div>
-
 
     <!-- Bas du footer -->
 
@@ -1306,9 +1595,7 @@ try {
 
 </footer>
 
-
 <script src="assets/js/main.js"></script>
-
 
 <script>
 
@@ -1330,7 +1617,6 @@ const news = {
 
   },
 
-
   fraicheur: {
 
     tag:
@@ -1343,7 +1629,6 @@ const news = {
       "À l’occasion de la Journée de fraîcheur, HEMIP invitait sa communauté à s’habiller avec classe et à représenter fièrement l’établissement, autour des valeurs d’élégance, de respect, de professionnalisme et d’unité."
 
   },
-
 
   master: {
 
@@ -1359,7 +1644,6 @@ const news = {
   }
 
 };
-
 
 /* =========================================================
    MODAL ORIGINAL
@@ -1393,7 +1677,6 @@ function openNews(key) {
   );
 
 }
-
 
 /* =========================================================
    MODAL DES ACTUALITÉS PUBLIÉES PAR L'ADMIN
@@ -1432,7 +1715,6 @@ function openDynamicNews(
 
 }
 
-
 /* =========================================================
    FERMER LE MODAL
    ========================================================= */
@@ -1451,7 +1733,6 @@ function closeNews() {
   );
 
 }
-
 
 /* =========================================================
    FERMETURE EN CLIQUANT À L'EXTÉRIEUR
@@ -1474,10 +1755,56 @@ document
         }
     );
 
+/* =========================================================
+   ONGLETS
+   ========================================================= */
+
+function afficherOnglet(
+    id,
+    bouton
+) {
+
+    const contenus =
+        document.querySelectorAll(
+            ".actu-tab-content"
+        );
+
+    contenus.forEach(
+        function(contenu) {
+
+            contenu.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+    const boutons =
+        document.querySelectorAll(
+            ".actu-tab"
+        );
+
+    boutons.forEach(
+        function(btn) {
+
+            btn.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    bouton.classList.add("active");
+
+}
 
 </script>
 
-
+  <script src="assets/js/pwa.js" defer></script>
 </body>
 
 </html>

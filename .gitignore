@@ -1,0 +1,22 @@
+# =============================================================
+# Secrets et configuration locale — NE JAMAIS versionner
+# =============================================================
+
+# Identifiants SMTP réels (mot de passe d'application Gmail, etc.)
+config/config-mail.local.php
+
+# Journaux et données locales d'exécution
+config/logs/*.log
+config/uploads/*
+!config/uploads/.htaccess
+
+# Sessions de test locales
+.work/contact-test-sessions/
+.work/previews/
+.work/pdf-assets/
+
+# Éditeur / système
+.vscode/settings.json
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance industrielle</title>
    <!-- Remix Icon -->
     <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        href="assets/vendor/remixicon/remixicon.css"
         rel="stylesheet"
     >
 
@@ -14,13 +15,23 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
      <!-- favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg" style="border-radius: 20px;">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
     <link rel="stylesheet" href="assets/css/MI.css?v=2">
     
     <style>
         /* Espace sous le header fixe */
         .formation-container { padding-top: 110px; }
     </style>
+    <meta name="theme-color" content="#1094d7">
+    <meta name="application-name" content="HEMIP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEMIP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
+    <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 <body>
 
@@ -117,7 +128,7 @@
 
 
             <li>
-                <a href="#footer">Contact</a>
+                <a href="contact.php#contact">Contact</a>
             </li>
  <li>
                 <a href="connexion.html"><i class="ri-admin-line"></i></a>
@@ -286,5 +297,6 @@
 
     </div>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/pwa.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+/* =============================================================
+   Polices HEMIP — hébergées localement (aucun appel à Google Fonts)
+   Inter · DM Sans · Playfair Display
+   Les fichiers .woff2 sont dans ce même dossier.
+   ============================================================= */
+
+@import url("inter.css");
+@import url("dm-sans.css");
+@import url("playfair.css");

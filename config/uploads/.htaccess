@@ -1,0 +1,26 @@
+# Documents déposés par les candidats (pièces d'identité, diplômes, certificats).
+# Ce dossier ne doit JAMAIS être servi directement par le serveur web.
+# L'accès aux fichiers passe uniquement par document.php, qui vérifie
+# que l'utilisateur est un administrateur connecté.
+
+# Apache 2.4+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+# Apache 2.2 (anciens hébergements)
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+
+# Interdire l'exécution de tout script dans ce dossier
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|pl|py|cgi|asp|aspx|sh|shtml)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

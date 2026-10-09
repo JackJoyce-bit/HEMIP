@@ -9,12 +9,13 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Remix Icon -->
     <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.9.1/fonts/remixicon.css"
+        href="assets/vendor/remixicon/remixicon.css"
         rel="stylesheet"
     >
 
@@ -22,9 +23,20 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
     <link rel="stylesheet" href="assets/css/style.css">
 
      <!-- favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logo hemip.jpg" style="border-radius: 20px;">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
     <title>HEMIP site web</title>
 
+    <meta name="theme-color" content="#1094d7">
+    <meta name="application-name" content="HEMIP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEMIP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
+    <link rel="stylesheet" href="assets/css/pwa.css">
+    <link rel="stylesheet" href="assets/css/home-sections.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>
@@ -41,8 +53,8 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 
 
         <!-- BOUTON MOBILE -->
-        <button class="menu-btn" id="menu-btn">
-            <i class="ri-menu-line"></i>
+        <button class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-list">
+            <span aria-hidden="true">☰</span>
         </button>
 
 
@@ -50,14 +62,14 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
         <ul class="nav-list" id="nav-list">
 
             <li>
-                <a href="index.html">Accueil</a>
+                <a href="index.php">Accueil</a>
             </li>
 
 
             <!-- DROPDOWN FORMATION -->
-            <li class="dropdown">
+            <li class="dropdown" id="formations">
 
-                <button class="dropdown-btn">
+                <button class="dropdown-btn" aria-expanded="false">
                     Formation
                     <i class="ri-arrow-down-s-line"></i>
                 </button>
@@ -122,7 +134,11 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 
 
             <li>
-                <a href="#footer">Contact</a>
+                <a href="realisations.html">Nos réalisations</a>
+            </li>
+
+            <li>
+                <a href="contact.php#contact">Contact</a>
             </li>
 
             <li>
@@ -140,8 +156,8 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 
             <!-- Administrateur connecté -->
             <li class="admin-status">
-                <i class="ri-admin-line" style="color: white;"></i>
-                <span style="color: white; font-size: 15px;">Connecté</span>
+                <i class="ri-admin-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
             </li>
 
            <?php else: ?>
@@ -166,9 +182,24 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 <!-- CONTENUE DE LA PAGE -->
 
   <!-- ================= HERO ================= -->
-        <section class="hero" id="accueil">
+        <section class="hero" id="accueil" data-home-carousel role="region" aria-roledescription="carrousel" aria-label="Accueil HEMIP : photos de l’école">
 
             <div class="hero-background"></div>
+
+            <div class="hero-slider" aria-hidden="false">
+                <div class="hero-slide is-active" id="home-slide-1" role="group" aria-roledescription="diapositive" aria-label="1 sur 4 : La façade HEMIP" aria-hidden="false" data-slide-label="La façade HEMIP">
+                    <img src="assets/img/hemip-campus.jpg" alt="Façade et enseigne de la Haute École de Management et d’Ingénierie la Percée" fetchpriority="high" decoding="async">
+                </div>
+                <div class="hero-slide" id="home-slide-2" role="group" aria-roledescription="diapositive" aria-label="2 sur 4 : Une scène de cérémonie HEMIP" aria-hidden="true" data-slide-label="Une scène de cérémonie HEMIP">
+                    <img src="assets/img/hemip-ceremonie.jpg" alt="Groupe de personnes réuni lors d’un événement HEMIP" loading="eager" fetchpriority="low" decoding="async">
+                </div>
+                <div class="hero-slide" id="home-slide-3" role="group" aria-roledescription="diapositive" aria-label="3 sur 4 : La pratique en atelier" aria-hidden="true" data-slide-label="La pratique en atelier">
+                    <img src="assets/img/hemip-atelier.jpg" alt="Étudiant en travaux pratiques autour d’un équipement mécanique" loading="eager" fetchpriority="low" decoding="async">
+                </div>
+                <div class="hero-slide" id="home-slide-4" role="group" aria-roledescription="diapositive" aria-label="4 sur 4 : L’apprentissage informatique" aria-hidden="true" data-slide-label="L’apprentissage informatique">
+                    <img src="assets/img/hemip-informatique.jpg" alt="Étudiants en séance de travail devant des ordinateurs" loading="eager" fetchpriority="low" decoding="async">
+                </div>
+            </div>
 
             <div class="hero-content reveal">
 
@@ -227,6 +258,19 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
             </div>
 
 
+            <div class="home-slider-controls" role="group" aria-label="Commandes des photos de HEMIP">
+                <button type="button" data-slide-previous aria-label="Photo précédente"><span aria-hidden="true">‹</span></button>
+                <div class="home-slider-dots" role="group" aria-label="Choisir une photo">
+                    <button type="button" class="home-slider-dot" aria-current="true" aria-label="Afficher la photo 1 : La façade HEMIP" aria-controls="home-slide-1"></button>
+                    <button type="button" class="home-slider-dot" aria-label="Afficher la photo 2 : Une scène de cérémonie HEMIP" aria-controls="home-slide-2"></button>
+                    <button type="button" class="home-slider-dot" aria-label="Afficher la photo 3 : La pratique en atelier" aria-controls="home-slide-3"></button>
+                    <button type="button" class="home-slider-dot" aria-label="Afficher la photo 4 : L’apprentissage informatique" aria-controls="home-slide-4"></button>
+                </div>
+                <button type="button" data-slide-toggle aria-pressed="false" aria-label="Mettre le défilement des photos en pause">Ⅱ</button>
+                <button type="button" data-slide-next aria-label="Photo suivante"><span aria-hidden="true">›</span></button>
+            </div>
+            <p class="home-slider-status" aria-live="off" aria-atomic="true">01 — La façade HEMIP</p>
+
             <div class="hero-visual">
 
                 <div class="circle circle-one"></div>
@@ -283,7 +327,7 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
         
      <!-- section POURQUOI CHOISIR HEMIP-->  
       
-        <section class="container_pourquoi">
+        <section class="container_pourquoi" id="ecole">
          <div class="content_pourquoi reveal">
              <!-- Titre section POURQUOI-->
     <h1> Pourquoi choisir
@@ -298,7 +342,7 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 
                      <div class="hero-buttons">
 
-                    <a href="#formations" class="btn btn-primary">
+                    <a href="contact.php#contact" class="btn btn-primary">
                        Nous contacter 
                         <i class="ri-arrow-right-line"></i>
                     </a>
@@ -406,6 +450,9 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 </section>
 
 
+
+
+
 <!-- SECTION GOOGLE MAPS HEMIP -->
 <section class="location-section" id="localisation">
 
@@ -458,6 +505,8 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
     </div>
 
 </section>
+
+
 
 
 <footer class="footer reveal">
@@ -553,6 +602,8 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 </footer>
 
 <script src="assets/js/main.js"></script>
+  <script src="assets/js/home-sections.js" defer></script>
 
+  <script src="assets/js/pwa.js" defer></script>
 </body>
 </html>

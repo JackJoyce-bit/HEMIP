@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#111c22">
+    <title>Prototype V0 — HEMIP</title>
+  <style>
+    :root{--primary:#0b4ea2;--primary-dark:#073570;--primary-light:#eaf3ff;--dark:#071a33;--text:#4b5563;--light:#f5f8fc;--white:#fff;--border:#e5eaf1;--radius:20px;--max:1200px;--shadow:0 20px 50px rgba(7,26,51,.12);}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,sans-serif;color:var(--dark);background:#fff}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}.prototype-banner{padding:9px 16px;text-align:center;background:#eaf3ff;color:#073570;font-size:12px;font-weight:700;letter-spacing:.02em}.header{position:sticky;top:0;z-index:5;background:#111c22;color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.12)}.nav{max-width:1320px;margin:auto;min-height:76px;padding:10px 26px;display:flex;align-items:center;justify-content:space-between;gap:26px}.brand{display:flex;align-items:center;gap:11px;flex:none;font-weight:800;letter-spacing:.08em}.brand img{width:48px;height:48px;object-fit:contain;border-radius:8px;background:#fff}.links{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);font-size:13px;font-weight:700}.links a{color:#edf4fa;transition:color .2s}.links a:hover{color:#90c2ff}.links .contact-link{padding:11px 16px;border-radius:10px;background:var(--primary)}
+    .hero{position:relative;isolation:isolate;min-height:min(760px,calc(100vh - 96px));display:flex;align-items:center;overflow:hidden;color:#fff;background:#071a33}.hero-photo,.hero-shade{position:absolute;inset:0;width:100%;height:100%}.hero-photo{z-index:-2;object-fit:cover;object-position:center 48%}.hero-shade{z-index:-1;background:linear-gradient(90deg,rgba(4,17,34,.91) 0%,rgba(4,17,34,.77) 40%,rgba(4,17,34,.2) 100%),linear-gradient(0deg,rgba(4,17,34,.57),transparent 40%)}.hero-inner{width:min(var(--max),calc(100% - 64px));margin:0 auto;padding:90px 0 105px}.eyebrow{display:inline-flex;align-items:center;gap:10px;color:#d6e9ff;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.eyebrow:before{content:"";width:25px;height:2px;background:#58a4ff}.hero h1{max-width:740px;margin:24px 0;font-size:clamp(48px,7vw,86px);line-height:.99;letter-spacing:-.055em}.hero h1 span{color:#9ccaff}.hero-copy{max-width:565px;margin:0;color:#ecf3fb;font-size:17px;line-height:1.8}.hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border:1px solid transparent;border-radius:11px;font-size:13px;font-weight:800}.btn-primary{background:var(--primary);color:#fff;box-shadow:0 12px 25px rgba(11,78,162,.3)}.btn-secondary{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.08);color:#fff;backdrop-filter:blur(8px)}.stats{display:flex;gap:22px;align-items:center;margin-top:48px}.stat{display:grid;gap:5px}.stat strong{font-size:24px}.stat span{font-size:11px;color:#d4dfec}.stat-divider{height:34px;width:1px;background:rgba(255,255,255,.38)}.slide-caption{position:absolute;right:max(32px,calc((100% - var(--max))/2));bottom:27px;color:#fff;font-size:12px;font-weight:700;text-shadow:0 1px 8px #000}.slide-ui{position:absolute;right:max(32px,calc((100% - var(--max))/2));bottom:57px;display:flex;align-items:center;gap:9px}.slide-ui button{width:37px;height:37px;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(6,20,39,.4);color:#fff;font-size:19px}.slide-dot{width:20px;height:4px;border-radius:4px;background:rgba(255,255,255,.5)}.slide-dot.active{width:35px;background:#fff}.slide-count{margin-left:4px;color:#fff;font-size:11px;font-weight:700}
+    .section{padding:96px 24px}.container{max-width:var(--max);margin:0 auto}.section-kicker{margin:0 0 12px;color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.section-head{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:34px}.section h2{margin:0;font-size:clamp(32px,4vw,50px);line-height:1.08;letter-spacing:-.04em}.section-intro{max-width:485px;margin:0;color:var(--text);font-size:15px;line-height:1.75}.works{background:var(--light)}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.work-card{overflow:hidden;border:1px solid var(--border);border-radius:17px;background:#fff;box-shadow:0 10px 28px rgba(7,26,51,.06)}.work-card img{display:block;width:100%;height:210px;object-fit:cover}.card-copy{padding:18px}.card-copy span{color:var(--primary);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.card-copy h3{margin:9px 0 6px;font-size:17px}.card-copy p{margin:0;color:var(--text);font-size:13px;line-height:1.6}
+    .contact{background:#fff}.contact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start}.contact-aside{padding:27px 0}.contact-aside h2{max-width:440px}.contact-aside>p:not(.section-kicker){max-width:410px;color:var(--text);font-size:15px;line-height:1.8}.contact-details{display:grid;gap:13px;margin-top:28px}.contact-detail{display:flex;gap:12px;align-items:center;color:var(--dark);font-size:14px;font-weight:700}.contact-detail b{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--primary-light);color:var(--primary)}.form-card{padding:30px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow)}.form-card h3{margin:0 0 6px;font-size:23px}.form-note{margin:0 0 22px;color:var(--text);font-size:13px;line-height:1.6}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700}.field input,.field textarea{width:100%;min-height:45px;padding:11px 12px;border:1px solid #d9e1eb;border-radius:10px;background:#fbfcfe;color:var(--dark);outline:none}.field textarea{min-height:110px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,78,162,.12)}.consent{display:flex;align-items:flex-start;gap:9px;margin:16px 0;color:var(--text);font-size:11px;line-height:1.55}.consent input{margin-top:2px;accent-color:var(--primary)}.form-submit{width:100%;border:0;cursor:default}.demo-warning{margin:12px 0 0;color:#6b7280;text-align:center;font-size:11px}.footer{padding:26px 24px;background:#111c22;color:#dbe4ed;text-align:center;font-size:12px}.footer strong{color:#fff}.section+.section{scroll-margin-top:80px}
+    @media(max-width:900px){.links{gap:13px;font-size:12px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.section-head{align-items:start;flex-direction:column}.contact-layout{grid-template-columns:1fr;gap:22px}.contact-aside{padding:0}.hero{min-height:680px}}
+    @media(max-width:640px){.nav{min-height:68px;padding:9px 16px;gap:12px;flex-wrap:wrap}.brand img{width:40px;height:40px}.brand{font-size:13px}.links{width:100%;overflow-x:auto;padding:2px 0 8px;gap:17px;white-space:nowrap}.links a{font-size:11px}.links .contact-link{padding:8px 11px}.hero{min-height:700px;align-items:flex-start}.hero-photo{object-position:58% center}.hero-shade{background:linear-gradient(90deg,rgba(4,17,34,.84),rgba(4,17,34,.52)),linear-gradient(0deg,rgba(4,17,34,.72),transparent 64%)}.hero-inner{width:calc(100% - 40px);padding:76px 0 150px}.hero h1{font-size:clamp(47px,13vw,66px);margin:20px 0}.hero-copy{font-size:15px}.hero-actions{display:grid;grid-template-columns:1fr}.stats{gap:12px;margin-top:34px}.stat strong{font-size:19px}.stat span{font-size:9px}.slide-ui{right:20px;bottom:58px}.slide-caption{left:20px;right:20px;bottom:27px}.section{padding:68px 20px}.cards{grid-template-columns:1fr;gap:14px}.work-card img{height:230px}.form-card{padding:21px 17px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.contact-aside h2{font-size:38px}}
+    .menu-toggle{display:none}
+    @media(max-width:768px){.nav{position:relative}.menu-toggle{display:grid;place-items:center;flex:none;width:44px;height:44px;border:1px solid rgba(255,255,255,.24);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;font-size:20px}.links{display:none;position:absolute;top:68px;left:0;right:0;width:100%;padding:8px 16px 16px;flex-direction:column;align-items:stretch;gap:0;white-space:normal;overflow:visible;background:#111c22;box-shadow:0 15px 24px rgba(0,0,0,.2)}.links.is-open{display:flex}.links a{flex:none;padding:14px 10px;font-size:14px}.links .contact-link{align-self:flex-start;margin:5px 0}}
+    @media(max-width:640px){.nav{flex-wrap:nowrap}.links{width:100%}.links a{font-size:14px}}
+  </style>
+</head>
+<body>
+  <div class="prototype-banner">PROTOTYPE V0 — maquette visuelle statique · aucun message ne sera envoyé</div>
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="#accueil" aria-label="HEMIP, accueil"><img src="../../config/assets/img/logo-hemip.jpg" alt=""><span>HEMIP</span></a>
+      <button class="menu-toggle" type="button" aria-controls="primary-links" aria-expanded="false" aria-label="Ouvrir le menu"><span aria-hidden="true">☰</span></button>
+      <nav class="links" id="primary-links" aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a><a href="#formations">Formations</a><a href="#realisations">Nos réalisations</a><a href="#contact" class="contact-link">Contact</a><a href="#apropos">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil" aria-label="Accueil HEMIP — maquette du carrousel">
+      <img class="hero-photo" src="../pdf-assets/preview-07.jpg" alt="Façade HEMIP et enseigne de l’école">
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <span class="eyebrow">Haute École de Management et d’Ingénierie</span>
+        <h1>Construisez votre <span>avenir.</span></h1>
+        <p class="hero-copy">Bienvenue à la Haute École de Management et d’Ingénierie la Percée. Une formation d’excellence pour préparer les talents de demain.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#formations">Découvrir nos formations&nbsp; ↗</a><a class="btn btn-secondary" href="#apropos">Découvrir HEMIP</a></div>
+        <div class="stats" aria-label="Chiffres affichés sur le site actuel"><div class="stat"><strong>+10</strong><span>Formations</span></div><div class="stat-divider"></div><div class="stat"><strong>+500</strong><span>Étudiants</span></div><div class="stat-divider"></div><div class="stat"><strong>100%</strong><span>Engagement</span></div></div>
+      </div>
+      <div class="slide-ui" aria-label="Aperçu des commandes du carrousel"><button type="button" aria-label="Diapositive précédente">‹</button><span class="slide-dot active"></span><span class="slide-dot"></span><span class="slide-dot"></span><span class="slide-dot"></span><button type="button" aria-label="Diapositive suivante">›</button><span class="slide-count">01 / 04</span></div>
+      <div class="slide-caption">01 — La façade HEMIP</div>
+    </section>
+
+    <section class="section works" id="realisations">
+      <div class="container">
+        <div class="section-head"><div><p class="section-kicker">La vie à HEMIP</p><h2>Nos réalisations</h2></div><p class="section-intro">Des moments de formation, de pratique et de vie d’école, illustrés par les photos partagées par HEMIP.</p></div>
+        <div class="cards">
+          <article class="work-card"><img src="../pdf-assets/pdf-image-01-658x485.png" alt="Une diplômée en tenue de cérémonie entourée de membres de l’équipe"><div class="card-copy"><span>Cérémonie</span><h3>Un moment de réussite</h3><p>Une cérémonie partagée avec l’équipe de l’école.</p></div></article>
+          <article class="work-card"><img src="../pdf-assets/pdf-image-02-509x448.png" alt="Étudiants en tenue de travail réunis autour d’un moteur"><div class="card-copy"><span>Pratique technique</span><h3>Apprendre en atelier</h3><p>Les gestes professionnels prennent forme sur le terrain.</p></div></article>
+          <article class="work-card"><img src="../pdf-assets/pdf-image-06-526x358.png" alt="Étudiants en travaux pratiques sur des ordinateurs"><div class="card-copy"><span>Informatique</span><h3>La pratique en salle</h3><p>Un exercice appliqué devant les postes informatiques.</p></div></article>
+          <article class="work-card"><img src="../pdf-assets/pdf-image-05-1080x810.png" alt="Groupe réuni devant l’école et une affiche de formation"><div class="card-copy"><span>Vie de l’école</span><h3>Se retrouver et échanger</h3><p>Un temps de rencontre devant les locaux de HEMIP.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-layout">
+        <div class="contact-aside"><p class="section-kicker">Nous contacter</p><h2>Parlons de votre avenir.</h2><p>Une question sur les formations ou les inscriptions ? Écrivez à l’équipe de HEMIP ; nous vous répondrons à l’adresse indiquée.</p><div class="contact-details"><a class="contact-detail" href="mailto:hemilaperceeinformation@gmail.com"><b>@</b><span>hemilaperceeinformation@gmail.com</span></a><a class="contact-detail" href="tel:+242069149242"><b>☎</b><span>+242 06 914 92 42</span></a></div></div>
+        <div class="form-card"><h3>Envoyer un message</h3><p class="form-note">Les champs marqués * sont requis. Vos coordonnées serviront uniquement à répondre à votre demande.</p>
+          <form>
+            <div class="form-grid">
+              <div class="field"><label for="prenom">Prénom *</label><input id="prenom" placeholder="Votre prénom" required></div>
+              <div class="field"><label for="nom">Nom *</label><input id="nom" placeholder="Votre nom" required></div>
+              <div class="field"><label for="email">Adresse e-mail *</label><input id="email" type="email" placeholder="vous@exemple.com" required></div>
+              <div class="field"><label for="telephone">Téléphone</label><input id="telephone" type="tel" placeholder="+242 …"></div>
+              <div class="field full"><label for="objet">Objet *</label><input id="objet" placeholder="Objet de votre demande" required></div>
+              <div class="field full"><label for="message">Votre message *</label><textarea id="message" placeholder="Comment pouvons-nous vous aider ?" required></textarea></div>
+            </div>
+            <label class="consent"><input type="checkbox" required><span>J’accepte que ces informations soient utilisées uniquement pour répondre à mon message.</span></label>
+            <button class="btn btn-primary form-submit" type="button">Envoyer mon message — aperçu</button>
+            <p class="demo-warning">Prototype uniquement : le formulaire n’est pas relié au serveur et aucun courriel ne part.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><strong>HEMIP</strong> · Haute École de Management et d’Ingénierie la Percée · Prototype visuel local</footer>
+  <script>
+    const menuButton=document.querySelector('.menu-toggle');
+    const primaryLinks=document.querySelector('#primary-links');
+    menuButton.addEventListener('click',()=>{
+      const open=menuButton.getAttribute('aria-expanded')==='true';
+      menuButton.setAttribute('aria-expanded',String(!open));
+      menuButton.setAttribute('aria-label',open?'Ouvrir le menu':'Fermer le menu');
+      menuButton.querySelector('[aria-hidden="true"]').textContent=open?'☰':'×';
+      primaryLinks.classList.toggle('is-open',!open);
+    });
+    primaryLinks.addEventListener('click',event=>{
+      if(event.target.closest('a')){menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Ouvrir le menu');menuButton.querySelector('[aria-hidden="true"]').textContent='☰';primaryLinks.classList.remove('is-open');}
+    });
+  </script>
+</body>
+</html>

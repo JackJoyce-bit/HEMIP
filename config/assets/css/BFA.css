@@ -10,7 +10,7 @@ table {
 }
 
 th, td {
-  border: 2px solid #000;
+  border: 2px solid var(--hemip-text);
   padding: 20px;
   height: 30px ;
   vertical-align: middle;
@@ -35,7 +35,7 @@ th {
 /* Conteneur principal */
 .formation-container {
   font-family: Arial, sans-serif;
-  color: #333333;
+  color: var(--hemip-text);
   max-width: 900px;
   margin: 0 auto;
   padding: 15px;
@@ -50,8 +50,8 @@ th {
 .banner-title {
   display: inline-block;
  
-  color: #111c22;
-  border: 2px solid #168cff;
+  color: var(--hemip-text);
+  border: 2px solid var(--hemip-primary);
   border-radius: 7px;
   padding: 8px 30px;
   font-weight: bold;
@@ -65,8 +65,8 @@ th {
 
 /* Titres de section verts */
 .section-title {
-  background-color: #111c22;
-  color: #ffffff;
+  background-color: var(--hemip-text);
+  color: var(--hemip-bg);
   font-weight: bold;
   font-size: 14px;
   padding: 4px 8px;
@@ -97,8 +97,8 @@ font-family: Arial, sans-serif;
 ========================= */
 
 .footer {
-    background: #111c22;
-    color: #fff;
+    background: var(--hemip-text);
+    color: var(--hemip-bg);
     padding: 60px 7% 0;
     position: relative;
     overflow: hidden;
@@ -110,7 +110,7 @@ font-family: Arial, sans-serif;
     position: absolute;
     width: 250px;
     height: 250px;
-    background: rgba(0, 123, 255, 0.15);
+    background: rgba(var(--hemip-primary-rgb), 0.15);
     border-radius: 50%;
     filter: blur(80px);
     top: -100px;
@@ -157,7 +157,7 @@ font-family: Arial, sans-serif;
 
 .footer-slogan {
     max-width: 350px;
-    color: #c9d7e8;
+    color: var(--hemip-neutral);
     font-size: 15px;
     line-height: 1.8;
 }
@@ -177,7 +177,7 @@ font-family: Arial, sans-serif;
     display: block;
     width: 35px;
     height: 3px;
-    background: #168cff;
+    background: var(--hemip-primary);
     border-radius: 10px;
     margin-top: 8px;
 }
@@ -201,7 +201,7 @@ font-family: Arial, sans-serif;
 
 .footer-contact i {
     font-size: 20px;
-    color: #168cff;
+    color: var(--hemip-primary-strong);
 }
 
 .footer-contact a {
@@ -220,7 +220,7 @@ font-family: Arial, sans-serif;
 ========================= */
 
 .social-text {
-    color: #c9d7e8;
+    color: var(--hemip-neutral);
     font-size: 14px;
     line-height: 1.7;
     margin-bottom: 20px;
@@ -238,10 +238,10 @@ font-family: Arial, sans-serif;
     align-items: center;
     justify-content: center;
 
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(var(--hemip-bg-rgb), 0.15);
     border-radius: 50%;
 
-    color: #fff;
+    color: var(--hemip-bg);
     text-decoration: none;
 
     transition: all 0.3s ease;
@@ -252,10 +252,10 @@ font-family: Arial, sans-serif;
 }
 
 .social-link:hover {
-    background: #168cff;
-    border-color: #168cff;
+    background: var(--hemip-primary);
+    border-color: var(--hemip-primary);
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(22, 140, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(var(--hemip-primary-rgb), 0.3);
 }
 
 
@@ -269,7 +269,7 @@ font-family: Arial, sans-serif;
     max-width: 1200px;
     margin: auto;
 
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(var(--hemip-bg-rgb), 0.1);
 
     padding: 22px 0;
 
@@ -281,7 +281,7 @@ font-family: Arial, sans-serif;
 
 .footer-bottom p {
     margin: 0;
-    color: #8fa4bd;
+    color: var(--hemip-muted);
     font-size: 12px;
 }
 

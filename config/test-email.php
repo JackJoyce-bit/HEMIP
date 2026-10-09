@@ -23,7 +23,6 @@ $config = config_email();
 
 $resultat = null;
 $erreur = null;
-$reponseServeur = null;
 $adresse = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,8 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'HEMIP - Test d\'envoi d\'email',
             "Bonjour,\n\nCeci est un email de test envoyé depuis le site HEMIP.\n"
             . "Si vous lisez ce message, l'envoi des emails fonctionne.\n",
-            $erreur,
-            $reponseServeur
+            $erreur
         );
     }
 }
@@ -63,17 +61,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
             padding: 30px 15px;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f1f5f9;
-            color: #1e293b;
+            background: var(--hemip-bg);
+            color: var(--hemip-text);
         }
 
         .carte {
             max-width: 560px;
             margin: 0 auto;
             padding: 28px;
-            background: #ffffff;
+            background: var(--hemip-bg);
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 4px 20px rgba(var(--hemip-text-rgb), 0.08);
         }
 
         h1 { margin: 0 0 6px; font-size: 22px; }
@@ -83,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .reglages {
             margin: 18px 0;
             padding: 12px 14px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: var(--hemip-bg);
+            border: 1px solid var(--hemip-neutral-soft);
             border-radius: 8px;
             font-size: 14px;
             line-height: 1.7;
@@ -95,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input[type=email] {
             width: 100%;
             padding: 11px 12px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--hemip-neutral);
             border-radius: 8px;
             font-size: 15px;
         }
@@ -103,8 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         button {
             margin-top: 16px;
             padding: 11px 20px;
-            background: #2563eb;
-            color: #ffffff;
+            background: var(--hemip-primary-strong);
+            color: var(--hemip-bg);
             border: none;
             border-radius: 8px;
             font-size: 15px;
@@ -112,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
         }
 
-        button:hover { background: #1d4ed8; }
+        button:hover { background: var(--hemip-primary-strong); }
 
         .message {
             margin: 18px 0 0;
@@ -123,11 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             line-height: 1.5;
         }
 
-        .message.ok { background: #e6f6ec; border-color: #16a34a; color: #14532d; }
-        .message.ko { background: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+        .message.ok { background: var(--hemip-primary-soft); border-color: var(--hemip-primary-strong); color: var(--hemip-primary-strong); }
+        .message.ko { background: var(--hemip-accent-soft); border-color: var(--hemip-accent); color: var(--hemip-accent-strong); }
 
-        a { color: #2563eb; }
+        a { color: var(--hemip-primary-strong); }
     </style>
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>
@@ -175,14 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Avec Mailpit, ouvrez
             <a href="http://localhost:8025" target="_blank" rel="noopener">http://localhost:8025</a>
             pour le lire. Avec Gmail, regardez aussi vos courriers indésirables.
-            <?php if ($reponseServeur): ?>
-                <br><br>
-                Réponse du serveur mail : <code><?= htmlspecialchars($reponseServeur) ?></code><br>
-                Elle prouve que le serveur a accepté le message. Avec Gmail, il doit aussi apparaître
-                dans le dossier « Messages envoyés » du compte expéditeur. Si le destinataire ne le
-                reçoit pas, cherchez dans la boîte de réception de l'expéditeur un message
-                « Delivery Status Notification » : il en donne la raison.
-            <?php endif; ?>
         </div>
 
     <?php elseif ($resultat === false): ?>
@@ -194,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php endif; ?>
 
-    <p style="margin-top: 22px; font-size: 13px; color: #64748b;">
+    <p style="margin-top: 22px; font-size: 13px; color: var(--hemip-muted);">
         Tous les envois sont notés dans <code>logs/emails.log</code>.
         <br><a href="dashboard.php">Retour au tableau de bord</a>
     </p>
