@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- Remix Icon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
    <!--  style css  -->
      <link rel="stylesheet" href="assets/css/connexion.css?v=2">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -98,24 +98,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             margin-bottom: 1.5rem;
         }
 
-        .login__box--error { border-color: #ff6b6b; }
-        .login__box--error .login__icon { color: #ff6b6b; }
+        .login__box--error { border-color: var(--hemip-accent-strong); }
+        .login__box--error .login__icon { color: var(--hemip-accent-strong); }
         .login__error-text {
             display: block;
             width: 100%;
             padding: 0 1rem 0 3rem;
             font-size: .85rem;
             line-height: 1.3;
-            color: #ff8c8c;
+            color: var(--hemip-accent-strong);
             text-align: left;
         }
     </style>
 
      <!-- favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logo hemip.jpg" style="border-radius: 20px;">
-    
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+
      <title>Connexion | HEMIP</title>
-    <meta name="theme-color" content="#0b4ea2">
+    <meta name="theme-color" content="#1094d7">
     <meta name="application-name" content="HEMIP">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -124,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
     <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 <body>
     <header class="header">
@@ -176,13 +177,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <li><a href="RT.html">Réseaux et Télécommunication</a></li>
                             <li><a href="MI.html">Maintenance Industrielle</a></li>
                             <li><a href="AII.html">Automatisation et Informatique Industriel</a></li>
-                            
-                            
-                          
+
+
+
                         </ul>
 
                     </li>
-                    
+
 
                     <!-- SOUS MENU -->
                     <li class="submenu">
@@ -197,8 +198,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <li><a href="GLT.html">Gestion Logistique et Transport</a></li>
                             <li><a href="BFA.html">Banque et Finance des Assurances</a></li>
                             <li><a href="CIT.html">Commerce International et Transit</a></li>
-                           <li><a href="GFC.html">Gestion Finance et Comptable</a></li>       
-                         <li><a href="MRH.html">Management des Ressources Humaines</a></li> 
+                           <li><a href="GFC.html">Gestion Finance et Comptable</a></li>
+                         <li><a href="MRH.html">Management des Ressources Humaines</a></li>
                         </ul>
 
                     </li>
@@ -219,12 +220,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             <li>
-                <a href="index.php#contact">Contact</a>
+                <a href="contact.php#contact">Contact</a>
             </li>
  <li>
                 <a href="login.php"><i class="ri-admin-line"></i></a>
             </li>
-            
+
 
         </ul>
 
@@ -257,14 +258,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <input type="password" name="motdepasse" autocomplete="current-password" class="login__input" required placeholder="" id="motdepasse">
       <label for="motdepasse" class="login__label">Mot de passe</label>
            </div>
-       </div> 
+       </div>
 
-      <a href="" class="login__forgot"> Mot de passe oublié ?</a>
+      <a href="mailto:hemilaperceeinformation@gmail.com?subject=HEMIP%20-%20R%C3%A9initialisation%20du%20mot%20de%20passe%20administrateur" class="login__forgot"> Mot de passe oublié ?</a>
       <button type="submit" class="login__button">
         Se connecter <i class="ri-send-ins-line"></i>
       </button>
 
-    
+
     </form>
  </div>
 
@@ -272,7 +273,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <img src="assets/img/login.jpg" alt="" class="login__img">
         </div>
     </div>
-  </section>  
+  </section>
 
 
 
@@ -287,7 +288,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <!-- Présentation -->
         <div class="footer-col footer-about">
             <div class="footer-logo">
-                <img src="assets/img/logo hemip.jpg" alt="Logo HEMIP">
+                <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
                 <span>HEMIP</span>
             </div>
 
@@ -373,8 +374,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 </footer>
 
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>    
+<!-- GSAP (hébergé localement) -->
+<script src="assets/vendor/gsap/gsap.min.js"></script>    
 <!-- JS -->
 <script src="assets/js/connexion.js"></script>
 <script src="assets/js/main.js"></script>

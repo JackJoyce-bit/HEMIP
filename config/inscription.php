@@ -532,17 +532,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      <!-- Remix Icon -->
    
     <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        href="assets/vendor/remixicon/remixicon.css"
         rel="stylesheet"
     >
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/inscription.css">
      <!-- favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg" style="border-radius: 20px;">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
 
     <title>Inscription HEMIP</title>
-    <meta name="theme-color" content="#0b4ea2">
+    <meta name="theme-color" content="#1094d7">
     <meta name="application-name" content="HEMIP">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -551,6 +551,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
     <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 <body>
 
@@ -679,7 +680,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             <li>
-                <a href="index.php#contact">Contact</a>
+                <a href="contact.php#contact">Contact</a>
             </li>
 
             <!-- AJOUT : À PROPOS -->

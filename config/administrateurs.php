@@ -142,22 +142,22 @@ $liste = $connexion->query(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des administrateurs | HEMIP</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.1/fonts/remixicon.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg">
+    <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', Arial, sans-serif;
-            background: #f5f8fc;
-            color: #071a33;
+            background: var(--hemip-bg);
+            color: var(--hemip-text);
         }
 
         .topbar {
-            background: #101a23;
-            color: #fff;
+            background: var(--hemip-text);
+            color: var(--hemip-bg);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -166,7 +166,7 @@ $liste = $connexion->query(
         }
 
         .topbar a {
-            color: #fff;
+            color: var(--hemip-bg);
             text-decoration: none;
             font-size: 14px;
             display: inline-flex;
@@ -174,7 +174,7 @@ $liste = $connexion->query(
             gap: 6px;
         }
 
-        .topbar a:hover { color: #9cc3ff; }
+        .topbar a:hover { color: var(--hemip-primary-soft); }
 
         .container {
             max-width: 1000px;
@@ -192,7 +192,7 @@ $liste = $connexion->query(
         }
 
         .head h1 { font-size: 24px; }
-        .head p  { color: #4b5563; font-size: 14px; margin-top: 4px; }
+        .head p  { color: var(--hemip-muted); font-size: 14px; margin-top: 4px; }
 
         .btn {
             display: inline-flex;
@@ -201,20 +201,20 @@ $liste = $connexion->query(
             border: none;
             cursor: pointer;
             text-decoration: none;
-            background: #0b4ea2;
-            color: #fff;
+            background: var(--hemip-primary-strong);
+            color: var(--hemip-bg);
             padding: 10px 18px;
             border-radius: 25px;
             font: 500 14px 'Inter', Arial, sans-serif;
             transition: background .3s;
         }
 
-        .btn:hover { background: #073570; }
+        .btn:hover { background: var(--hemip-primary-strong); }
 
         .btn-small { padding: 7px 13px; font-size: 13px; }
 
-        .btn-danger { background: #c62828; }
-        .btn-danger:hover { background: #8e1c1c; }
+        .btn-danger { background: var(--hemip-accent); }
+        .btn-danger:hover { background: var(--hemip-accent-strong); }
 
         .alert {
             padding: 12px 14px;
@@ -224,13 +224,13 @@ $liste = $connexion->query(
             border-left: 4px solid;
         }
 
-        .alert.succes { background: #e6f6ec; color: #14683d; border-color: #14683d; }
-        .alert.erreur { background: #ffe5e5; color: #b00020; border-color: #b00020; }
+        .alert.succes { background: var(--hemip-primary-soft); color: var(--hemip-primary-strong); border-color: var(--hemip-primary-strong); }
+        .alert.erreur { background: var(--hemip-accent-soft); color: var(--hemip-accent-strong); border-color: var(--hemip-accent); }
 
         .card {
-            background: #fff;
+            background: var(--hemip-bg);
             border-radius: 14px;
-            box-shadow: 0 4px 18px rgba(7, 26, 51, .08);
+            box-shadow: 0 4px 18px rgba(var(--hemip-text-rgb), .08);
             overflow-x: auto;
         }
 
@@ -240,16 +240,16 @@ $liste = $connexion->query(
             text-align: left;
             padding: 14px 18px;
             font-size: 14px;
-            border-bottom: 1px solid #e5eaf1;
+            border-bottom: 1px solid var(--hemip-neutral-soft);
             vertical-align: middle;
         }
 
         th {
-            background: #eaf3ff;
+            background: var(--hemip-primary-soft);
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: .5px;
-            color: #073570;
+            color: var(--hemip-primary-strong);
         }
 
         tr:last-child td { border-bottom: none; }
@@ -262,9 +262,9 @@ $liste = $connexion->query(
             font-weight: 600;
         }
 
-        .badge.SuperAdmin    { background: #ede7ff; color: #4c2de0; }
-        .badge.Administrateur { background: #eaf3ff; color: #0b4ea2; }
-        .badge.moi           { background: #e6f6ec; color: #14683d; margin-left: 6px; }
+        .badge.SuperAdmin    { background: var(--hemip-accent-soft); color: var(--hemip-primary-strong); }
+        .badge.Administrateur { background: var(--hemip-primary-soft); color: var(--hemip-primary-strong); }
+        .badge.moi           { background: var(--hemip-primary-soft); color: var(--hemip-primary-strong); margin-left: 6px; }
 
         .actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
@@ -272,19 +272,20 @@ $liste = $connexion->query(
 
         select {
             padding: 7px 8px;
-            border: 1px solid #c9d3e0;
+            border: 1px solid var(--hemip-neutral);
             border-radius: 8px;
             font: 13px 'Inter', Arial, sans-serif;
-            background: #fff;
+            background: var(--hemip-bg);
         }
 
-        .vide { padding: 30px; text-align: center; color: #4b5563; }
+        .vide { padding: 30px; text-align: center; color: var(--hemip-muted); }
 
         @media (max-width: 600px) {
             .topbar { padding: 12px 15px; }
             .container { margin: 22px auto; }
         }
     </style>
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>

@@ -228,20 +228,7 @@ try {
 
   <title>Actualités — HEMIP</title>
 
-  <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-  >
-
-  <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-  >
-
-  <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-  >
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
 
   <link
       rel="stylesheet"
@@ -251,7 +238,7 @@ try {
   <!-- Remix Icon -->
 
   <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+      href="assets/vendor/remixicon/remixicon.css"
       rel="stylesheet"
   >
 
@@ -264,12 +251,7 @@ try {
 
   <!-- favicon -->
 
-  <link
-      rel="icon"
-      type="image/png"
-      href="assets/img/logo-hemip.jpg"
-      style="border-radius: 20px;"
-  >
+  <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
 
   <!-- =================================================
        STYLE UNIQUEMENT POUR LES NOUVELLES FONCTIONNALITÉS
@@ -289,8 +271,8 @@ try {
       border: none;
       padding: 12px 22px;
       border-radius: 30px;
-      background: #f1f3f6;
-      color: #333;
+      background: var(--hemip-bg);
+      color: var(--hemip-text);
       font-family: inherit;
       font-weight: 600;
       cursor: pointer;
@@ -299,8 +281,8 @@ try {
 
     .actu-tab:hover,
     .actu-tab.active {
-      background: #173f8a;
-      color: white;
+      background: var(--hemip-primary-strong);
+      color: var(--hemip-bg);
     }
 
     .actu-tab-content {
@@ -315,9 +297,9 @@ try {
       max-width: 900px;
       margin: 30px auto 45px;
       padding: 25px;
-      background: #fff;
+      background: var(--hemip-bg);
       border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+      box-shadow: 0 8px 25px rgba(var(--hemip-text-rgb), 0.07);
     }
 
     .admin-publication h2 {
@@ -338,7 +320,7 @@ try {
     .admin-publication textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--hemip-neutral-soft);
       border-radius: 8px;
       font-family: inherit;
     }
@@ -350,8 +332,8 @@ try {
 
     .admin-publication button {
       border: none;
-      background: #173f8a;
-      color: white;
+      background: var(--hemip-primary-strong);
+      color: var(--hemip-bg);
       padding: 12px 20px;
       border-radius: 8px;
       cursor: pointer;
@@ -366,13 +348,13 @@ try {
     }
 
     .admin-message.success {
-      background: #e7f7ed;
-      color: #176b36;
+      background: var(--hemip-primary-soft);
+      color: var(--hemip-primary-strong);
     }
 
     .admin-message.error {
-      background: #fdeaea;
-      color: #a32020;
+      background: var(--hemip-accent-soft);
+      color: var(--hemip-accent-strong);
     }
 
     .student-section-title {
@@ -392,10 +374,10 @@ try {
     }
 
     .academic-card {
-      background: white;
+      background: var(--hemip-bg);
       padding: 22px;
       border-radius: 12px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.06);
+      box-shadow: 0 7px 22px rgba(var(--hemip-text-rgb), 0.06);
     }
 
     .academic-card h3 {
@@ -410,19 +392,19 @@ try {
     .admin-count {
       text-align: center;
       padding: 30px;
-      background: white;
+      background: var(--hemip-bg);
       border-radius: 12px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.06);
+      box-shadow: 0 7px 22px rgba(var(--hemip-text-rgb), 0.06);
     }
 
     .admin-count strong {
       display: block;
       font-size: 42px;
-      color: #173f8a;
+      color: var(--hemip-primary-strong);
     }
 
     .testimonial-info {
-      background: #f7f8fa;
+      background: var(--hemip-bg);
       padding: 22px;
       border-radius: 12px;
       margin-bottom: 45px;
@@ -430,7 +412,7 @@ try {
 
   </style>
 
-    <meta name="theme-color" content="#0b4ea2">
+    <meta name="theme-color" content="#1094d7">
     <meta name="application-name" content="HEMIP">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -439,6 +421,7 @@ try {
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
     <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>
@@ -625,7 +608,7 @@ try {
 
             <li>
 
-                <a href="index.php#contact">
+                <a href="contact.php#contact">
                     Contact
                 </a>
 

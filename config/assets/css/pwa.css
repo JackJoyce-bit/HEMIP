@@ -10,25 +10,25 @@
   justify-content: center;
   gap: 8px;
   padding: 0 16px;
-  border: 1px solid rgba(255, 255, 255, 0.44);
+  border: 1px solid rgba(var(--hemip-bg-rgb), 0.44);
   border-radius: 999px;
-  background: #0b4ea2;
-  color: #fff;
+  background: var(--hemip-primary-strong);
+  color: var(--hemip-bg);
   font: 600 14px/1 Arial, sans-serif;
   cursor: pointer;
   transition: background-color 160ms ease, transform 160ms ease, border-color 160ms ease;
 }
 
 .pwa-install-button:hover:not(:disabled) {
-  border-color: #fff;
-  background: #073570;
+  border-color: var(--hemip-bg);
+  background: var(--hemip-primary-strong);
   transform: translateY(-1px);
 }
 
 .pwa-install-button:focus-visible,
 .pwa-dialog__close:focus-visible,
 .pwa-install-dialog :focus-visible {
-  outline: 3px solid #f3b547;
+  outline: 3px solid var(--hemip-accent);
   outline-offset: 3px;
 }
 
@@ -49,11 +49,11 @@
   width: min(92vw, 620px);
   padding: 13px 18px;
   transform: translateX(-50%);
-  border: 1px solid #c7d9ed;
+  border: 1px solid var(--hemip-primary-soft);
   border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 12px 32px rgba(7, 26, 51, 0.18);
-  color: #173b63;
+  background: var(--hemip-bg);
+  box-shadow: 0 12px 32px rgba(var(--hemip-text-rgb), 0.18);
+  color: var(--hemip-primary-strong);
   font: 600 14px/1.5 Arial, sans-serif;
   text-align: center;
 }
@@ -67,15 +67,15 @@
   max-width: 480px;
   padding: 0;
   overflow: visible;
-  border: 1px solid #d9e5f3;
+  border: 1px solid var(--hemip-primary-soft);
   border-radius: 20px;
-  background: #fff;
-  color: #071a33;
-  box-shadow: 0 24px 72px rgba(7, 26, 51, 0.28);
+  background: var(--hemip-bg);
+  color: var(--hemip-text);
+  box-shadow: 0 24px 72px rgba(var(--hemip-text-rgb), 0.28);
 }
 
 .pwa-install-dialog::backdrop {
-  background: rgba(7, 26, 51, 0.56);
+  background: rgba(var(--hemip-text-rgb), 0.56);
   backdrop-filter: blur(3px);
 }
 
@@ -92,15 +92,15 @@
   height: 38px;
   border: 0;
   border-radius: 50%;
-  background: #f1f5fa;
-  color: #173b63;
+  background: var(--hemip-bg);
+  color: var(--hemip-primary-strong);
   font: 400 27px/1 Arial, sans-serif;
   cursor: pointer;
 }
 
 .pwa-dialog__eyebrow {
   margin: 0 0 8px;
-  color: #0b4ea2;
+  color: var(--hemip-primary-strong);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -109,14 +109,14 @@
 
 .pwa-install-dialog h2 {
   margin: 0 42px 12px 0;
-  color: #071a33;
+  color: var(--hemip-text);
   font-size: clamp(1.4rem, 5vw, 1.8rem);
   line-height: 1.2;
 }
 
 .pwa-dialog__copy,
 .pwa-dialog__note {
-  color: #4b5563;
+  color: var(--hemip-muted);
   line-height: 1.65;
 }
 
@@ -128,7 +128,7 @@
   margin: 0;
   padding: 12px 14px;
   border-radius: 10px;
-  background: #eaf3ff;
+  background: var(--hemip-primary-soft);
   font-size: 0.9rem;
 }
 

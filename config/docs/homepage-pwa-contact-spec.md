@@ -1,81 +1,67 @@
-# Spécification — Slider, réalisations et contact HEMIP
+# Spécification — accueil, réalisations et contact HEMIP
 
-**État :** spécification approuvée et intégrée localement le 7 octobre 2026 ; déploiement de production non effectué.
+**État :** intégration locale vérifiée le 8 octobre 2026 ; pages autonomes et contenu PDF validés ; publication sur le site de production non effectuée.
 
 ## Intention
 
-Faire évoluer la page d’accueil existante du site HEMIP vers une vitrine plus vivante et exploitable comme PWA, sans la refondre : carrousel photo de héros, section « Nos réalisations », formulaire de contact transmis à l’école, et documentation `README.md`.
+Conserver l’identité et les parcours du site HEMIP, avec un accueil centré sur la présentation et son carrousel, une page Réalisations distincte qui ne retient qu’un exemple documenté dans le PDF fourni, et une page Contact séparée. Rendre l’ensemble lisible et opérable sur mobile, tablette et bureau.
 
-## Contexte vérifié
+## Architecture des pages
 
-- Le site cible est un site PHP natif dans `config/`, avec son menu partagé, `assets/css/style.css`, `assets/js/main.js`, et une PWA existante (`manifest.json`, `sw.js`, `pwa.js`).
-- La page d’accueil contient déjà une section localisation et un pied de page avec les coordonnées de l’établissement. Le lien public de contact est `hemilaperceeinformation@gmail.com`.
-- Le répertoire contient une fonction d’envoi SMTP existante (`mail.php`). La nouvelle fonctionnalité la réutilise ; elle ne copie ni n’affiche aucun secret.
-- Le PDF utilisateur `Capture d’écran 2026-09-05 213040.pdf` a livré huit photographies. Visuels identifiés : façade et enseigne HEMIP (4160 × 3120), cérémonie, atelier mécanique, cours/pratique informatique, rassemblement d’étudiants, groupe devant l’école et autres moments de vie. Les originaux ont été extraits sans modifier le PDF ; les dérivés JPEG optimisés sont nommés à part.
+| Route | Contenu et comportement |
+| --- | --- |
+| `index.php` | Accueil : navigation, carrousel de quatre photographies, présentation/formation, partenaires, localisation et footer. Le formulaire et la galerie Réalisations n’y sont plus intégrés. |
+| `realisations.html` | Page statique autonome sur l’essai expérimental de valorisation des os de bétail décrit dans le dossier HEMIP. |
+| `contact.php` | Coordonnées et formulaire autonome. Le formulaire réutilise la session PHP et l’endpoint `contact-submit.php`. |
+| `contact-submit.php` | POST protégé ; redirection 303 vers `contact.php#contact`. |
 
-## Périmètre fonctionnel
+Les menus des pages actives et les raccourcis PWA pointent vers les routes dédiées. L’ancien `index.html` demeure une copie historique ; il ne remplace pas l’accueil PHP déployé.
 
-### Accueil / carrousel
+## Accueil et carrousel
 
-- Conserver le titre, le texte et les CTA existants ; faire pointer « Nous contacter » vers `#contact` plutôt que vers l’ancre formations inexistante sur cette page.
-- Ajouter à l’arrière-plan du héros un diaporama plein cadre avec quatre vraies photos du PDF : façade HEMIP, cérémonie, atelier mécanique, pratique informatique.
-- Transition en fondu discrète ; rotation lente (environ 6 s), boutons précédent/suivant, repères par diapositive et commande pause/reprise.
-- Fonctionnement clavier, noms accessibles, texte suffisamment contrasté sur les photos, contrôle d’animation et absence d’autodéfilement sous `prefers-reduced-motion`.
+- Conserver le titre, le texte institutionnel et les CTA existants, ainsi que les sections partenaires/localisation.
+- Le carrousel utilise les photos locales `hemip-campus.jpg`, `hemip-ceremonie.jpg`, `hemip-atelier.jpg` et `hemip-informatique.jpg`, avec fondu discret, rotation lente, précédent/suivant, repères et pause/reprise.
+- Commandes accessibles au clavier ; la préférence `prefers-reduced-motion` arrête la lecture automatique.
+- Sur téléphone, les photos sont intégralement visibles, ratio original préservé avec `object-fit: contain`. Un fond peut apparaître autour de l’image ; le texte et les CTA sont placés après l’image pour ne pas la recouvrir.
 
-### « Nos réalisations »
+## Page « Nos réalisations » — source documentaire
 
-- Ajouter une section de quatre cartes illustrées, avec des légendes strictement descriptives des scènes visibles : moments de cérémonie, pratique technique, apprentissage en groupe, rencontre institutionnelle/vie de l’école.
-- Ne pas inventer de dates, de taux d’insertion, de récompenses ni de résultats non attestés par les images.
-- Ajouter un lien de menu vers `#realisations`, sans retirer les entrées existantes.
+La page présente un seul exemple, afin de rester concise et de ne pas confondre objectif et résultat de terrain : l’essai expérimental de transformation d’os de bétail décrit dans le dossier de présentation HEMIP fourni (pages 19–20).
 
-### Contact
+Le texte rapporte uniquement les données indiquées pour le lot : `25 kg` d’os frais, `10 kg` de poudre finale et un rendement moyen annoncé d’environ `56 %` pour la production de CaO à partir de l’hydroxyapatite. Il résume le traitement thermique, le refroidissement et le broyage mentionnés dans le dossier.
 
-- Ajouter une section `#contact` à la page d’accueil ; le lien Contact y mène, et l’ancre actuelle `#footer` demeure afin de préserver la compatibilité.
-- Champs requis : nom, prénom, adresse e-mail, objet, message et accord de traitement pour répondre ; champ téléphone facultatif.
-- Destinataire fixe : `hemilaperceeinformation@gmail.com`, repris du contact public existant. Aucun destinataire ne vient des champs soumis.
-- Réutiliser le transport SMTP déjà présent, avec corps en texte brut et adresse fournie visible dans le message pour faciliter la réponse.
-- Contrôles serveur : POST seulement, CSRF, validation des types et longueurs, adresse vérifiée, piège anti-robot, limitation des soumissions répétées par session et retour accessible du résultat.
-- Ne pas stocker le formulaire en base, ne pas mettre les POST en cache ou en file d’attente hors ligne. En mode sans connexion, expliquer qu’il faut se reconnecter avant l’envoi.
-- Adapter l’enregistreur mail avec une option de confidentialité qui omet le corps et les données du formulaire des journaux ; conserver le comportement existant pour les autres appels.
+Le statut reste explicitement **expérimental**. Le dossier exprime un objectif d’étude d’un matériau susceptible de remplacer la chaux vive, notamment pour le génie civil et des applications industrielles ; le site n’affirme ni production industrielle ni adoption commerciale déjà réalisées. Aucune photographie sans lien vérifiable avec l’expérience n’est utilisée comme illustration de ce projet.
 
-### PWA et documentation
+## Page Contact et protections
 
-- Mettre à jour/versionner le cache du service worker et précacher les nouvelles feuilles JS/CSS et images locales du site.
-- Garder les endpoints PHP et les POST hors du cache/service worker ; aucune soumission ne doit être rejouée après reconnexion.
-- Créer `README.md` dans `config/` : carte des pages et composants, fonctionnement du menu/carrousel/PWA/formulaire, dépendances mail, déploiement, tests et limites hors ligne.
+Le formulaire indépendant conserve les champs validés : prénom, nom, e-mail, téléphone facultatif, objet, message et consentement pour répondre à la demande. Le destinataire reste fixe : `hemilaperceeinformation@gmail.com`.
+
+Le handler refuse les méthodes autres que POST, utilise CSRF lié à la session, validation des formats/longueurs, honeypot anti-robot, limitation d’envoi par session, retour PRG accessible et désactivation du cache sur la réponse. Il réutilise le transport SMTP existant ; il ne stocke pas le message, n’accepte pas de destinataire fourni par l’utilisateur et n’envoie rien hors connexion. La journalisation pour le formulaire omet corps et coordonnées. Les tests locaux ne doivent pas joindre SMTP ni envoyer de courriel réel.
+
+## Responsive et accessibilité
+
+- Vérifier les viewports 320, 360, 390, 430, 768, 820, 1024, 1280, 1440 et 1920 px.
+- Corriger les débordements horizontaux, conserver les contenus dans des grilles fluides et garder des commandes mobiles accessibles.
+- Le panneau de navigation mobile peut défiler en hauteur ; ses états ARIA suivent son ouverture/fermeture.
+- Les images du hero utilisent `contain` sur mobile ; elles ne sont pas assombries par le voile desktop et les commandes restent au bord de la photo.
+- Tester Accueil, Réalisations, Contact et des pages de formation représentatives.
+
+La matrice locale a produit 50 captures, puis 14 combinaisons ciblées et 3 contrôles critiques ont passé après les ajustements. Aucune largeur contrôlée ne présente de débordement horizontal. La vidéo d’Actualités n’a pas été évaluée en lecture, car la prévisualisation `file://` ne valide pas le streaming du fichier local ; vérifier ce média au moyen du serveur HTTP.
+
+## PWA / hors ligne
+
+Le service worker utilise les versions `shell-v7`, `pages-v2` et `assets-v7`. Il précache ses ressources statiques et autorise `realisations.html` dans les pages anonymes récupérées réseau d’abord, conservées seulement après succès. La page peut alors être disponible hors ligne si elle a été visitée auparavant.
+
+Les routes PHP, dont `contact.php`, restent réseau uniquement, car leur rendu dépend de sessions et d’états de formulaire. Les POST ne sont jamais mis en cache ou rejoués. Hors connexion, le formulaire doit être soumis de nouveau après rétablissement du réseau. La PWA installable exige HTTPS en production.
 
 ## Design Read
 
-- **Mode :** extension / préservation ; même identité, même navigation principale et mêmes parcours existants.
-- **Préserver :** logo, encadrement bleu, en-tête sombre, texte institutionnel, liens téléphone/WhatsApp, adresse de contact, pages PHP, formulaire d’inscription, comportement PWA déjà en place.
-- **Améliorer :** force narrative des photos, démonstration de la vie et des pratiques de l’école, accès au formulaire, robustesse mobile et états de retour.
-- **Écarter :** refonte générale, fausses statistiques, dépendances de slider externes, collecte persistante d’informations de contact et stockage hors ligne des messages.
-- **Contrats protégés :** routes des pages et du formulaire d’inscription, noms/champs existants, ancres `#footer`, identité graphique et chemins de déploiement.
-- **Risque principal :** l’envoi dépend de la configuration SMTP déjà installée sur le serveur. La livraison locale n’envoie aucun courriel réel et ne prouve donc pas à elle seule le SMTP de production.
-- **Retour arrière :** retirer le balisage ajouté à `index.php`, les deux nouveaux modules JS/CSS, le handler contact, les images dérivées et leurs entrées du service worker ; les pages et données métier actuelles restent intactes.
+- **Mode :** extension/préservation ; aucune refonte générale.
+- **Préserver :** logo, identité bleue, en-tête et menu, formation, inscription, actualités, administration, localisation, PWA existante et contact public de l’école.
+- **Améliorer :** accès explicite aux pages, détail factuel d’un seul essai, pleine visibilité des photos de hero sur mobile et fluidité des mises en page.
+- **Écarter :** inventer des réalisations, afficher le lot comme résultat industriel, ajouter un service de formulaire externe, stocker des messages hors ligne ou ajouter des dépendances de slider.
+- **Risque à vérifier séparément :** l’envoi de messages dépend du SMTP configuré sur l’hébergement. Le travail local ne prouve pas son fonctionnement et ne change pas le site de production.
 
-## Quatre décisions de composition
+## Système visuel
 
-1. **Rôle narratif :** le héros accueille et oriente ; réalisations apporte la preuve par l’image ; contact transforme l’intérêt en demande.
-2. **Distance de lecture :** téléphone d’abord, avec gros titres, commandes tactiles et disposition une colonne ; ordinateur en secondaire avec zones larges et cartes multi-colonnes.
-3. **Température visuelle :** institutionnelle, humaine et énergique ; photographie réelle, voile bleu marine lisible, accents HEMIP plutôt qu’un thème neuf.
-4. **Capacité d’information :** un message et deux CTA visibles par héros, quatre cartes de réalisations au maximum, formulaire regroupé et texte de confidentialité concis.
-
-## Système visuel proposé
-
-| Élément | Décision |
-| --- | --- |
-| Couleurs | Réemploi des tokens existants : `--primary` (#0b4ea2), `--primary-dark` (#073570), `--primary-light` (#eaf3ff), `--dark` (#071a33), `--text` (#4b5563), `--light` (#f5f8fc), `--white`, `--border` (#e5eaf1). |
-| Typographie | Arial/sans-serif existante ; pas de police distante ajoutée. Titres au moyen de la même échelle fluide déjà utilisée. |
-| Grille et espacement | Conteneur existant 1200 px ; rythme de 8 px ; 4 cartes sur grand écran, 2 sur tablette, 1 sur téléphone. |
-| Surfaces | Rayon existant 20 px sur panneaux, champs tactiles de rayon 12 px, bordures discrètes, ombres légères. |
-| Images | Photographies fournies, redimensionnées seulement si nécessaire et encodées JPEG optimisé sans altérer les originaux ; cadrage `cover`, texte du héros placé sur le côté le moins chargé et gradient sombre. |
-| Mouvement | Fondu ~650 ms et rotation ~6 s, arrêt manuel disponible ; aucun autoplay avec réduction des animations demandée par le navigateur. |
-
-## Curseurs de design (sur 10)
-
-- Fidélité à la marque : **10** — identité et tokens existants conservés.
-- Variance visuelle : **2** — évolution ciblée, sans rebranding.
-- Intensité du mouvement : **3** — fondu léger, commandes explicites et réduction respectée.
-- Densité de contenu : **4** — peu d’éléments, hiérarchie directe.
-- Dépendance aux images : **9** — les photos originales fournies constituent la matière principale.
+Réemploi des couleurs et de la typographie HEMIP existantes, titres fluides, surfaces sobres, cartes à rayons modérés, grilles qui se replient sans largeur rigide, focus visibles et mouvement réduit respecté. Les images du slider conservent leur format complet sur écran étroit, avec fond letterbox si nécessaire.

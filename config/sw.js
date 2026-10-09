@@ -1,15 +1,17 @@
 const CACHE_PREFIX = "hemip-pwa-";
-const SHELL_CACHE = `${CACHE_PREFIX}shell-v4`;
-const PAGES_CACHE = `${CACHE_PREFIX}pages-v1`;
-const ASSETS_CACHE = `${CACHE_PREFIX}assets-v4`;
+const SHELL_CACHE = `${CACHE_PREFIX}shell-v10`;
+const PAGES_CACHE = `${CACHE_PREFIX}pages-v5`;
+const ASSETS_CACHE = `${CACHE_PREFIX}assets-v10`;
 const APP_BASE = new URL("./", self.registration.scope);
 const OFFLINE_URL = new URL("offline.html", APP_BASE).href;
 const SHELL_FILES = [
   "offline.html",
   "manifest.json",
   "assets/css/style.css",
+  "assets/css/hemip-theme.css",
   "assets/css/pwa.css",
   "assets/css/home-sections.css",
+  "assets/css/independent-pages.css",
   "assets/js/main.js",
   "assets/js/home-sections.js",
   "assets/js/pwa.js",
@@ -31,6 +33,7 @@ const SHELL_FILES = [
 // PHP output can vary by session or contain private form/admin data and is never cached.
 const PUBLIC_HTML_PAGES = new Set([
   "actualite.html",
+  "realisations.html",
   "gp.html",
   "gl.html",
   "rt.html",

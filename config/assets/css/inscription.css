@@ -10,16 +10,16 @@
 
 /* Variable de la page */
 :root {
-    --primary: #0b4ea2;
-    --primary-dark: #073570;
-    --primary-light: #eaf3ff;
+    --primary: var(--hemip-primary-strong);
+    --primary-dark: var(--hemip-primary-strong);
+    --primary-light: var(--hemip-primary-soft);
 
-    --dark: #071a33;
-    --text: #4b5563;
-    --light: #f5f8fc;
-    --white: #ffffff;
+    --dark: var(--hemip-text);
+    --text: var(--hemip-muted);
+    --light: var(--hemip-bg);
+    --white: var(--hemip-bg);
 
-    --border: #e5eaf1;
+    --border: var(--hemip-neutral-soft);
 
     --radius: 20px;
     --max-width:1200px;
@@ -32,32 +32,36 @@ background-repeat: no-repeat;
 }
 .containerIns{
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
-    background: linear-gradient(rgba(0,0,0,0.4), transparent, url(..\img\bg-image.jpeg) center center no-repeat);
+    background: linear-gradient(rgba(var(--hemip-text-rgb), 0.4), transparent);
     background-size: cover;
-   margin-top: 10%;
-  
+    padding-top: 90px;
 }
+
+
 
 
 section{
     display:flex;
     justify-content: center;
     align-items: center;
-    margin: 50px 0;
-}  
+    margin: 40px 15px;
+}
 
 .form-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     flex: auto;
+    min-width: 0;
+    width: 100%;
 }
 .form-wrapper .card{
-    width:380px;
+    width: 100%;
+    max-width: 420px;
     padding: 20px;
-    background-color:#e0e6ed; 
+    background-color:var(--hemip-neutral-soft);
 }
 
 .card-header {
@@ -67,8 +71,8 @@ section{
     width: 90%;
     margin: 30px auto 0;
     font-size: 1.1rem;
-    color: #071a33;
-    box-shadow: 2px 3px 8px #94a1b1;
+    color: var(--hemip-text);
+    box-shadow: 2px 3px 8px var(--hemip-muted);
     border-radius: 50px;
 }
 
@@ -83,12 +87,12 @@ section{
 }
 
 .card-header .form-header.active{
-box-shadow:inset 1px 1px 2px rgb(19 20 177 / 55%), inset -1px 1px 2px rgb(19 220 177 / 55%), inset -1px -1px 2px rgba(19, 137, 210, 0.55), inset 1px -1px 2px rgba(19, 127, 210, 0.55);
-border-color: #0b4ea2;
+box-shadow:inset 1px 1px 2px rgba(var(--hemip-primary-rgb), 0.55), inset -1px 1px 2px rgba(var(--hemip-primary-rgb), 0.55), inset -1px -1px 2px rgba(var(--hemip-primary-rgb), 0.55), inset 1px -1px 2px rgba(var(--hemip-primary-rgb), 0.55);
+border-color: var(--hemip-primary);
 cursor: pointer;
 transition: border-color 0.3s, box-shadow 0.3s;
 }
- 
+
 .card-body {
     display: flex;
     flex-wrap: nowrap;
@@ -139,16 +143,16 @@ form{
 .form-control{
     width: 100%;
     border: none;
-    border-bottom: 1px solid rgba(9, 38, 154, 0.65);
+    border-bottom: 1px solid rgba(var(--hemip-primary-rgb), 0.65);
     background: none;
     outline: none;
     padding: 10px 5px;
 margin-bottom: 20px;
-color: #060404;
+color: var(--hemip-text);
 }
 
 .form-control::placeholder{
-    color: rgba(10, 3, 43, 0.884);
+    color: rgba(var(--hemip-text-rgb), 0.884);
 }
 
 .formButton {
@@ -156,14 +160,14 @@ color: #060404;
     margin: 1rem auto 0;
     border: 1px solid transparent;
     padding: 1rem 3rem;
-    background-color: #0b4ea2;
+    background-color: var(--hemip-primary);
     border-radius: 58px;
     font-size: 1rem;
-    color: #e5eaf1;
+    color: var(--hemip-neutral-soft);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .formButton:hover{
-    box-shadow:3px 5px 115px #073570 ;
+    box-shadow:3px 5px 115px var(--hemip-primary-strong) ;
     transform: translateY(-5px);
 }
 
@@ -186,36 +190,36 @@ color: #060404;
     width: 100%;
     min-height: 130px;
 
-    border: 2px dashed #0b4ea2;
+    border: 2px dashed var(--hemip-primary);
     border-radius: 15px;
 
     cursor: pointer;
     text-align: center;
 
-    background-color: #f5f8fc;
+    background-color: var(--hemip-bg);
     transition: 0.3s ease;
 }
 
 .file-label:hover {
-    background-color: #eaf3ff;
+    background-color: var(--hemip-primary-soft);
     transform: translateY(-2px);
 }
 
 .file-label i {
     font-size: 40px;
-    color: #0b4ea2;
+    color: var(--hemip-primary-strong);
     margin-bottom: 8px;
 }
 
 .file-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #071a33;
+    color: var(--hemip-text);
 }
 
 .file-info {
     font-size: 0.8rem;
-    color: #4b5563;
+    color: var(--hemip-muted);
     margin-top: 5px;
 }
 
@@ -225,12 +229,12 @@ color: #060404;
 ========================= */
 
 .footer {
-    background: #111c22;
-    color: #fff;
+    background: var(--hemip-text);
+    color: var(--hemip-bg);
     padding: 60px 7% 0;
     position: relative;
     overflow: hidden;
-    margin-top: 49%;
+    margin-top: 80px;
 }
 
 /* Petite lumière décorative */
@@ -239,7 +243,7 @@ color: #060404;
     position: absolute;
     width: 250px;
     height: 250px;
-    background: rgba(0, 123, 255, 0.15);
+    background: rgba(var(--hemip-primary-rgb), 0.15);
     border-radius: 50%;
     filter: blur(80px);
     top: -100px;
@@ -270,7 +274,7 @@ color: #060404;
 .footer-logo img {
     width: 45px;
     height: 45px;
- 
+
     border-radius: 50%;
 }
 
@@ -286,7 +290,7 @@ color: #060404;
 
 .footer-slogan {
     max-width: 350px;
-    color: #c9d7e8;
+    color: var(--hemip-neutral);
     font-size: 15px;
     line-height: 1.8;
 }
@@ -306,7 +310,7 @@ color: #060404;
     display: block;
     width: 35px;
     height: 3px;
-    background: #168cff;
+    background: var(--hemip-primary);
     border-radius: 10px;
     margin-top: 8px;
 }
@@ -330,7 +334,7 @@ color: #060404;
 
 .footer-contact i {
     font-size: 20px;
-    color: #168cff;
+    color: var(--hemip-primary-strong);
 }
 
 .footer-contact a {
@@ -349,7 +353,7 @@ color: #060404;
 ========================= */
 
 .social-text {
-    color: #c9d7e8;
+    color: var(--hemip-neutral);
     font-size: 14px;
     line-height: 1.7;
     margin-bottom: 20px;
@@ -367,10 +371,10 @@ color: #060404;
     align-items: center;
     justify-content: center;
 
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(var(--hemip-bg-rgb), 0.15);
     border-radius: 50%;
 
-    color: #fff;
+    color: var(--hemip-bg);
     text-decoration: none;
 
     transition: all 0.3s ease;
@@ -381,10 +385,10 @@ color: #060404;
 }
 
 .social-link:hover {
-    background: #168cff;
-    border-color: #168cff;
+    background: var(--hemip-primary);
+    border-color: var(--hemip-primary);
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(22, 140, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(var(--hemip-primary-rgb), 0.3);
 }
 
 /* =========================
@@ -395,7 +399,7 @@ color: #060404;
     max-width: 1200px;
     margin: auto;
 
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(var(--hemip-bg-rgb), 0.1);
 
     padding: 22px 0;
 
@@ -407,7 +411,7 @@ color: #060404;
 
 .footer-bottom p {
     margin: 0;
-    color: #8fa4bd;
+    color: var(--hemip-muted);
     font-size: 12px;
 }
 
@@ -419,8 +423,7 @@ color: #060404;
 
     .footer {
         padding: 50px 6% 0;
-    margin-top: 150%;
-
+        margin-top: 60px;
     }
 
     .footer-container {
@@ -482,7 +485,7 @@ color: #060404;
 
 @media (min-width: 1000px) {
   .footer {
-    margin-top: 89%;
+    margin-top: 80px;
 }  
 }
 
@@ -499,14 +502,14 @@ color: #060404;
     width: 90%;
     max-width: 480px;
 
-    background: #ffffff;
+    background: var(--hemip-bg);
     border-radius: 18px;
 
     padding: 35px 30px;
 
     text-align: center;
 
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 15px 40px rgba(var(--hemip-text-rgb), 0.20);
 
     z-index: 10000;
 }
@@ -519,7 +522,7 @@ color: #060404;
 
     border-radius: 50%;
 
-    background: #e8f7ee;
+    background: var(--hemip-primary-soft);
 
     display: flex;
     align-items: center;
@@ -528,21 +531,21 @@ color: #060404;
 
 .message-succes-icon i {
     font-size: 42px;
-    color: #168b55;
+    color: var(--hemip-primary-strong);
 }
 
 .message-succes h2 {
     font-size: 24px;
     margin: 0 0 15px;
 
-    color: #222;
+    color: var(--hemip-text);
 }
 
 .message-succes p {
     font-size: 16px;
     line-height: 1.6;
 
-    color: #555;
+    color: var(--hemip-muted);
 
     margin: 8px 0;
 }
@@ -552,7 +555,7 @@ color: #060404;
 
     padding: 15px;
 
-    background: #f5f7f8;
+    background: var(--hemip-bg);
 
     border-radius: 10px;
 }
@@ -562,7 +565,7 @@ color: #060404;
 
     font-size: 13px;
 
-    color: #777;
+    color: var(--hemip-muted);
 
     margin-bottom: 7px;
 }
@@ -570,7 +573,7 @@ color: #060404;
 .code-candidature strong {
     font-size: 20px;
 
-    color: #168b55;
+    color: var(--hemip-primary-strong);
 }
 
 .message-succes button {
@@ -580,8 +583,8 @@ color: #060404;
     border: none !important;
     border-radius: 25px !important;
 
-    background: #168b55 !important;
-    color: white !important;
+    background: var(--hemip-primary-strong) !important;
+    color: var(--hemip-bg) !important;
 
     font-size: 15px !important;
 
@@ -604,7 +607,7 @@ color: #060404;
     width: 100%;
     height: 100%;
 
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(var(--hemip-text-rgb), 0.35);
 
     z-index: 9999;
 
@@ -680,4 +683,166 @@ color: #060404;
         opacity: 0;
     }
 
+}
+
+/* =============================================================
+   RESPONSIVE COMPLET — page Inscription
+   Couvre téléphones étroits (320 px) jusqu'aux grands écrans.
+   ============================================================= */
+
+/* --- Le conteneur du slider ne doit jamais élargir la page,
+       mais le slider lui-même reste à 200 % (deux formulaires
+       côte à côte) : il est juste rogné par le parent. --- */
+
+.card-body-wrapper {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.forms-slider {
+    width: 200%;
+    min-width: 200%;
+}
+
+section,
+.sec-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* Les champs, boutons et blocs de fichiers se contraignent à la carte */
+.form-control,
+.formButton,
+.file-upload,
+.file-label,
+input,
+select,
+textarea {
+    max-width: 100%;
+}
+
+.formButton {
+    padding: 1rem clamp(1.5rem, 8vw, 3rem);
+}
+
+select.form-control {
+    width: 100%;
+}
+
+/* --- Très petits téléphones (<= 480 px) --- */
+
+@media (max-width: 480px) {
+
+    .containerIns {
+        padding-top: 80px;
+        min-height: auto;
+    }
+
+    section {
+        margin: 25px 12px;
+    }
+
+    .form-wrapper .card {
+        padding: 16px 14px;
+    }
+
+    .card-header {
+        width: 100%;
+        margin-top: 20px;
+        font-size: 0.95rem;
+    }
+
+    .card-header .form-header {
+        padding: 9px 10px;
+    }
+
+    .card-body-wrapper {
+        padding-bottom: 10px;
+    }
+
+    .file-label {
+        min-height: 110px;
+        padding: 12px;
+    }
+
+    .file-label i {
+        font-size: 32px;
+    }
+
+    .file-title {
+        font-size: 0.9rem;
+    }
+
+    .message-succes {
+        padding: 26px 18px;
+    }
+
+    .message-succes h2 {
+        font-size: 20px;
+    }
+
+    .code-candidature strong {
+        font-size: 17px;
+        word-break: break-all;
+    }
+}
+
+/* --- Téléphones étroits (<= 360 px) : cas 320 px inclus --- */
+
+@media (max-width: 360px) {
+
+    section {
+        margin: 20px 8px;
+    }
+
+    .form-wrapper .card {
+        padding: 14px 10px;
+    }
+
+    .card-header {
+        font-size: 0.85rem;
+    }
+
+    .card-header .form-header {
+        padding: 8px 6px;
+    }
+
+    .form-control {
+        padding: 9px 3px;
+        font-size: 0.95rem;
+    }
+
+    .formButton {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .file-title {
+        font-size: 0.85rem;
+    }
+
+    .file-info {
+        font-size: 0.72rem;
+    }
+}
+
+/* --- Tablette (481 à 800 px) : on garde une carte confortable --- */
+
+@media (min-width: 481px) and (max-width: 800px) {
+
+    .form-wrapper .card {
+        max-width: 460px;
+    }
+}
+
+/* --- Accessibilité : éviter tout défilement horizontal résiduel --- */
+
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
 }

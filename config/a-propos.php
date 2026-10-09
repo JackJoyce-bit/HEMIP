@@ -10,32 +10,30 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>À propos — HEMIP</title>
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.1/fonts/remixicon.css" rel="stylesheet">
-<link rel="icon" type="image/png" href="assets/img/logo-hemip.jpg">
+<link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
 <style>
-.about-hero{padding:120px 20px 80px;background:linear-gradient(135deg,#071d33,#0b365b);color:#fff;text-align:center}
-.about-hero .eyebrow{display:inline-block;padding:8px 15px;border:1px solid rgba(255,255,255,.25);border-radius:30px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+.about-hero{padding:120px 20px 80px;background:linear-gradient(135deg,var(--hemip-text),var(--hemip-primary-strong));color:var(--hemip-bg);text-align:center}
+.about-hero .eyebrow{display:inline-block;padding:8px 15px;border:1px solid rgba(var(--hemip-bg-rgb), .25);border-radius:30px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
 .about-hero h1{font-size:clamp(2.4rem,6vw,4.6rem);margin:18px 0 12px;font-family:'Playfair Display',serif}
-.about-hero p{max-width:760px;margin:auto;line-height:1.8;color:rgba(255,255,255,.82)}
+.about-hero p{max-width:760px;margin:auto;line-height:1.8;color:rgba(var(--hemip-bg-rgb), .82)}
 .about-wrap{max-width:1180px;margin:auto;padding:80px 20px}
 .about-section{margin-bottom:70px}
 .about-heading{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px}
-.about-icon{width:54px;height:54px;flex:0 0 54px;display:grid;place-items:center;border-radius:16px;background:#e9f3fb;color:#0a527e;font-size:25px}
-.about-heading h2{margin:0;font-family:'Playfair Display',serif;font-size:2rem;color:#0b2942}
-.about-heading p{margin:7px 0 0;color:#6b7785}
-.about-card{background:#fff;border:1px solid #e7edf3;border-radius:22px;padding:30px;box-shadow:0 12px 35px rgba(12,42,67,.07);line-height:1.8;color:#45515d}
+.about-icon{width:54px;height:54px;flex:0 0 54px;display:grid;place-items:center;border-radius:16px;background:var(--hemip-primary-soft);color:var(--hemip-primary-strong);font-size:25px}
+.about-heading h2{margin:0;font-family:'Playfair Display',serif;font-size:2rem;color:var(--hemip-primary-strong)}
+.about-heading p{margin:7px 0 0;color:var(--hemip-muted)}
+.about-card{background:var(--hemip-bg);border:1px solid var(--hemip-neutral-soft);border-radius:22px;padding:30px;box-shadow:0 12px 35px rgba(var(--hemip-primary-rgb), .07);line-height:1.8;color:var(--hemip-muted)}
 .about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
 .about-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0;margin:0;list-style:none}
-.about-list li{padding:14px 16px;border-radius:14px;background:#f6f9fc;border:1px solid #e9eff5}
+.about-list li{padding:14px 16px;border-radius:14px;background:var(--hemip-bg);border:1px solid var(--hemip-neutral-soft)}
 .staff-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.staff{padding:17px;border:1px solid #e6edf3;border-radius:16px;background:#fff}
-.staff strong{display:block;color:#102d45;margin-bottom:4px}.staff span{font-size:.9rem;color:#687583}
+.staff{padding:17px;border:1px solid var(--hemip-primary-soft);border-radius:16px;background:var(--hemip-bg)}
+.staff strong{display:block;color:var(--hemip-text);margin-bottom:4px}.staff span{font-size:.9rem;color:var(--hemip-muted)}
 @media(max-width:800px){.about-grid,.about-list,.staff-grid{grid-template-columns:1fr}.about-wrap{padding:55px 18px}}
 </style>
-    <meta name="theme-color" content="#0b4ea2">
+    <meta name="theme-color" content="#1094d7">
     <meta name="application-name" content="HEMIP">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -44,6 +42,7 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
     <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 <body>
 <header class="header"><nav class="navbar">
@@ -59,9 +58,9 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
 </ul></li>
 <li><a href="inscription.php">Inscription</a></li>
 <li><a href="actualite.php">Actualité</a></li>
-<li><a href="index.php#contact">Contact</a></li>
+<li><a href="contact.php#contact">Contact</a></li>
 <li><a href="a-propos.php" class="active">À propos</a></li>
-<?php if($adminConnecte): ?><li><a href="dashboard.php" title="Tableau de bord"><i class="ri-dashboard-line"></i></a></li><li class="admin-status"><i class="ri-admin-line" style="color:white"></i><span style="color:white;font-size:15px">Connecté</span></li>
+<?php if($adminConnecte): ?><li><a href="dashboard.php" title="Tableau de bord"><i class="ri-dashboard-line"></i></a></li><li class="admin-status"><i class="ri-admin-line" style="color:var(--hemip-bg)"></i><span style="color:var(--hemip-bg);font-size:15px">Connecté</span></li>
 <?php else: ?><li><a href="login.php" title="Connexion administrateur"><i class="ri-admin-line"></i></a></li><?php endif; ?>
 </ul></nav></header>
 

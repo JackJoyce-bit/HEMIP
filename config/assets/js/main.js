@@ -10,6 +10,8 @@ const submenus = document.querySelectorAll(".submenu");
    MENU HAMBURGER
 ================================= */
 
+if (menuBtn && navList) {
+
 menuBtn.addEventListener("click", () => {
 
     const isOpen = navList.classList.toggle("active");
@@ -18,6 +20,8 @@ menuBtn.addEventListener("click", () => {
     menuBtn.textContent = isOpen ? "×" : "☰";
 
 });
+
+}
 
 
 
@@ -82,11 +86,11 @@ window.addEventListener("resize", () => {
 
     if (window.innerWidth > 768) {
 
-        navList.classList.remove("active");
+        navList?.classList.remove("active");
 
-        menuBtn.setAttribute("aria-expanded", "false");
-        menuBtn.setAttribute("aria-label", "Ouvrir le menu de navigation");
-        menuBtn.textContent = "☰";
+        menuBtn?.setAttribute("aria-expanded", "false");
+        menuBtn?.setAttribute("aria-label", "Ouvrir le menu de navigation");
+        if (menuBtn) menuBtn.textContent = "☰";
 
         dropdowns.forEach(dropdown => {
             dropdown.classList.remove("active");
@@ -102,13 +106,13 @@ window.addEventListener("resize", () => {
 });
 
 
-navList.querySelectorAll("a").forEach(link => {
+navList?.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
         if (window.innerWidth > 768 || !navList.classList.contains("active")) return;
         navList.classList.remove("active");
-        menuBtn.setAttribute("aria-expanded", "false");
-        menuBtn.setAttribute("aria-label", "Ouvrir le menu de navigation");
-        menuBtn.textContent = "☰";
+        menuBtn?.setAttribute("aria-expanded", "false");
+        menuBtn?.setAttribute("aria-label", "Ouvrir le menu de navigation");
+        if (menuBtn) menuBtn.textContent = "☰";
         dropdowns.forEach(dropdown => {
             dropdown.classList.remove("active");
             dropdown.querySelector(".dropdown-btn")?.setAttribute("aria-expanded", "false");

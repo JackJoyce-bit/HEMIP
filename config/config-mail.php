@@ -28,26 +28,25 @@
  * ---------------------------------------------------------------
  */
 
-return [
+$config = [
 
-    // ===== RÉGLAGES ACTIFS =====
+    // ===== RÉGLAGES PAR DÉFAUT (sans secret) =====
 
     // true  = envoi par SMTP (recommandé)
     // false = ancienne méthode mail() de PHP (non fiable sous XAMPP)
     'smtp' => true,
 
-    'hote' => 'smtp.gmail.com',
-    'port' => 587,
+    'hote' => 'localhost',
+    'port' => 1025,
 
     // '' = aucune, 'tls' = STARTTLS (port 587), 'ssl' = SSL (port 465)
-    'securite' => 'tls',
+    'securite' => '',
 
-    'utilisateur' => 'joycemondza@gmail.com',
-    'mot_de_passe' => 'tlml tfrg selr etko',
+    'utilisateur' => '',
+    'mot_de_passe' => '',
 
     // Adresse qui apparaît comme expéditeur.
-    // Avec Gmail, mettez la même adresse que 'utilisateur'.
-    'expediteur_email' => 'joycemondza@gmail.com',
+    'expediteur_email' => 'noreply@hemip.com',
     'expediteur_nom' => 'HEMIP',
 
     // Mettez false seulement si vous voyez l'erreur
@@ -55,3 +54,63 @@ return [
     'verifier_certificat' => true
 
 ];
+
+
+/* =============================================================
+   ATTENTION — AUCUN SECRET DANS CE FICHIER
+   Ce fichier est versionné dans Git. Les identifiants réels se
+   placent dans config-mail.local.php (ignoré par Git) ou dans des
+   variables d'environnement. Voir l'en-tête ci-dessus.
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1) Variables d'environnement (priorité moyenne)
+   ------------------------------------------------------------- */
+
+$variablesEnvironnement = [
+    'smtp'                => 'HEMIP_SMTP',
+    'hote'                => 'HEMIP_SMTP_HOTE',
+    'port'                => 'HEMIP_SMTP_PORT',
+    'securite'            => 'HEMIP_SMTP_SECURITE',
+    'utilisateur'         => 'HEMIP_SMTP_UTILISATEUR',
+    'mot_de_passe'        => 'HEMIP_SMTP_MOT_DE_PASSE',
+    'expediteur_email'    => 'HEMIP_SMTP_EXPEDITEUR',
+    'expediteur_nom'      => 'HEMIP_SMTP_EXPEDITEUR_NOM',
+    'verifier_certificat' => 'HEMIP_SMTP_VERIFIER_CERTIFICAT'
+];
+
+foreach ($variablesEnvironnement as $cle => $nomVariable) {
+
+    $valeur = getenv($nomVariable);
+
+    if ($valeur === false || $valeur === '') {
+        continue;
+    }
+
+    if ($cle === 'smtp' || $cle === 'verifier_certificat') {
+        $config[$cle] = filter_var($valeur, FILTER_VALIDATE_BOOLEAN);
+    } elseif ($cle === 'port') {
+        $config[$cle] = (int) $valeur;
+    } else {
+        $config[$cle] = $valeur;
+    }
+}
+
+
+/* -------------------------------------------------------------
+   2) Fichier local (priorité la plus haute, ignoré par Git)
+   ------------------------------------------------------------- */
+
+$fichierLocal = __DIR__ . '/config-mail.local.php';
+
+if (is_file($fichierLocal)) {
+
+    $configLocale = require $fichierLocal;
+
+    if (is_array($configLocale)) {
+        $config = array_merge($config, $configLocale);
+    }
+}
+
+return $config;

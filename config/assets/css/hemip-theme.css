@@ -1,0 +1,29 @@
+/* Thème HEMIP — couleurs de marque et nuances fonctionnelles accessibles. */
+:root {
+  color-scheme: light;
+
+  --hemip-primary: #1094D7;
+  --hemip-accent: #D12C25;
+  --hemip-text: #1D1E1E;
+  --hemip-bg: #FDFDFD;
+  --hemip-neutral: #928D8F;
+
+  /* Nuances dérivées de la palette pour textes, états et surfaces. */
+  --hemip-primary-strong: #0A6FA5;
+  --hemip-primary-soft: #E8F4FB;
+  --hemip-accent-strong: #A8241E;
+  --hemip-accent-soft: #FBE9E8;
+  --hemip-neutral-dark: #655F61;
+  --hemip-muted: var(--hemip-neutral-dark);
+  --hemip-neutral-soft: #F3F1F2;
+  --hemip-border: var(--hemip-neutral);
+
+  /* Valeurs RGB pour conserver l’opacité des ombres et superpositions. */
+  --hemip-primary-rgb: 16, 148, 215;
+  --hemip-accent-rgb: 209, 44, 37;
+  --hemip-text-rgb: 29, 30, 30;
+  --hemip-bg-rgb: 253, 253, 253;
+  --hemip-neutral-rgb: 146, 141, 143;
+  --hemip-primary-soft-rgb: 232, 244, 251;
+  --hemip-accent-soft-rgb: 251, 233, 232;
+}

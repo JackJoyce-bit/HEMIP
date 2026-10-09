@@ -4,6 +4,8 @@
 - **État :** réalisé localement le 7 octobre 2026 ; aucune publication sur l’hébergement.
 - **Mode :** extension du site existant, préservation de marque.
 
+> **Suite du 8 octobre :** la nouvelle demande remplace les cartes/photos génériques par l’essai documenté dans le PDF et détache Contact et Réalisations de l’accueil. Le suivi de ces changements est dans [le plan complémentaire du 8 octobre](2026-10-08-split-pages-responsive.md).
+
 ## Travaux réalisés
 
 1. **Préparer les images du PDF utilisateur**

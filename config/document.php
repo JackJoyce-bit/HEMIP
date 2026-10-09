@@ -205,7 +205,7 @@ header("Cache-Control: private, no-store");
         html, body {
             height: 100%;
             font-family: Arial, Helvetica, sans-serif;
-            background: #1e293b;
+            background: var(--hemip-text);
         }
 
         .barre {
@@ -218,8 +218,8 @@ header("Cache-Control: private, no-store");
 
             padding: 0 20px;
 
-            background: #0f172a;
-            color: #ffffff;
+            background: var(--hemip-text);
+            color: var(--hemip-bg);
         }
 
         .barre .nom {
@@ -237,7 +237,7 @@ header("Cache-Control: private, no-store");
         .barre .nom span {
             display: block;
             font-size: 12px;
-            color: #94a3b8;
+            color: var(--hemip-muted);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -248,8 +248,8 @@ header("Cache-Control: private, no-store");
 
             padding: 9px 16px;
 
-            background: #2563eb;
-            color: #ffffff;
+            background: var(--hemip-primary-strong);
+            color: var(--hemip-bg);
 
             border-radius: 6px;
 
@@ -258,7 +258,7 @@ header("Cache-Control: private, no-store");
             text-decoration: none;
         }
 
-        .btn:hover { background: #1d4ed8; }
+        .btn:hover { background: var(--hemip-primary-strong); }
 
         .zone {
             height: calc(100% - 56px);
@@ -268,7 +268,7 @@ header("Cache-Control: private, no-store");
             width: 100%;
             height: 100%;
             border: none;
-            background: #ffffff;
+            background: var(--hemip-bg);
         }
 
         .zone.image {
@@ -283,7 +283,7 @@ header("Cache-Control: private, no-store");
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            background: #ffffff;
+            background: var(--hemip-bg);
         }
 
         .indisponible {
@@ -291,16 +291,17 @@ header("Cache-Control: private, no-store");
             margin: 80px auto 0;
             padding: 30px;
 
-            background: #ffffff;
+            background: var(--hemip-bg);
             border-radius: 12px;
 
             text-align: center;
-            color: #334155;
+            color: var(--hemip-muted);
             line-height: 1.6;
         }
 
         .indisponible p { margin-bottom: 20px; }
     </style>
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
 </head>
 
 <body>

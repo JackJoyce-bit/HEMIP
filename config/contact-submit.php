@@ -10,7 +10,7 @@ function contact_redirect(string $status): void
 {
     $_SESSION['contact_flash'] = $status;
     $_SESSION['contact_csrf'] = bin2hex(random_bytes(32));
-    header('Location: index.php#contact', true, 303);
+    header('Location: contact.php#contact', true, 303);
     exit;
 }
 
