@@ -7,7 +7,7 @@ Le site est en PHP natif, sans étape de compilation. Le dossier `config/` corre
 | Page ou fichier | Fonction |
 | --- | --- |
 | `index.php` | Accueil : présentation, formations, carrousel photo, partenaires, localisation et footer. Aucun formulaire Contact ni contenu Réalisations n’est intégré à cette page ; le menu mène aux pages autonomes. |
-| `realisations.html` | Page autonome et statique sur l’essai expérimental de valorisation d’os présenté dans le dossier HEMIP, avec les mêmes vidéos intégrées. |
+| `realisations.html` | Page autonome organisée par chaînes de valorisation : culture de palmiers et biodiesel, recyclage de plastiques et collecte des hydrocarbures, puis essai documenté sur les os. |
 | `contact.php` | Page autonome du formulaire et des coordonnées. Le jeton CSRF et l’état du formulaire dépendent de la session PHP. |
 | `contact-submit.php` | Endpoint POST ; valide et transmet le message au destinataire scolaire fixe, puis revient vers `contact.php#contact`. |
 | `assets/css/style.css` | Styles communs du site, navigation, sections historiques et règles responsive partagées. |
@@ -42,19 +42,19 @@ Le hero conserve son contenu institutionnel. Les quatre photos locales sont `hem
 
 À une largeur mobile (jusqu’à 640 px), l’image est affichée entière dans un cadre de ratio adapté à l’écran ; le texte et les CTA passent sous la photo pour ne pas la masquer. Des marges de fond peuvent rester visibles, plutôt que de couper la photo. Les styles communs utilisent des tailles fluides et des grilles à colonnes rétractables pour les écrans étroits, tablettes et grands écrans.
 
-La navigation au téléphone utilise un bouton hamburger accessible, un panneau pouvant défiler lorsque sa hauteur dépasse l’écran et des sous-menus adaptés au toucher. Le site vise une largeur minimale pratique de 320 px ; un écran plus petit peut nécessiter un ajustement supplémentaire.
+La navigation au téléphone utilise un bouton hamburger accessible, un panneau pouvant défiler lorsque sa hauteur dépasse l’écran et des sous-menus adaptés au toucher. Le CSS ne force plus une largeur minimale de 320 px ; les grilles et formulaires se rétractent, tandis que les tableaux de filière conservent une largeur lisible et défilent dans leur propre conteneur sur petit écran. Une matrice visuelle multi-viewport reste à confirmer dans un navigateur local accessible avant publication.
 
 ## Page « Nos réalisations »
 
-La page dédiée reprend un seul exemple précis du dossier de présentation HEMIP (pages 19–20) : l’étude expérimentale de valorisation d’os de bétail. Elle résume les étapes décrites (traitement thermique, refroidissement, broyage) et rapporte, pour le lot présenté, 25 kg d’os frais, 10 kg de poudre finale ainsi que le rendement moyen d’environ 56 % indiqué pour la production de CaO à partir de l’hydroxyapatite.
+La page dédiée présente d’abord deux chaînes de valorisation illustrées par quatre vidéos : la culture de palmiers nains et la production de biodiesel, puis le traitement de plastiques et la collecte des hydrocarbures. Elle conserve ensuite un exemple précis du dossier de présentation HEMIP (pages 19–20) : l’étude expérimentale de valorisation d’os de bétail. Celle-ci résume le traitement thermique, le refroidissement et le broyage, et rapporte, pour le lot présenté, 25 kg d’os frais, 10 kg de poudre finale ainsi que le rendement moyen d’environ 56 % indiqué pour la production de CaO à partir de l’hydroxyapatite.
 
 Ces valeurs décrivent le lot expérimental mentionné dans le document. Elles ne signifient ni une production industrielle, ni une adoption commerciale déjà réalisée. L’objectif cité est d’étudier une substitution à la chaux vive pour le génie civil et d’autres applications ; le texte de la page conserve explicitement cette réserve.
 
-Trois vidéos fournies par HEMIP sont intégrées dans la section Réalisations de l’accueil et dans la page autonome : « Média3 », « Média2 » et « Média1 ». Leurs lecteurs utilisent directement `https://www.youtube-nocookie.com/embed/` et ne créent pas de lien vers `youtu.be` ou une page YouTube. L’attribut `referrerpolicy="strict-origin-when-cross-origin"` transmet seulement l’origine du site au lecteur ; YouTube indique qu’un Referer HTTP est nécessaire à la lecture (erreur 153 lorsque celui-ci manque). Source : [aide officielle YouTube sur l’intégration](https://support.google.com/youtube/answer/171780?hl=fr). Le lecteur requiert Internet ; une vidéo soumise à une limite d’âge ou dont l’intégration est désactivée peut malgré tout refuser la lecture ou renvoyer vers YouTube.
+Quatre vidéos fournies par HEMIP sont intégrées à la page Réalisations, avec un résumé technique chacune. Elles sont regroupées en deux parcours : « Du palmier nain au biodiesel » et « Des déchets plastiques aux hydrocarbures ». Les lecteurs utilisent directement `https://www.youtube-nocookie.com/embed/` et ne créent pas de lien vers `youtu.be` ou une page YouTube. L’attribut `referrerpolicy="strict-origin-when-cross-origin"` transmet seulement l’origine du site au lecteur ; YouTube indique qu’un Referer HTTP est nécessaire à la lecture (erreur 153 lorsque celui-ci manque). Source : [aide officielle YouTube sur l’intégration](https://support.google.com/youtube/answer/171780?hl=fr). Le lecteur requiert Internet ; une vidéo soumise à une limite d’âge ou dont l’intégration est désactivée peut malgré tout refuser la lecture ou renvoyer vers YouTube.
 
 ## Page Contact et traitement du formulaire
 
-`contact.php` détache les coordonnées et le formulaire de l’accueil. Le formulaire conserve les champs métier convenus : prénom, nom, adresse e-mail, téléphone facultatif, objet, message et consentement pour répondre à la demande. Il poste à `contact-submit.php`.
+`contact.php` détache les coordonnées et le formulaire de l’accueil. Le formulaire conserve les champs métier convenus : prénom, nom, adresse e-mail, téléphone facultatif, objet, message et consentement pour répondre à la demande. Des placeholders donnent des exemples de saisie dans tous les champs textuels visibles ; les libellés restent présents et le formulaire poste à `contact-submit.php`.
 
 L’endpoint refuse les méthodes autres que POST, désactive le cache de sa réponse, vérifie un jeton CSRF lié à la session, valide formats et longueurs, vérifie le champ piège anti-robot et impose 45 secondes entre les tentatives d’une même session. Il envoie un message texte brut uniquement à `hemilaperceeinformation@gmail.com` via la fonction SMTP existante ; le destinataire ne peut pas être fourni par l’utilisateur. Après traitement, le serveur fait une redirection 303 vers `contact.php#contact` avec un état accessible.
 
@@ -75,15 +75,21 @@ Le dossier `uploads/` (documents déposés par les candidats) est protégé par 
 
 ## PWA et comportement hors ligne
 
-Le service worker utilise `shell-v10`, `pages-v5` et `assets-v9`. Il précache le shell et les ressources statiques répertoriées, dont les feuilles `home-sections.css`, `independent-pages.css` et `hemip-theme.css`. Les pages HTML publiques autorisées, dont `realisations.html`, sont récupérées réseau d’abord et peuvent être servies depuis le cache après une visite réussie. Les lecteurs YouTube sont tiers et ne sont jamais précachés ; ils ne fonctionnent pas hors connexion.
+Le service worker utilise `shell-v12`, `pages-v7` et `assets-v12`. Il précache le shell et les ressources statiques répertoriées, dont `home-sections.css`, `independent-pages.css`, `pwa.css` et `hemip-theme.css`. Les pages HTML publiques autorisées, dont `realisations.html`, sont récupérées réseau d’abord et peuvent être servies depuis le cache après une visite réussie. Les politiques de confidentialité, cookies et d’utilisation s’ouvrent depuis des liens du footer dans des panneaux de lecture, sans créer de routes de page. Les lecteurs YouTube ne sont jamais précachés ; ils ne fonctionnent pas hors connexion.
 
 Toutes les routes PHP, notamment `contact.php`, restent **réseau uniquement** pour éviter de conserver du HTML dépendant d’une session. Les requêtes POST ne sont ni interceptées, ni mises en cache, ni placées en file, ni rejouées à la reconnexion. Hors connexion, le service worker sert `offline.html`. La PWA installable nécessite HTTPS sur le domaine public.
+
+### Consentement, intégrations et installation
+
+`assets/js/pwa.js` affiche un bandeau avec « Tout accepter » et « Tout refuser ». Le choix facultatif est mémorisé 180 jours dans le cookie de première partie `hemip_optional_media`. Le cookie de session PHP nécessaire aux formulaires n’est pas désactivé par le refus. Après « Tout accepter », les quatre vidéos et la carte Google se chargent automatiquement dans leurs cadres intégrés ; il n’y a pas de bouton préalable pour chaque média. Les vidéos utilisent `youtube-nocookie.com`, `strict-origin-when-cross-origin` et un iframe sandbox sans permission de navigation supérieure ni de popup. Cela garde la fenêtre HEMIP sur place ; le contenu reste néanmoins servi par YouTube et HEMIP ne peut garantir contre une erreur produite par Google, le navigateur, un blocage réseau ou une restriction d’intégration. Les politiques s’ouvrent dans un dialogue accessible déclenché depuis les liens du pied de page. Une invitation facultative à installer l’application apparaît après 90 secondes, avec les choix Installer / Plus tard ; un refus masque l’invitation pendant 30 jours.
+
+La note de confidentialité renvoie au texte de la loi congolaise n° 29-2019 du 10 octobre 2019 portant protection des données à caractère personnel, consultable sur [ILO/NATLEX](https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/110224/COG-110224.pdf). Les contenus légaux intégrés sont informatifs et doivent être validés par HEMIP avant publication, en particulier pour les durées de conservation, les responsables/prestataires exacts et les bases juridiques de chaque traitement.
 
 ## Vérification locale
 
 Les contrôles doivent être exécutés depuis `config/` avec PHP et Node disponibles. Le test du handler utilise des cas synthétiques dont le chemin s’arrête avant le transport SMTP ; aucun test automatisé ne doit envoyer de courriel réel.
 
-La validation locale a réussi pour 20 fichiers PHP, 4 scripts JavaScript/service worker, 34 ressources précachées et 20 navigations de pages. La matrice navigateur a produit 50 captures ; les suites ciblées après corrections ont passé 14 combinaisons, puis 3 contrôles critiques. Aucune largeur testée ne déborde horizontalement ; les quatre photos du hero sont chargées en `contain` à 320 et 390 px, avec commandes dans le cadre photo. Le test de lecture de la vidéo des Actualités n’est pas conclusif en `file://` ; le fichier est présent et sa lecture doit être confirmée sur le serveur HTTP. Aucun e-mail réel n’a été envoyé.
+Les contrôles statiques exécutés pour cette mise à jour ont passé : lint des 20 fichiers PHP, syntaxe Node de `pwa.js` et `sw.js`, manifeste JSON, présence unique des quatre identifiants vidéo, absence d’iframe YouTube chargée avant consentement, chargement de `pwa.css` sur chaque page utilisant `pwa.js`, réglages de référent/sandbox, liens de politique au footer, suppression des pages légales autonomes et cohérence des versions de cache. Le badge du hero a été vérifié au niveau de son bloc HTML (le texte de présentation distinct du footer est conservé). **Le contrôle visuel réel des pages et la lecture des vidéos n’ont pas pu être exécutés** : aucun serveur HTTP local ne répondait à `http://localhost/HEMIP-team/config/realisations.html`. L’absence de redirection ou d’erreur dans un navigateur devra donc être confirmée dès qu’une URL locale ou de test sera disponible. Aucun e-mail réel n’a été envoyé.
 
 ```powershell
 C:\xampp\php\php.exe -l .\index.php
@@ -97,7 +103,7 @@ node --check .\sw.js
 node -e "JSON.parse(require('fs').readFileSync('./manifest.json','utf8')); console.log('manifest.json OK')"
 ```
 
-Pour répéter la revue lors de futures modifications, utiliser au minimum 320, 360, 390, 430, 768, 820, 1024, 1280, 1440 et 1920 pixels sur Accueil, Réalisations, Contact et des pages de formation représentatives. Contrôler le défilement horizontal, le menu au toucher et que toutes les photos du hero restent intégralement visibles sur mobile.
+Pour répéter la revue lors de futures modifications, utiliser au minimum 280, 320, 360, 390, 430, 768, 820, 1024, 1280, 1440 et 1920 pixels sur Accueil, Réalisations, Contact et des pages de formation représentatives. Contrôler le défilement horizontal, le menu au toucher et que toutes les photos du hero restent intégralement visibles sur mobile.
 
 ## Déploiement
 

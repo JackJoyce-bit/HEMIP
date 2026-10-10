@@ -203,10 +203,7 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
 
             <div class="hero-content reveal">
 
-                <div class="hero-badge">
-                    <span></span>
-                   Nous formons des professionnels <br> qualifiés et chevronnés 
-                </div>
+                
 
                 <h1>
                     Construisez votre

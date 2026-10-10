@@ -71,13 +71,6 @@
     padding: 0;
 }
 
-.hero-content .hero-badge {
-    color: var(--hemip-primary-soft);
-    background: rgba(var(--hemip-text-rgb), .45);
-    border: 1px solid rgba(var(--hemip-bg-rgb), .20);
-    backdrop-filter: blur(8px);
-}
-
 .hero-content h1 {
     max-width: 760px;
     margin: 23px 0 21px;
@@ -492,6 +485,12 @@
     border-color: var(--home-primary);
     outline: none;
     box-shadow: 0 0 0 3px rgba(var(--hemip-primary-rgb), .12);
+}
+
+.home-contact-field input::placeholder,
+.home-contact-field textarea::placeholder {
+    color: var(--hemip-muted);
+    opacity: 1;
 }
 
 .home-contact-consent {

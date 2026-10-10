@@ -1745,7 +1745,7 @@ backdrop-filter: blur(8px);
 
 /* Fluidité et garde-fous communs pour les pages PHP et HTML. */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { min-width: 320px; }
+body { width: 100%; min-width: 0; max-width: 100%; }
 img, video, iframe { max-width: 100%; }
 iframe { display: block; }
 input, textarea, select, button { max-width: 100%; }
@@ -1764,6 +1764,7 @@ main, section, article, .navbar, .nav-list, .location-container, .footer-contain
     border: 0 !important;
 }
 table { max-width: 100%; }
+.table-container { width: 100%; max-width: 100%; min-width: 0; }
 
 @media (min-width: 769px) and (max-width: 1100px) {
     .navbar { padding-inline: 16px; }
@@ -1788,7 +1789,18 @@ table { max-width: 100%; }
     .footer-col, .footer-contact, .footer-contact a { min-width: 0; overflow-wrap: anywhere; }
     .btn { white-space: normal; line-height: 1.35; }
     .section, .location-section { padding-inline: 20px; }
-    table { display: block; overflow-x: auto; }
+    table { display: block; max-width: 100%; overflow-x: auto; }
+    .table-container {
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-container table {
+        display: table;
+        width: max-content;
+        min-width: 640px;
+        max-width: none;
+    }
 }
 
 @media (max-width: 520px) {

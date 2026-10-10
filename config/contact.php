@@ -113,12 +113,12 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($contactCsrf, ENT_QUOTES, 'UTF-8') ?>">
                     <div class="home-contact-honeypot" aria-hidden="true"><label for="contact-website">Ne pas remplir</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
                     <div class="home-contact-form-grid">
-                        <div class="home-contact-field"><label for="contact-prenom">Prénom *</label><input id="contact-prenom" name="prenom" type="text" autocomplete="given-name" maxlength="100" required></div>
-                        <div class="home-contact-field"><label for="contact-nom">Nom *</label><input id="contact-nom" name="nom" type="text" autocomplete="family-name" maxlength="100" required></div>
-                        <div class="home-contact-field"><label for="contact-email">Adresse e-mail *</label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
-                        <div class="home-contact-field"><label for="contact-telephone">Téléphone</label><input id="contact-telephone" name="telephone" type="tel" autocomplete="tel" maxlength="40" inputmode="tel"></div>
-                        <div class="home-contact-field home-contact-field--full"><label for="contact-objet">Objet *</label><input id="contact-objet" name="objet" type="text" maxlength="150" required></div>
-                        <div class="home-contact-field home-contact-field--full"><label for="contact-message">Votre message *</label><textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea></div>
+                        <div class="home-contact-field"><label for="contact-prenom">Prénom *</label><input id="contact-prenom" name="prenom" type="text" autocomplete="given-name" maxlength="100" placeholder="Ex. Amina" required></div>
+                        <div class="home-contact-field"><label for="contact-nom">Nom *</label><input id="contact-nom" name="nom" type="text" autocomplete="family-name" maxlength="100" placeholder="Ex. Nsimba" required></div>
+                        <div class="home-contact-field"><label for="contact-email">Adresse e-mail *</label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="nom@exemple.com" required></div>
+                        <div class="home-contact-field"><label for="contact-telephone">Téléphone</label><input id="contact-telephone" name="telephone" type="tel" autocomplete="tel" maxlength="40" inputmode="tel" placeholder="Ex. +242 06 123 45 67"></div>
+                        <div class="home-contact-field home-contact-field--full"><label for="contact-objet">Objet *</label><input id="contact-objet" name="objet" type="text" maxlength="150" placeholder="Ex. Question sur une formation" required></div>
+                        <div class="home-contact-field home-contact-field--full"><label for="contact-message">Votre message *</label><textarea id="contact-message" name="message" rows="6" maxlength="5000" placeholder="Décrivez votre demande en quelques lignes…" required></textarea></div>
                     </div>
                     <label class="home-contact-consent"><input type="checkbox" name="consentement" value="yes" required><span>J’accepte que mes coordonnées soient utilisées uniquement pour répondre à ma demande.</span></label>
                     <button class="btn btn-primary home-contact-submit" type="submit">Envoyer mon message <i class="ri-arrow-right-line" aria-hidden="true"></i></button>
