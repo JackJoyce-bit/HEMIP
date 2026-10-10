@@ -706,7 +706,12 @@ color: var(--hemip-text);
     min-width: 200%;
 }
 
-section,
+section {
+    width: calc(100% - 30px);
+    max-width: 100%;
+    min-width: 0;
+}
+
 .sec-container {
     width: 100%;
     max-width: 100%;
@@ -742,6 +747,7 @@ select.form-control {
     }
 
     section {
+        width: calc(100% - 24px);
         margin: 25px 12px;
     }
 
@@ -790,11 +796,12 @@ select.form-control {
     }
 }
 
-/* --- Téléphones étroits (<= 360 px) : cas 320 px inclus --- */
+/* --- Téléphones étroits (<= 360 px) : cas 280 à 360 px inclus --- */
 
 @media (max-width: 360px) {
 
     section {
+        width: calc(100% - 16px);
         margin: 20px 8px;
     }
 
@@ -843,6 +850,6 @@ select.form-control {
 
 html,
 body {
-    overflow-x: hidden;
+    width: 100%;
     max-width: 100%;
 }
