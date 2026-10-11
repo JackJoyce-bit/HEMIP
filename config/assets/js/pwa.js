@@ -3,9 +3,6 @@
 
   const CONSENT_COOKIE = "hemip_optional_media";
   const CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
-  const INSTALL_DISMISS_KEY = "hemip-install-prompt-dismissed-until";
-  const INSTALL_DISMISS_MS = 30 * 24 * 60 * 60 * 1000;
-  const INSTALL_PROMPT_DELAY_MS = 90 * 1000;
 
   let installPrompt = null;
   let installButton = null;
@@ -44,33 +41,21 @@
   };
 
   /* =========================================================
-     DÉTECTION DE L’INSTALLATION
-     On combine plusieurs signaux pour savoir si HEMIP est
-     réellement installée sur l’appareil, et pour réagir si
-     l’utilisateur l’installe ou la désinstalle plus tard.
+     DÉTECTION DE L’INSTALLATION — approche simple et universelle
+
+     On se contente du signal standard le plus fiable :
+     l’application tourne-t-elle en mode « installé » ?
+
+     Tant qu’elle ne l’est pas, le bouton « Installer » reste
+     visible sur toutes les pages et pour tous les navigateurs.
+     Si l’utilisateur désinstalle l’application, la page suivante
+     ouverte dans le navigateur repasse en mode normal : le bouton
+     réapparaît donc automatiquement, sans état figé ni blocage.
      ========================================================= */
 
-  // Signal immédiat : l’application tourne-t-elle en mode installé ?
-  const isStandalone = () => window.matchMedia?.("(display-mode: standalone)").matches
+  const isInstalled = () => window.matchMedia?.("(display-mode: standalone)").matches
     || window.matchMedia?.("(display-mode: minimal-ui)").matches
     || window.navigator.standalone === true;
-
-  // Signal persistant : l’appareil signale une application installée,
-  // même quand on consulte le site dans un onglet normal.
-  let relatedAppsInstalled = false;
-
-  async function detectRelatedApps() {
-    if (typeof navigator.getInstalledRelatedApps !== "function") return;
-    try {
-      const apps = await navigator.getInstalledRelatedApps();
-      relatedAppsInstalled = Array.isArray(apps) && apps.length > 0;
-    } catch {
-      // API indisponible ou refusée : on garde la valeur précédente.
-    }
-  }
-
-  // État consolidé : installée si l’un des signaux est vrai.
-  const isInstalled = () => isStandalone() || relatedAppsInstalled;
 
   function readConsent() {
     const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${CONSENT_COOKIE}=([^;]+)`));
@@ -261,47 +246,20 @@
     dialog.innerHTML = `<div class="pwa-dialog__content"><button class="pwa-dialog__close" type="button" data-pwa-close aria-label="Fermer">×</button><p class="pwa-dialog__eyebrow">HEMIP · La Percée</p><h2 id="pwa-install-title">Installer HEMIP</h2><p class="pwa-dialog__copy" data-pwa-instructions></p><p class="pwa-dialog__note">L’installation est facultative. Les pages et ressources publiques déjà consultées peuvent rester accessibles hors connexion ; les formulaires et vidéos nécessitent Internet.</p><div class="pwa-dialog__actions"><button class="pwa-dialog__install" type="button" data-pwa-install-confirm>Installer maintenant</button><button class="pwa-dialog__later" type="button" data-pwa-install-later>Plus tard</button></div></div>`;
     document.body.appendChild(dialog);
 
-    const close = (dismiss = true) => {
+    // Fermeture simple : aucun état n’est mémorisé. Le bouton
+    // « Installer » reste disponible pour permettre une nouvelle
+    // tentative (ou une réinstallation plus tard).
+    const close = () => {
       if (typeof dialog.close === "function" && dialog.open) dialog.close();
       else dialog.removeAttribute("open");
-      if (dismiss) rememberInstallDismissal();
       if (previousFocus?.isConnected) previousFocus.focus();
     };
-    dialog.querySelector("[data-pwa-close]").addEventListener("click", () => close(true));
-    dialog.querySelector("[data-pwa-install-later]").addEventListener("click", () => close(true));
-    dialog.addEventListener("click", event => { if (event.target === dialog) close(true); });
-    dialog.addEventListener("cancel", event => { event.preventDefault(); close(true); });
+    dialog.querySelector("[data-pwa-close]").addEventListener("click", close);
+    dialog.querySelector("[data-pwa-install-later]").addEventListener("click", close);
+    dialog.addEventListener("click", event => { if (event.target === dialog) close(); });
+    dialog.addEventListener("cancel", event => { event.preventDefault(); close(); });
     dialog.querySelector("[data-pwa-install-confirm]").addEventListener("click", () => confirmInstall());
     return dialog;
-  }
-
-  function isInstallPromptDismissed() {
-    try {
-      return Number(localStorage.getItem(INSTALL_DISMISS_KEY) || 0) > Date.now();
-    } catch {
-      return false;
-    }
-  }
-
-  function rememberInstallDismissal() {
-    try {
-      localStorage.setItem(INSTALL_DISMISS_KEY, String(Date.now() + INSTALL_DISMISS_MS));
-    } catch {
-      // Une préférence indisponible peut seulement faire réapparaître l’invitation.
-    }
-  }
-
-  /**
-   * Efface le report d’installation. Utilisé quand l’application
-   * n’est plus installée : l’utilisateur doit pouvoir la réinstaller
-   * et recevoir à nouveau une invitation.
-   */
-  function clearInstallDismissal() {
-    try {
-      localStorage.removeItem(INSTALL_DISMISS_KEY);
-    } catch {
-      // Sans stockage disponible, il n’y avait rien à effacer.
-    }
   }
 
   /* =========================================================
@@ -389,8 +347,13 @@
     return "Ouvrez le menu de votre navigateur et cherchez « Installer l’application » ou « Ajouter à l’écran d’accueil ». Le libellé varie selon le navigateur.";
   }
 
+  /**
+   * Affiche le dialogue d’installation.
+   * Si le navigateur a fourni une invite native, un bouton d’installation
+   * direct apparaît ; sinon, des instructions adaptées à l’appareil.
+   */
   function openInstallDialog() {
-    if (!installDialog || installDialog.open || isInstalled()) return;
+    if (!installDialog) return;
 
     const p = platformInfo();
     const instructions = installDialog.querySelector("[data-pwa-instructions]");
@@ -402,7 +365,7 @@
 
     confirm.hidden = !peutInviter;
     confirm.textContent = "Installer maintenant";
-    later.textContent = "Plus tard";
+    later.textContent = peutInviter ? "Plus tard" : "J’ai compris";
     instructions.textContent = instructionsInstallation(p);
 
     previousFocus = document.activeElement;
@@ -412,111 +375,91 @@
     (peutInviter ? confirm : later).focus();
   }
 
-  function showInstallHelp() {
-    const p = platformInfo();
-    installDialog.querySelector("[data-pwa-instructions]").textContent = instructionsInstallation(p);
-    installDialog.querySelector("[data-pwa-install-confirm]").hidden = true;
-    installDialog.querySelector("[data-pwa-install-later]").textContent = "J’ai compris";
-    installDialog.querySelector("[data-pwa-install-later]").focus();
-  }
-
+  /**
+   * Lance l’installation.
+   *   - invite native disponible  -> prompt() du navigateur ;
+   *   - sinon                     -> le dialogue affiche déjà les étapes.
+   */
   async function confirmInstall() {
     if (!installPrompt) {
-      showInstallHelp();
+      // Aucune invite native : les instructions sont déjà affichées.
+      installDialog?.querySelector("[data-pwa-install-later]")?.focus();
       return;
     }
+
     const button = installDialog.querySelector("[data-pwa-install-confirm]");
     button.disabled = true;
+
     try {
       const prompt = installPrompt;
       installPrompt = null;
+
       await prompt.prompt();
       const choice = await prompt.userChoice;
+
       if (choice?.outcome === "accepted") {
-        // Installation acceptée : on n’enregistre PAS de report long,
-        // pour que l’utilisateur puisse réinstaller sans attendre
-        // s’il désinstalle l’application plus tard.
-        clearInstallDismissal();
         installDialog.close?.();
         const item = installButton?.closest(".pwa-install-item");
         if (item) item.hidden = true;
       }
     } catch (error) {
       console.warn("Invite d’installation HEMIP indisponible.", error);
-      showInstallHelp();
     } finally {
       button.disabled = false;
     }
   }
 
+  /**
+   * Ajoute le bouton « Installer » dans le menu.
+   * Il reste visible tant que l’application n’est pas installée ;
+   * il se masque pendant la session d’installation, et réapparaît
+   * naturellement à la prochaine visite si l’app n’est plus là.
+   */
   function addInstallButton() {
     const navList = document.querySelector("#nav-list");
     if (!navList || navList.querySelector(".pwa-install-item")) return;
+
     const item = document.createElement("li");
     item.className = "pwa-install-item";
+
     installButton = document.createElement("button");
     installButton.className = "pwa-install-button";
     installButton.type = "button";
     installButton.setAttribute("aria-label", "Installer HEMIP comme application");
     installButton.innerHTML = '<span aria-hidden="true">↓</span><span>Installer</span>';
+
     item.appendChild(installButton);
     navList.appendChild(item);
+
     installDialog = createInstallDialog();
     installButton.addEventListener("click", openInstallDialog);
 
-    // État initial, puis vérification asynchrone (API des applis liées).
+    // Masqué uniquement si l’application tourne déjà en mode installé.
     item.hidden = isInstalled();
-    refreshInstallState();
   }
 
-  function maybeShowTimedInstallPrompt() {
-    if (isInstalled() || isInstallPromptDismissed() || !installDialog) return;
-    if (cookieBanner && !cookieBanner.hidden) {
-      window.setTimeout(maybeShowTimedInstallPrompt, 5000);
-      return;
-    }
-    openInstallDialog();
-  }
-
-  /**
-   * Met à jour la visibilité du bouton « Installer » selon l’état réel
-   * de l’application sur l’appareil.
-   *
-   *   - installée  -> le bouton est masqué ;
-   *   - désinstallée -> le bouton réapparaît automatiquement,
-   *     ce qui permet de réinstaller HEMIP.
-   */
-  async function refreshInstallState() {
-    await detectRelatedApps();
-
-    const item = installButton?.closest(".pwa-install-item");
-    if (!item) return;
-
-    const installe = isInstalled();
-    item.hidden = installe;
-
-    // Si l’application n’est plus installée, on oublie un éventuel
-    // report d’installation : les invitations peuvent revenir.
-    if (!installe) clearInstallDismissal();
-
-    return installe;
-  }
-
-  // L’utilisateur vient d’installer l’application.
+  // L’utilisateur vient d’installer l’application : le bouton se masque.
   window.addEventListener("appinstalled", () => {
     installPrompt = null;
-    relatedAppsInstalled = true;
     const item = document.querySelector(".pwa-install-item");
     if (item) item.hidden = true;
   });
 
-  // Au retour sur la page (onglet réactivé, appli remise au premier plan),
-  // on réévalue : l’utilisateur a pu installer ou désinstaller entre-temps.
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) refreshInstallState();
+  // Si l’invite native devient disponible pendant la visite,
+  // le bouton reste tel quel : elle sera proposée au prochain clic.
+  window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    installPrompt = event;
   });
-  window.addEventListener("focus", () => refreshInstallState());
-  window.addEventListener("pageshow", () => refreshInstallState());
+
+  // Au retour sur la page, on rafraîchit l’état du bouton :
+  // si l’application a été installée en mode autonome, ou si l’onglet
+  // est simplement de nouveau actif, l’affichage reste cohérent.
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) return;
+    const item = installButton?.closest(".pwa-install-item");
+    if (item) item.hidden = isInstalled();
+  });
 
   function addNetworkStatus() {
     const status = document.createElement("div");
@@ -555,11 +498,6 @@
       .catch(error => console.warn("Enregistrement du service worker HEMIP impossible.", error));
   }
 
-  window.addEventListener("beforeinstallprompt", event => {
-    event.preventDefault();
-    installPrompt = event;
-  });
-
   document.querySelectorAll("[data-youtube-id], [data-map-src]").forEach(trigger => {
     if (trigger.tagName === "BUTTON") trigger.addEventListener("click", () => requestOptionalEmbed(trigger));
   });
@@ -570,5 +508,4 @@
   addInstallButton();
   addNetworkStatus();
   registerServiceWorker();
-  window.setTimeout(maybeShowTimedInstallPrompt, INSTALL_PROMPT_DELAY_MS);
 })();

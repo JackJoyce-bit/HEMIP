@@ -386,3 +386,55 @@
 @media (prefers-reduced-motion: reduce) {
   .hemip-cookie-banner *, .hemip-legal-dialog * { scroll-behavior: auto !important; }
 }
+
+
+/* =========================================================
+   INSTALLATION PWA — confort sur tous les écrans
+   Le bouton et le dialogue restent utilisables partout,
+   y compris sur les très petits téléphones.
+   ========================================================= */
+
+.pwa-install-dialog {
+  max-width: calc(100vw - 24px);
+}
+
+.pwa-install-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 1px solid rgba(var(--hemip-bg-rgb), .35);
+  border-radius: 999px;
+  background: rgba(var(--hemip-bg-rgb), .10);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pwa-install-button:hover {
+  background: rgba(var(--hemip-bg-rgb), .20);
+}
+
+.pwa-install-button:focus-visible {
+  outline: 3px solid var(--hemip-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .pwa-install-dialog__inner,
+  .pwa-dialog__content {
+    padding: 22px 16px;
+  }
+
+  .pwa-dialog__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .pwa-dialog__install,
+  .pwa-dialog__later {
+    justify-content: center;
+    width: 100%;
+  }
+}
