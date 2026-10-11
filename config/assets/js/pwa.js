@@ -43,8 +43,34 @@
     }
   };
 
-  const isInstalled = () => window.matchMedia?.("(display-mode: standalone)").matches
+  /* =========================================================
+     DÉTECTION DE L’INSTALLATION
+     On combine plusieurs signaux pour savoir si HEMIP est
+     réellement installée sur l’appareil, et pour réagir si
+     l’utilisateur l’installe ou la désinstalle plus tard.
+     ========================================================= */
+
+  // Signal immédiat : l’application tourne-t-elle en mode installé ?
+  const isStandalone = () => window.matchMedia?.("(display-mode: standalone)").matches
+    || window.matchMedia?.("(display-mode: minimal-ui)").matches
     || window.navigator.standalone === true;
+
+  // Signal persistant : l’appareil signale une application installée,
+  // même quand on consulte le site dans un onglet normal.
+  let relatedAppsInstalled = false;
+
+  async function detectRelatedApps() {
+    if (typeof navigator.getInstalledRelatedApps !== "function") return;
+    try {
+      const apps = await navigator.getInstalledRelatedApps();
+      relatedAppsInstalled = Array.isArray(apps) && apps.length > 0;
+    } catch {
+      // API indisponible ou refusée : on garde la valeur précédente.
+    }
+  }
+
+  // État consolidé : installée si l’un des signaux est vrai.
+  const isInstalled = () => isStandalone() || relatedAppsInstalled;
 
   function readConsent() {
     const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${CONSENT_COOKIE}=([^;]+)`));
@@ -265,33 +291,130 @@
     }
   }
 
+  /**
+   * Efface le report d’installation. Utilisé quand l’application
+   * n’est plus installée : l’utilisateur doit pouvoir la réinstaller
+   * et recevoir à nouveau une invitation.
+   */
+  function clearInstallDismissal() {
+    try {
+      localStorage.removeItem(INSTALL_DISMISS_KEY);
+    } catch {
+      // Sans stockage disponible, il n’y avait rien à effacer.
+    }
+  }
+
+  /* =========================================================
+     DÉTECTION DE LA PLATEFORME ET DU NAVIGATEUR
+     Sert à afficher les bonnes étapes d’installation pour chacun.
+     ========================================================= */
+
+  function platformInfo() {
+    const ua = navigator.userAgent;
+    const maxTouch = navigator.maxTouchPoints || 0;
+
+    // iPadOS 13+ se présente comme « Macintosh » : on se fie au tactile.
+    const isIPad = /ipad/i.test(ua) || (/macintosh/i.test(ua) && maxTouch > 1);
+    const isIPhone = /iphone|ipod/i.test(ua);
+    const isIOS = isIPhone || isIPad;
+
+    const isAndroid = /android/i.test(ua);
+    const isSamsung = /samsungbrowser/i.test(ua);
+    const isOpera = /\bopr\//i.test(ua) || /opera/i.test(ua);
+    const isEdge = /edg([a-z]+)?\//i.test(ua) || /edge\//i.test(ua);
+    const isFirefox = /firefox|fxios/i.test(ua);
+    const isChrome = /chrome|crios/i.test(ua) && !isEdge && !isOpera && !isSamsung;
+    const isSafari = /safari/i.test(ua) && !isChrome && !isAndroid && !isEdge && !isOpera;
+
+    const isDesktop = !isAndroid && !isIOS;
+
+    return {
+      isIOS, isIPad, isIPhone, isAndroid, isSamsung, isOpera,
+      isEdge, isFirefox, isChrome, isSafari, isDesktop,
+      supporteInvite: !!installPrompt
+    };
+  }
+
+  /**
+   * Retourne les instructions d’installation adaptées au navigateur.
+   * Firefox sur ordinateur ne permet pas d’installer une PWA : on le dit.
+   */
+  function instructionsInstallation(p) {
+
+    if (p.supporteInvite) {
+      return "Touchez « Installer maintenant » : votre navigateur vous demandera de confirmer l’ajout de HEMIP à votre appareil.";
+    }
+
+    // Safari sur ordinateur : l’installation passe par le Dock (macOS Sonoma 17+).
+    if (p.isSafari && p.isDesktop) {
+      return "Dans Safari sur Mac, ouvrez le menu « Fichier » puis « Ajouter au Dock ». Sur les versions plus anciennes de macOS, installez plutôt HEMIP depuis Chrome ou Edge.";
+    }
+
+    if (p.isIOS) {
+      return "Dans Safari, touchez le bouton Partager (carré avec une flèche vers le haut), faites défiler puis choisissez « Sur l’écran d’accueil », et confirmez avec « Ajouter ».";
+    }
+
+    if (p.isSamsung) {
+      return "Touchez le menu (trois traits, en bas), puis « Ajouter la page à » > « Écran d’accueil ».";
+    }
+
+    if (p.isAndroid && p.isFirefox) {
+      return "Dans Firefox, touchez le menu (trois points), puis « Installer ». Si l’option n’apparaît pas, ouvrez le site dans Chrome pour l’installer.";
+    }
+
+    if (p.isAndroid) {
+      return "Touchez le menu de votre navigateur (trois points), puis « Installer l’application » ou « Ajouter à l’écran d’accueil ».";
+    }
+
+    if (p.isOpera) {
+      return "Ouvrez le menu Opera (le « O » en haut à gauche), puis choisissez « Installer HEMIP » ou « Installer l’application ».";
+    }
+
+    if (p.isEdge) {
+      return "Cliquez sur le menu « … » en haut à droite, puis « Applications » > « Installer ce site en tant qu’application ».";
+    }
+
+    if (p.isChrome) {
+      return "Cliquez sur l’icône d’installation dans la barre d’adresse, ou ouvrez le menu « ⋮ » puis « Installer HEMIP ».";
+    }
+
+    if (p.isSafari) {
+      return "Dans Safari, ouvrez le menu « Fichier » puis « Ajouter au Dock ». Sur Mac, l’installation depuis Safari dépend de la version de macOS.";
+    }
+
+    if (p.isFirefox) {
+      return "Firefox sur ordinateur ne propose pas l’installation d’applications web. Utilisez Chrome, Edge ou Opera, ou installez HEMIP depuis votre téléphone.";
+    }
+
+    return "Ouvrez le menu de votre navigateur et cherchez « Installer l’application » ou « Ajouter à l’écran d’accueil ». Le libellé varie selon le navigateur.";
+  }
+
   function openInstallDialog() {
     if (!installDialog || installDialog.open || isInstalled()) return;
-    const isAppleTouch = /iphone|ipad|ipod/i.test(navigator.userAgent)
-      || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    const p = platformInfo();
     const instructions = installDialog.querySelector("[data-pwa-instructions]");
     const confirm = installDialog.querySelector("[data-pwa-install-confirm]");
     const later = installDialog.querySelector("[data-pwa-install-later]");
-    confirm.hidden = false;
-    confirm.textContent = installPrompt ? "Continuer l’installation" : "Voir les étapes";
+
+    // L’invite native n’existe que si le navigateur l’a fournie.
+    const peutInviter = !!installPrompt;
+
+    confirm.hidden = !peutInviter;
+    confirm.textContent = "Installer maintenant";
     later.textContent = "Plus tard";
-    instructions.textContent = installPrompt
-      ? "Ajoutez l’application HEMIP à votre appareil pour la retrouver plus facilement. Votre navigateur vous demandera de confirmer l’installation."
-      : isAppleTouch
-        ? "Ajoutez HEMIP à l’écran d’accueil de votre appareil pour y accéder comme une application."
-        : "Vous pouvez installer HEMIP depuis le menu de votre navigateur. L’installation est facultative.";
+    instructions.textContent = instructionsInstallation(p);
+
     previousFocus = document.activeElement;
     if (typeof installDialog.showModal === "function") installDialog.showModal();
     else installDialog.setAttribute("open", "");
-    later.focus();
+
+    (peutInviter ? confirm : later).focus();
   }
 
   function showInstallHelp() {
-    const isAppleTouch = /iphone|ipad|ipod/i.test(navigator.userAgent)
-      || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    installDialog.querySelector("[data-pwa-instructions]").textContent = isAppleTouch
-      ? "Dans Safari, touchez le bouton Partager, puis choisissez « Sur l’écran d’accueil » pour ajouter HEMIP."
-      : "Dans le menu de votre navigateur, choisissez « Installer l’application » ou « Ajouter à l’écran d’accueil ». Le libellé varie selon le navigateur.";
+    const p = platformInfo();
+    installDialog.querySelector("[data-pwa-instructions]").textContent = instructionsInstallation(p);
     installDialog.querySelector("[data-pwa-install-confirm]").hidden = true;
     installDialog.querySelector("[data-pwa-install-later]").textContent = "J’ai compris";
     installDialog.querySelector("[data-pwa-install-later]").focus();
@@ -310,7 +433,10 @@
       await prompt.prompt();
       const choice = await prompt.userChoice;
       if (choice?.outcome === "accepted") {
-        rememberInstallDismissal();
+        // Installation acceptée : on n’enregistre PAS de report long,
+        // pour que l’utilisateur puisse réinstaller sans attendre
+        // s’il désinstalle l’application plus tard.
+        clearInstallDismissal();
         installDialog.close?.();
         const item = installButton?.closest(".pwa-install-item");
         if (item) item.hidden = true;
@@ -336,8 +462,11 @@
     item.appendChild(installButton);
     navList.appendChild(item);
     installDialog = createInstallDialog();
-    if (isInstalled()) item.hidden = true;
     installButton.addEventListener("click", openInstallDialog);
+
+    // État initial, puis vérification asynchrone (API des applis liées).
+    item.hidden = isInstalled();
+    refreshInstallState();
   }
 
   function maybeShowTimedInstallPrompt() {
@@ -348,6 +477,46 @@
     }
     openInstallDialog();
   }
+
+  /**
+   * Met à jour la visibilité du bouton « Installer » selon l’état réel
+   * de l’application sur l’appareil.
+   *
+   *   - installée  -> le bouton est masqué ;
+   *   - désinstallée -> le bouton réapparaît automatiquement,
+   *     ce qui permet de réinstaller HEMIP.
+   */
+  async function refreshInstallState() {
+    await detectRelatedApps();
+
+    const item = installButton?.closest(".pwa-install-item");
+    if (!item) return;
+
+    const installe = isInstalled();
+    item.hidden = installe;
+
+    // Si l’application n’est plus installée, on oublie un éventuel
+    // report d’installation : les invitations peuvent revenir.
+    if (!installe) clearInstallDismissal();
+
+    return installe;
+  }
+
+  // L’utilisateur vient d’installer l’application.
+  window.addEventListener("appinstalled", () => {
+    installPrompt = null;
+    relatedAppsInstalled = true;
+    const item = document.querySelector(".pwa-install-item");
+    if (item) item.hidden = true;
+  });
+
+  // Au retour sur la page (onglet réactivé, appli remise au premier plan),
+  // on réévalue : l’utilisateur a pu installer ou désinstaller entre-temps.
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshInstallState();
+  });
+  window.addEventListener("focus", () => refreshInstallState());
+  window.addEventListener("pageshow", () => refreshInstallState());
 
   function addNetworkStatus() {
     const status = document.createElement("div");
@@ -389,11 +558,6 @@
   window.addEventListener("beforeinstallprompt", event => {
     event.preventDefault();
     installPrompt = event;
-  });
-  window.addEventListener("appinstalled", () => {
-    installPrompt = null;
-    const item = document.querySelector(".pwa-install-item");
-    if (item) item.hidden = true;
   });
 
   document.querySelectorAll("[data-youtube-id], [data-map-src]").forEach(trigger => {

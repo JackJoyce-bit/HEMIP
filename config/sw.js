@@ -1,7 +1,7 @@
 const CACHE_PREFIX = "hemip-pwa-";
-const SHELL_CACHE = `${CACHE_PREFIX}shell-v10`;
-const PAGES_CACHE = `${CACHE_PREFIX}pages-v5`;
-const ASSETS_CACHE = `${CACHE_PREFIX}assets-v10`;
+const SHELL_CACHE = `${CACHE_PREFIX}shell-v12`;
+const PAGES_CACHE = `${CACHE_PREFIX}pages-v6`;
+const ASSETS_CACHE = `${CACHE_PREFIX}assets-v13`;
 const APP_BASE = new URL("./", self.registration.scope);
 const OFFLINE_URL = new URL("offline.html", APP_BASE).href;
 const SHELL_FILES = [
@@ -9,9 +9,15 @@ const SHELL_FILES = [
   "manifest.json",
   "assets/css/style.css",
   "assets/css/hemip-theme.css",
+  "assets/vendor/remixicon/remixicon.css",
+  "assets/vendor/fonts/fonts.css",
+  "assets/vendor/fonts/inter.css",
+  "assets/vendor/fonts/dm-sans.css",
+  "assets/vendor/fonts/playfair.css",
   "assets/css/pwa.css",
   "assets/css/home-sections.css",
   "assets/css/independent-pages.css",
+  "assets/css/faq.css",
   "assets/js/main.js",
   "assets/js/home-sections.js",
   "assets/js/pwa.js",
@@ -26,7 +32,9 @@ const SHELL_FILES = [
   "assets/img/hemip-vie-ecole.jpg",
   "assets/icons/hemip-180.png",
   "assets/icons/hemip-192.png",
-  "assets/icons/hemip-512.png"
+  "assets/icons/hemip-512.png",
+  "assets/icons/hemip-maskable-192.png",
+  "assets/icons/hemip-maskable-512.png"
 ].map(path => new URL(path, APP_BASE).href);
 
 // Only these same-origin public documents are static, anonymous HTML pages.
@@ -166,7 +174,8 @@ self.addEventListener("fetch", event => {
   if (path.startsWith("assets/css/")
       || path.startsWith("assets/js/")
       || path.startsWith("assets/img/")
-      || path.startsWith("assets/icons/")) {
+      || path.startsWith("assets/icons/")
+      || path.startsWith("assets/vendor/")) {
     event.respondWith(cacheFirstAsset(request, url));
   }
 });

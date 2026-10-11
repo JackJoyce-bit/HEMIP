@@ -17,6 +17,40 @@ try {
 }
 
 
+/**
+ * Retourne l'identifiant d'un administrateur de référence.
+ *
+ * Les demandes publiques (inscription, réinscription) doivent être
+ * rattachées à un compte administratif existant. Plutôt que de figer
+ * un identifiant arbitraire, on prend le premier compte disponible
+ * (de préférence un SuperAdmin). Cela évite une erreur de clé
+ * étrangère si les comptes changent un jour.
+ */
+function idAdminReferent(PDO $connexion): int
+{
+    $requete = $connexion->query(
+        "SELECT idAdmin
+         FROM administrateur
+         ORDER BY role = 'SuperAdmin' DESC, idAdmin ASC
+         LIMIT 1"
+    );
+
+    $id = $requete->fetchColumn();
+
+    if ($id === false) {
+        die(
+            "Aucun compte administrateur n'est configuré sur le site. "
+            . "Contactez l'établissement."
+        );
+    }
+
+    return (int) $id;
+}
+
+
+$idAdminReferent = idAdminReferent($connexion);
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Si les fichiers dépassent la limite du serveur, PHP vide $_POST et $_FILES
@@ -31,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             . "Réduisez leur taille et réessayez."
         );
     }
-    
+
     $typeDemande = $_POST['type_demande'] ?? 'Inscription';
 
     // ==========================
@@ -151,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':type_demande' => 'Réinscription',
             ':statut' => 'Validée',
             ':idFiliere' => $idFiliere,
-            ':idAdmin' => 3,
+            ':idAdmin' => $idAdminReferent,
             ':idCandidat' => $ancienCandidat['idCandidat'],
             ':niveau' => $niveau
         ]);
@@ -386,9 +420,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':type_demande' => 'Inscription',
         ':statut' => 'En attente',
 
-        // À adapter selon les données existantes
         ':idFiliere' => $idFiliere,
-        ':idAdmin' => 3,
+        ':idAdmin' => $idAdminReferent,
 
         ':idCandidat' => $idCandidat,
         ':niveau' => $niveau
@@ -684,6 +717,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </li>
 
             <!-- AJOUT : À PROPOS -->
+
+            
+            <li><a href="faq.php">FAQ</a></li>
 
             <li>
 

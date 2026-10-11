@@ -256,26 +256,69 @@
 .hemip-footer-legal {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 8px 18px;
+  gap: 10px 4px;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(var(--hemip-bg-rgb), .22);
+  font-size: clamp(.92rem, .35vw + .82rem, .98rem);
+  line-height: 1.6;
 }
 
 .footer-bottom.has-hemip-footer-legal { flex-wrap: wrap; }
 .footer-bottom.has-hemip-footer-legal .hemip-footer-legal { flex-basis: 100%; }
 
+/* Separateur discret entre chaque item de la ligne legale */
+.hemip-footer-legal > * + *::before {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-right: 16px;
+  margin-left: 12px;
+  vertical-align: middle;
+  background: currentColor;
+  opacity: .35;
+}
+
 .hemip-footer-legal a,
 .hemip-footer-legal button {
-  padding: 0;
+  padding: 3px 2px;
   border: 0;
   background: transparent;
   color: inherit;
   font: inherit;
-  font-size: .86rem;
-  text-decoration: underline;
+  font-size: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(var(--hemip-bg-rgb), .45);
   text-underline-offset: 3px;
   cursor: pointer;
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.hemip-footer-legal a:hover,
+.hemip-footer-legal button:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Bouton d'action : distinct des liens de politique */
+.hemip-footer-legal [data-cookie-preferences],
+.hemip-footer-legal .consent-manage {
+  margin-left: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(var(--hemip-bg-rgb), .55);
+  border-radius: 999px;
+  font-weight: 700;
+  background: rgba(var(--hemip-bg-rgb), .12);
+}
+
+.hemip-footer-legal [data-cookie-preferences]:hover,
+.hemip-footer-legal .consent-manage:hover {
+  background: rgba(var(--hemip-bg-rgb), .22);
+  border-color: #fff;
 }
 
 .hemip-legal-dialog {
@@ -334,7 +377,8 @@
   .hemip-cookie-banner__inner { grid-template-columns: 1fr; gap: 14px; padding: 17px; }
   .hemip-cookie-banner__actions { display: grid; grid-template-columns: 1fr 1fr; }
   .hemip-cookie-button { min-width: 0; padding-inline: 10px; font-size: .82rem; }
-  .hemip-footer-legal { gap: 8px 14px; }
+  .hemip-footer-legal { gap: 12px 4px; font-size: .95rem; }
+  .hemip-footer-legal > * + *::before { margin-right: 12px; margin-left: 9px; }
   .hemip-legal-dialog__inner { padding: 23px 18px; }
   .consent-embed-trigger--map { min-height: 250px; }
 }

@@ -616,6 +616,9 @@ try {
 
             <!-- AJOUT : À PROPOS -->
 
+            
+            <li><a href="faq.php">FAQ</a></li>
+
             <li>
 
                 <a href="a-propos.php">
@@ -642,7 +645,7 @@ try {
                 <?php else: ?>
 
                     <a
-                        href="connexion_admin.php"
+                        href="login.php"
                         title="Connexion administrateur"
                     >
 

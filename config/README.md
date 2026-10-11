@@ -2,7 +2,7 @@
 
 ## Structure et page active
 
-Le site est en PHP natif, sans étape de compilation. Le dossier `config/` correspond à la racine web lorsqu’il est déployé. La page d’accueil active est `index.php` ; `index.html` est une ancienne copie statique et ne doit pas remplacer la page PHP à la racine.
+Le site est en PHP natif, sans étape de compilation. Le dossier `config/` correspond à la racine web lorsqu’il est déployé. La page d’accueil active et unique est `index.php` (l’ancienne copie statique `index.html` a été supprimée).
 
 | Page ou fichier | Fonction |
 | --- | --- |
@@ -20,7 +20,7 @@ Le site est en PHP natif, sans étape de compilation. Le dossier `config/` corre
 | `inscription.php`, `traitement.php`, `actualite.php`, `login.php`, `dashboard.php` | Parcours métier PHP existants, qui restent distincts. |
 | `mail.php`, `config-mail.php` | Transport e-mail existant et configuration. `config-mail.php` contient une valeur sensible : ne pas l’exposer dans une page, un ticket ou un dépôt public. |
 
-Les menus et appels à l’action relient Accueil, Nos réalisations et Contact à ces routes dédiées. `index.html` est une ancienne copie statique ; `index.php` est la page d’accueil active. Les formulaires d’inscription et d’administration restent sur leurs routes habituelles.
+Les menus et appels à l’action relient Accueil, Nos réalisations et Contact à ces routes dédiées. `index.php` est la seule page d’accueil. Les formulaires d’inscription et d’administration restent sur leurs routes habituelles.
 
 ## Palette de couleurs HEMIP
 
@@ -116,4 +116,4 @@ L’intégration est locale : `https://hemip.great-site.net/` n’a pas été mo
 - `assets/js/main.js`, `assets/js/home-sections.js`, `assets/js/pwa.js` ;
 - les fichiers d’icônes et les huit photos optimisées déjà utilisées par le carrousel.
 
-Ne pas téléverser l’ancien `index.html` à la racine ni remplacer l’accueil PHP. Préserver les pages métier et la configuration SMTP ; ne pas téléverser un secret vers un dépôt public. Après copie, vérifier HTTPS, les routes, les icônes, le manifeste, le scope du service worker et la création des sessions PHP. Une PWA possédant l’ancien worker doit actualiser une fois en ligne afin de recevoir les nouveaux caches. Confirmer le SMTP séparément avec une adresse de test autorisée par l’école.
+Préserver les pages métier et la configuration SMTP ; ne pas téléverser un secret vers un dépôt public. Après copie, vérifier HTTPS, les routes, les icônes, le manifeste, le scope du service worker et la création des sessions PHP. Une PWA possédant l’ancien worker doit actualiser une fois en ligne afin de recevoir les nouveaux caches. Confirmer le SMTP séparément avec une adresse de test autorisée par l’école.
