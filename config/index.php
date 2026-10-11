@@ -140,6 +140,7 @@ $adminConnecte = isset($_SESSION['admin_connecte'])
             <li>
                 <a href="contact.php#contact">Contact</a>
             </li>
+            <li><a href="faq.php">FAQ</a></li>
 
             <li>
                 <a href="a-propos.php">À propos</a>

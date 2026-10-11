@@ -59,6 +59,7 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
             <li><a href="actualite.php">Actualité</a></li>
             <li><a href="realisations.html">Nos réalisations</a></li>
             <li><a href="contact.php" aria-current="page">Contact</a></li>
+            <li><a href="faq.php">FAQ</a></li>
             <li><a href="a-propos.php">À propos</a></li>
             <?php if ($adminConnecte): ?>
                 <li><a href="dashboard.php" title="Tableau de bord"><i class="ri-dashboard-line" aria-hidden="true"></i><span class="visually-hidden">Tableau de bord</span></a></li>
