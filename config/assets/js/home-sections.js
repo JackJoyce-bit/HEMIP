@@ -48,7 +48,7 @@
             }
         });
         status.setAttribute("aria-live", announce ? "polite" : "off");
-        status.textContent = `${String(currentIndex + 1).padStart(2, "0")} — ${labels[currentIndex]}`;
+        status.textContent = `${String(currentIndex + 1).padStart(2, "0")} | ${labels[currentIndex]}`;
         if (announce) {
             window.setTimeout(() => status.setAttribute("aria-live", "off"), 1000);
         }
