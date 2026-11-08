@@ -1,0 +1,155 @@
+/*
+ * Correctifs ciblés HEMIP
+ * À charger APRÈS style.css et home-sections.css.
+ * Corrige les erreurs évidentes sans remplacer les styles existants.
+ */
+
+html {
+    box-sizing: border-box;
+    scroll-padding-top: 80px;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    overflow-wrap: break-word;
+}
+
+img, video, iframe {
+    max-width: 100%;
+}
+
+.hero {
+    position: relative;
+    isolation: isolate;
+}
+
+.hero::before {
+    pointer-events: none;
+}
+
+.hero-content {
+    min-width: 0;
+}
+
+/* Focus clavier */
+.nav-list a:focus-visible,
+.dropdown-btn:focus-visible,
+.submenu-btn:focus-visible,
+.menu-btn:focus-visible,
+.btn:focus-visible,
+.map-button:focus-visible,
+.social-link:focus-visible {
+    outline: 3px solid var(--hemip-primary-soft, #b7d9d0);
+    outline-offset: 3px;
+}
+
+/* Section « Pourquoi HEMIP » */
+.titre_pourquoi {
+    color: var(--primary, #176b5b);
+}
+
+.content_pourquoi p {
+    color: var(--text, #555);
+}
+
+.image_container_pourquoi {
+    min-width: 0;
+}
+
+.image_container_pourquoi img:nth-child(1) {
+    transform: translateY(50px);
+}
+
+.image_container_pourquoi img:nth-child(2) {
+    transform: translateY(-50px);
+}
+
+/* Centre la section localisation */
+.location-container {
+    width: 100%;
+    margin-inline: auto;
+    min-width: 0;
+}
+
+/* Variable CSS corrigée */
+.footer-contact a:hover {
+    color: var(--primary-dark, var(--hemip-primary-strong, #176b5b));
+}
+
+/* Formulaire */
+.home-contact-field input,
+.home-contact-field textarea,
+.home-contact-field select {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Réduction des animations selon les préférences système */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Tablette et mobile */
+@media (max-width: 768px) {
+    .container_pourquoi {
+        width: calc(100% - 32px);
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .content_pourquoi {
+        width: 100%;
+        margin-inline: 0;
+    }
+
+    .image_container_pourquoi {
+        grid-area: auto;
+    }
+
+    .image_container_pourquoi img:nth-child(1),
+    .image_container_pourquoi img:nth-child(2) {
+        transform: none;
+    }
+
+    .location-container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .container_pourquoi {
+        width: calc(100% - 32px);
+    }
+
+    .image_container_pourquoi {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-contact-card {
+        padding: 22px 18px;
+    }
+}

@@ -394,28 +394,6 @@
    y compris sur les très petits téléphones.
    ========================================================= */
 
-.pwa-install-dialog {
-  max-width: calc(100vw - 24px);
-}
-
-.pwa-install-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 6px 12px;
-  border: 1px solid rgba(var(--hemip-bg-rgb), .35);
-  border-radius: 999px;
-  background: rgba(var(--hemip-bg-rgb), .10);
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-
-.pwa-install-button:hover {
-  background: rgba(var(--hemip-bg-rgb), .20);
-}
-
 .pwa-install-button:focus-visible {
   outline: 3px solid var(--hemip-accent);
   outline-offset: 3px;
