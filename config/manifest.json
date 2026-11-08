@@ -9,7 +9,7 @@
   "display": "standalone",
   "orientation": "any",
   "background_color": "#FDFDFD",
-  "theme_color": "#1094D7",
+  "theme_color": "#23a8eb",
   "categories": [
     "education"
   ],
@@ -81,7 +81,7 @@
     {
       "name": "Nos réalisations",
       "short_name": "Réalisations",
-      "url": "./realisations.html",
+      "url": "./realisations.php",
       "icons": [
         {
           "src": "./assets/icons/hemip-192.png",
@@ -93,7 +93,7 @@
     {
       "name": "Contact",
       "short_name": "Contact",
-      "url": "./contact.php",
+      "url": "./contact.php#contact",
       "icons": [
         {
           "src": "./assets/icons/hemip-192.png",

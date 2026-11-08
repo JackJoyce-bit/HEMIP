@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Génie Chimique | HEMIP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+     <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/GP.css?v=2">
+     <!-- Remix Icon -->
+    <link
+        href="assets/vendor/remixicon/remixicon.css"
+        rel="stylesheet"
+    >
+     <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    <style>
+        /* Espace sous le header fixe */
+        .formation-container { padding-top: 110px; }
+
+        /* Augmentation de la taille du texte */
+        .section-content p, .section-content li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .section-content strong {
+            font-size: 1.15rem;
+        }
+    </style>
+    <meta name="theme-color" content="#1094d7">
+    <meta name="application-name" content="HEMIP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEMIP">
+    <script>window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__hemipInstallPrompt=e;});</script>
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
+    <link rel="stylesheet" href="assets/css/pwa.css">
+  <link rel="stylesheet" href="assets/css/hemip-theme.css">
+    <link rel="stylesheet" href="assets/css/responsive.css?v=20261010">
+    <link rel="stylesheet" href="assets/css/filieres.css?v=20261010">
+    <link rel="stylesheet" href="assets/css/consent-fix.css?v=20261010">
+</head>
+<body>
+        <header class="header">
+
+    <nav class="navbar">
+
+        <!-- LOGO -->
+      <a href="index.php" class="logo">
+    <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+    <span>HEMIP</span>
+</a>
+
+
+        <!-- BOUTON MOBILE -->
+        <button class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-list">
+            <i class="ri-menu-line"></i>
+        </button>
+
+
+        <!-- MENU -->
+        <ul class="nav-list" id="nav-list">
+
+            <li>
+                <a href="index.php">Accueil</a>
+            </li>
+
+            
+
+
+            <!-- DROPDOWN FORMATION -->
+            <li class="dropdown">
+
+                <button class="dropdown-btn" type="button">
+                    Formation
+                    <i class="ri-arrow-down-s-line"></i>
+                </button>
+
+                <ul class="dropdown-menu">
+
+                    <!-- SOUS MENU pole technique-->
+                    <li class="submenu">
+
+                        <button class="submenu-btn" type="button">
+                            Pôle technique
+
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+
+                        <ul class="submenu-menu">
+                            <li><a href="GP.html">Génie Pétrolier</a></li>
+                            <li><a href="GL.html">Génie Logiciel</a></li>
+                            <li><a href="RT.html">Réseaux et Télécommunication</a></li>
+                            <li><a href="MI.html">Maintenance industrielle</a></li>
+                            <li><a href="AII.html">Automatisation et informatique industriel</a></li>
+                            <li><a href="EE.html">Électrotechnique et Électronique</a></li>
+                            <li><a href="GC.html">Génie Chimique</a></li>
+                            <li><a href="RP.html">Raffinage et Pétrochimie</a></li>
+                            <li><a href="ENR.html">Énergies Renouvelables</a></li>
+                            
+                            
+                          
+                        </ul>
+
+                    </li>
+                    
+
+                    <!-- SOUS MENU -->
+                    <li class="submenu">
+
+                        <button class="submenu-btn" type="button">
+                            Pôle Commercial
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+
+                        <ul class="submenu-menu">
+                            <li><a href="DAE.html">Droit des affaires et des entreprises</a></li>
+                            <li><a href="GLT.html">Gestion Logistique et transport</a></li>
+                            <li><a href="BFA.html">Banque et Finance des assurances</a></li>
+                            <li><a href="CIT.html">Commerce international et transit</a></li>
+                           <li><a href="GFC.html">Gestion finance et comptable</a></li>       
+                         <li><a href="MRH.html">Management des Ressources Humaines</a></li> 
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </li>
+            <li>
+                <a href="inscription.php">Inscription</a>
+            </li>
+
+            <li>
+                <a href="actualite.php">Actualité</a>
+            </li>
+
+            <li><a href="realisations.php">Nos réalisations</a></li>
+
+            <li>
+                <a href="contact.php#contact">Contact</a>
+            </li>
+
+            <li><a href="faq.php">FAQ</a></li>
+
+            <li><a href="a-propos.php">À propos</a></li>
+
+ <li><a href="login.php" title="Connexion administrateur" aria-label="Connexion administrateur"><i class="ri-admin-line" aria-hidden="true"></i></a></li>
+            
+
+        </ul>
+
+    </nav>
+
+</header>
+<div class="formation-container">
+  <!-- En-tête principal -->
+  <div class="entete-banner">
+    <span class="banner-title">Génie Chimique</span>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">Stratégie de l'entreprise</div>
+    <div class="section-content">
+      <p>La stratégie globale vise à former des techniciens capables de conduire et de contrôler les procédés de transformation de la matière dans les industries chimiques, en alliant qualité des produits, sécurité et respect de l'environnement.</p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">Objectifs de formation</div>
+    <div class="section-content">
+      <ul>
+        <li><strong>Comprendre les procédés chimiques :</strong> Maîtriser les opérations de base, les bilans de matière et d'énergie et le fonctionnement des réacteurs.</li>
+        <li><strong>Contrôler la qualité :</strong> Réaliser les analyses, les mesures et le suivi en laboratoire pour garantir la conformité des produits.</li>
+        <li><strong>Conduire des installations semi-industrielles :</strong> S'exercer sur les unités de production semi-industrielle de l'école (eau potable, détergents, peintures, ciments, engrais…).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">Évolution</div>
+    <div class="section-content">
+      <p>Le technicien en génie chimique accompagne la modernisation des industries de transformation, de la brasserie à la production d'eau.</p>
+      <ul>
+        <li><strong>Des procédés plus propres :</strong> Réduction des déchets et valorisation des sous-produits pour limiter l'impact environnemental.</li>
+        <li><strong>Un contrôle plus instrumenté :</strong> Les mesures en continu et l'automatisation prennent une place croissante dans la conduite des unités.</li>
+        <li><strong>La valorisation des ressources locales :</strong> Biofertilisants, matériaux écologiques et recyclage ouvrent de nouveaux champs d'application.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tableau des frais et débouchés (image agrandissable) -->
+  <a class="rid-figure tableau-figure" href="assets/img/hemip-tableau-gc.png" target="_blank" rel="noopener" title="Toucher pour agrandir">
+        <img src="assets/img/hemip-tableau-gc.png" alt="Tableau des frais de formation et des débouchés : Génie Chimique" width="1800" height="910" loading="lazy" decoding="async">
+        <span class="rid-zoom"><i class="ri-zoom-in-line" aria-hidden="true"></i> Toucher pour agrandir</span>
+    </a>
+  <div class="tableau-sr">
+    <div class="table-container">
+    <table>
+<thead>
+            <tr>
+                <th>Niveau</th>
+                <th>Diplôme</th>
+                <th>Frais d'examen et travaux pratiques</th>
+                <th>Coût de la formation</th>
+                <th>Débouchés</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1ère année</td>
+                <td>BAC</td>
+                <td rowspan="3" class="centered-large">30000 soit 15000/mois (session ordinaire) <br>Payable avant les examens. <br>(7500FCFA Rattrapage) <br> <br> <br><strong>NB :</strong> Scolarité payable en 10 mois</td>
+                <td rowspan="3" class="centered-large">Frais de formation communiqués sur demande. Contactez l'administration.</td>
+                <td rowspan="3" class="centered-large">Technicien supérieur pour le contrôle des procédés dans l'industrie chimique : brasserie, savonnerie, cimenterie, compagnie de production d'eau</td>
+            </tr>
+            <tr>
+                <td>2ème année</td>
+                <td>Relevé notes S1 et S2</td>
+            </tr>
+            <tr>
+                <td>3ème année</td>
+                <td>Relevé notes S3 et S4</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<footer class="footer reveal">
+    <div class="footer-container " id="footer">
+
+        <!-- Présentation -->
+        <div class="footer-col footer-about">
+            <div class="footer-logo">
+                <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+                <span>HEMIP</span>
+            </div>
+
+            <p class="footer-slogan">
+                « Nous formons des professionnels qualifiés et chevronnés »
+            </p>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-col">
+            <h3>Contactez-nous</h3>
+
+            <ul class="footer-contact">
+                <li>
+                    <i class="ri-mail-line"></i>
+                    <a href="mailto:hemilaperceeinformation@gmail.com">
+             hemilaperceeinformation@gmail.com
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+242069149242">
+                        +242 06 914 92 42
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+242063560677">
+                        +242 06 356 06 77
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-whatsapp-line"></i>
+                    <a href="https://wa.me/242055865094" target="_blank">
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div class="footer-col">
+            <h3>Suivez-nous</h3>
+
+            <p class="social-text">
+                Retrouvez HEMIP sur nos réseaux sociaux.
+            </p>
+
+            <div class="social-links">
+
+                <a href="https://vm.tiktok.com/ZS9kFSarLrbTD-96s9G/" class="social-link" aria-label="TikTok">
+                    <i class="ri-tiktok-line"></i>
+                </a>
+
+                <a href="https://www.facebook.com/hemipcongo" class="social-link" aria-label="Facebook">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+
+                <a href="https://wa.me/242055865094"
+                   class="social-link"
+                   aria-label="WhatsApp"
+                   target="_blank">
+                    <i class="ri-whatsapp-line"></i>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bas du footer -->
+    <div class="footer-bottom">
+        <p>
+            © 2026 HEMIP. Tous droits réservés.
+        </p>
+
+        <p>
+            Haute École de Management et d'Ingénierie la Percée
+        </p>
+    </div>
+</footer>
+<script src="assets/js/main.js?v=20261010"></script>
+<script src="assets/js/pwa.js?v=20261010" defer></script>
+<script src="assets/js/consent-style.js?v=20261010" defer></script>
+<script src="assets/js/consent-close.js?v=20261011" defer></script>
+<script src="pwa.js?v=20261010" defer></script>
+</body>
+</html>

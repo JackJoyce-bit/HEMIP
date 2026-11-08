@@ -5,6 +5,11 @@ session_start();
 require_once "connexion.php";
 require_once "historique.php";
 
+/** Le statut n'a pas pu être enregistré tel quel (problème d'encodage de la base). */
+class ErreurStatut extends Exception
+{
+}
+
 
 // Vérifier que l'administrateur est connecté
 if (
@@ -454,6 +459,25 @@ try {
         ':idPreinscription' => $candidat['idPreinscription']
     ]);
 
+    // Vérifier que la base a bien gardé le statut demandé.
+    // (Avec un mauvais encodage, certaines bases enregistrent un texte vide
+    // sans signaler d'erreur : mieux vaut tout annuler.)
+    $verification = $connexion->prepare("
+        SELECT statut
+        FROM preinscription
+        WHERE idPreinscription = :idPreinscription
+    ");
+
+    $verification->execute([':idPreinscription' => $candidat['idPreinscription']]);
+
+    if ($verification->fetchColumn() !== $statut) {
+        throw new ErreurStatut(
+            "Le statut n'a pas pu être enregistré : problème d'encodage de la base. "
+            . "Vérifiez connexion.php (charset=utf8mb4) et ouvrez diagnostic.php. "
+            . "Rien n'a été modifié."
+        );
+    }
+
     // Notification
     $requeteNotification = $connexion->prepare("
         INSERT INTO notification
@@ -492,7 +516,9 @@ try {
     terminer(
         'erreur',
         'Erreur',
-        "Une erreur est survenue : rien n'a été modifié. Veuillez réessayer.",
+        ($e instanceof ErreurStatut)
+            ? $e->getMessage()
+            : "Une erreur est survenue : rien n'a été modifié. Veuillez réessayer.",
         $section
     );
 }

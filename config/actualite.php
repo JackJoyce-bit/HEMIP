@@ -1,4 +1,5 @@
 <?php
+if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 
 session_start();
 
@@ -223,22 +224,22 @@ try {
 
   <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>Actualités — HEMIP</title>
+  <title>Actualités | HEMIP</title>
 
-  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="<?= asset('assets/vendor/fonts/fonts.css') ?>">
 
   <link
       rel="stylesheet"
-      href="assets/css/actualite.css"
+      href="<?= asset('assets/css/actualite.css') ?>"
   >
 
   <!-- Remix Icon -->
 
   <link
-      href="assets/vendor/remixicon/remixicon.css"
+      href="<?= asset('assets/vendor/remixicon/remixicon.css') ?>"
       rel="stylesheet"
   >
 
@@ -246,7 +247,7 @@ try {
 
   <link
       rel="stylesheet"
-      href="assets/css/style.css"
+      href="<?= asset('assets/css/style.css') ?>"
   >
 
   <!-- favicon -->
@@ -410,6 +411,16 @@ try {
       margin-bottom: 45px;
     }
 
+    /* Augmentation de la taille du texte */
+    .news-content p, .news-content h2, .news-content h3 {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .news-content h2 {
+      font-size: 1.4rem;
+    }
+
   </style>
 
     <meta name="theme-color" content="#1094d7">
@@ -417,11 +428,13 @@ try {
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="HEMIP">
-    <link rel="manifest" href="manifest.json">
+    <script>window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__hemipInstallPrompt=e;});</script>
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
-    <link rel="stylesheet" href="assets/css/pwa.css">
-  <link rel="stylesheet" href="assets/css/hemip-theme.css">
+    <link rel="stylesheet" href="<?= asset('assets/css/pwa.css') ?>">
+  <link rel="stylesheet" href="<?= asset('assets/css/hemip-theme.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/responsive.css') ?>">
 </head>
 
 <body>
@@ -432,7 +445,7 @@ try {
 
         <!-- LOGO -->
 
-        <a href="#" class="logo">
+        <a href="index.php" class="logo">
 
             <img
                 src="assets/img/logo-hemip.jpg"
@@ -446,9 +459,7 @@ try {
         <!-- BOUTON MOBILE -->
 
         <button
-            class="menu-btn"
-            id="menu-btn"
-        >
+            class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-list">
 
             <i class="ri-menu-line"></i>
 
@@ -525,6 +536,30 @@ try {
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="EE.html">
+                                    Électrotechnique et Électronique
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="GC.html">
+                                    Génie Chimique
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="RP.html">
+                                    Raffinage et Pétrochimie
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="ENR.html">
+                                    Énergies Renouvelables
+                                </a>
+                            </li>
+
                         </ul>
 
                     </li>
@@ -590,7 +625,7 @@ try {
             <li>
 
                 <a
-                    href="Inscription.php"
+                    href="inscription.php"
                     onclick="afficherFormulaire()"
                 >
                     Inscription
@@ -601,23 +636,28 @@ try {
             <li>
 
                 <a href="actualite.php">
-                    Actualité
+                    Actualités
                 </a>
 
             </li>
 
             <li>
+                <a href="realisations.php">
+                    Nos réalisations
+                </a>
+            </li>
 
-                <a href="contact.php#contact">
+            <li>
+
+                <a href="contact.php">
                     Contact
                 </a>
 
             </li>
 
-            <!-- AJOUT : À PROPOS -->
-
-            
             <li><a href="faq.php">FAQ</a></li>
+
+            <!-- AJOUT : À PROPOS -->
 
             <li>
 
@@ -633,27 +673,29 @@ try {
 
                 <?php if ($adminConnecte): ?>
 
-                    <a
-                        href="dashboard.php"
-                        title="Dashboard administrateur"
-                    >
+            <!-- Accès au tableau de bord -->
+            <li>
+                <a href="dashboard.php" title="Tableau de bord">
+                    <i class="ri-dashboard-line"></i>
+                </a>
+            </li>
 
-                        <i class="ri-admin-line"></i>
+            <!-- Administrateur connecté -->
+            <li class="admin-status">
+                <i class="ri-admin-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
+            </li>
 
-                    </a>
+           <?php else: ?>
 
-                <?php else: ?>
+            <!-- Connexion administrateur -->
+            <li>
+                <a href="login.php" title="Connexion administrateur">
+                    <i class="ri-admin-line"></i>
+                </a>
+            </li>
 
-                    <a
-                        href="login.php"
-                        title="Connexion administrateur"
-                    >
-
-                        <i class="ri-admin-line"></i>
-
-                    </a>
-
-                <?php endif; ?>
+           <?php endif; ?>
 
             </li>
 
@@ -673,7 +715,7 @@ try {
 
     <p>
       Découvrez les dernières nouvelles et événements
-      de la Haute École de Management et de l’Ingénierie.
+      de la Haute École de Management et de l’Ingénierie - la Percée.
       Journées sportives, compétitions, remises des diplômes,
       bal de fin d'année ou encore visite en entreprise.
       Ne ratez rien des derniers évènements !
@@ -785,42 +827,6 @@ try {
 <?php endif; ?>
 
 <!-- =====================================================
-     ONGLETS
-     ===================================================== -->
-
-<div class="container-actu">
-
-    <div class="actu-tabs">
-
-        <button
-            type="button"
-            class="actu-tab active"
-            onclick="afficherOnglet('actualites', this)"
-        >
-
-            <i class="ri-newspaper-line"></i>
-
-            Actualités
-
-        </button>
-
-        <button
-            type="button"
-            class="actu-tab"
-            onclick="afficherOnglet('vieEstudiantine', this)"
-        >
-
-            <i class="ri-graduation-cap-line"></i>
-
-            Vie Estudiantine
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- =====================================================
      ONGLET ACTUALITÉS
      ===================================================== -->
 
@@ -832,6 +838,7 @@ try {
 <main class="container-actu">
 
   <section class="news-grid">
+
 
     <!-- =================================================
          ACTUALITÉ ORIGINALE 1
@@ -867,10 +874,10 @@ try {
         <p>
 
           HEMIP accueille
-          <strong>Arthur Nseka Mpela</strong>
+          <strong>Pr. Arthur NSEKA MPELA</strong>
           en qualité de
           <strong>
-              Directeur des Affaires Académiques (DAC)
+              Directeur des Affaires Académiques (DAAC)
           </strong>.
 
           Une nouvelle étape pour accompagner
@@ -882,7 +889,7 @@ try {
         <button
             class="read-more"
             type="button"
-            onclick="openNews('dac')"
+            onclick="openNews('daac')"
         >
 
             Lire l’actualité
@@ -894,6 +901,7 @@ try {
       </div>
 
     </article>
+
 
     <!-- =================================================
          ACTUALITÉ ORIGINALE 2
@@ -909,7 +917,7 @@ try {
         >
 
         <span class="tag">
-            Vie étudiante
+            Vie estudiantine
         </span>
 
       </div>
@@ -956,6 +964,7 @@ try {
 
     </article>
 
+
     <!-- =================================================
          ACTUALITÉ ORIGINALE 3
          ================================================= -->
@@ -965,7 +974,7 @@ try {
       <div class="news-image">
 
         <img
-            src="assets/img/master.png"
+            src="assets/img/img-master.png"
             alt="Inscriptions ouvertes pour le cycle Master à HEMIP"
         >
 
@@ -995,7 +1004,7 @@ try {
           La rentrée académique est annoncée
           pour le
           <strong>
-              15 septembre 2026 à 17h00
+              12 octobre 2026 à 8h00
           </strong>.
 
           Une opportunité de poursuivre sa formation
@@ -1019,6 +1028,7 @@ try {
       </div>
 
     </article>
+
 
     <!-- =================================================
          ACTUALITÉS PUBLIÉES PAR L'ADMIN
@@ -1062,6 +1072,7 @@ try {
 
             </div>
 
+
             <div class="news-content">
 
                 <span class="date">
@@ -1075,6 +1086,7 @@ try {
 
                 </span>
 
+
                 <h2>
 
                     <?= htmlspecialchars(
@@ -1082,6 +1094,7 @@ try {
                     ) ?>
 
                 </h2>
+
 
                 <p>
 
@@ -1092,6 +1105,7 @@ try {
                     ) ?>
 
                 </p>
+
 
                 <button
                     class="read-more"
@@ -1124,277 +1138,13 @@ try {
 
     <?php endforeach; ?>
 
+
   </section>
 
 </main>
 
 </div>
 
-<!-- =====================================================
-     ONGLET VIE ESTUDIANTINE
-     ===================================================== -->
-
-<div
-    id="vieEstudiantine"
-    class="actu-tab-content"
->
-
-<main class="container-actu">
-
-    <!-- ================================================
-         ÉQUIPE ACADÉMIQUE
-         ================================================ -->
-
-    <div class="student-section-title">
-
-        <h2>
-            Notre équipe académique
-        </h2>
-
-        <p>
-            Corps enseignants et chercheurs -
-            Parcours Technologie & Industrie.
-        </p>
-
-    </div>
-
-    <section class="academic-grid">
-
-        <article class="academic-card">
-
-            <h3>
-                Prof. Arthur NSEKA
-            </h3>
-
-            <p>
-                Génie des Procédés & Pétrochimie
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Dr. KIEMBA
-            </h3>
-
-            <p>
-                Chimie pure
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Dr. MBENGUELE Martial
-            </h3>
-
-            <p>
-                Management
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Dr. NZAOU
-            </h3>
-
-            <p>
-                Littérature Française
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Dr. Fabrice KAMPIAMBA
-            </h3>
-
-            <p>
-                Génie des Procédés
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Dr. Wighens NGOIE
-            </h3>
-
-            <p>
-                Génie Chimique
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Dr. Lauriane MENANKUTIMA
-            </h3>
-
-            <p>
-                Raffinage & Pétrochimie
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Joseph KOMBI
-            </h3>
-
-            <p>
-                Raffinage & Pétrochimie
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Eugène DIAYIKA
-            </h3>
-
-            <p>
-                Génie Numérique
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Junior MALATOU
-            </h3>
-
-            <p>
-                Electronique
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Ferdinand MUKOKO
-            </h3>
-
-            <p>
-                Génie Electro-Mécanique
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Thryphon MUNGONGO
-            </h3>
-
-            <p>
-                Servo-Automatisme
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Dorian TETA
-            </h3>
-
-            <p>
-                Electromécanique & Production Pétrolière
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Van EKOKO
-            </h3>
-
-            <p>
-                Génie des Procédés
-            </p>
-
-        </article>
-
-        <article class="academic-card">
-
-            <h3>
-                Ir. Christian KAYEMBE
-            </h3>
-
-            <p>
-                Génie Electrique et Energies Renouvelables
-            </p>
-
-        </article>
-
-    </section>
-
-    <!-- ================================================
-         ÉQUIPE ADMINISTRATIVE
-         ================================================ -->
-
-    <div class="student-section-title">
-
-        <h2>
-            Notre équipe administrative
-        </h2>
-
-        <p>
-            Personnel administratif de HEMIP.
-        </p>
-
-    </div>
-
-    <div class="admin-count">
-
-        <strong>
-            10
-        </strong>
-
-        Administratifs
-
-    </div>
-
-    <!-- ================================================
-         TÉMOIGNAGES
-         ================================================ -->
-
-    <div class="student-section-title">
-
-        <h2>
-            Nos témoignages de anciens étudiants
-        </h2>
-
-    </div>
-
-    <div class="testimonial-info">
-
-        <p style="margin-top:10px;">
-
-            Cette section est prête à recevoir
-            les témoignages réels des anciens étudiants
-            lorsqu'ils seront disponibles.
-
-        </p>
-
-    </div>
-
-</main>
-
-</div>
 
 <!-- =====================================================
      MODAL ORIGINAL
@@ -1429,6 +1179,7 @@ try {
 
 </div>
 
+
 <footer class="footer reveal">
 
     <div class="footer-container ">
@@ -1459,6 +1210,7 @@ try {
 
         </div>
 
+
         <!-- Contact -->
 
         <div class="footer-col">
@@ -1486,6 +1238,7 @@ try {
 
                 </li>
 
+
                 <li>
 
                     <i class="ri-phone-line"></i>
@@ -1498,17 +1251,19 @@ try {
 
                 </li>
 
+
                 <li>
 
                     <i class="ri-phone-line"></i>
 
-                    <a href="tel:+242053560677">
+                    <a href="tel:+242063560677">
 
                         +242 06 356 06 77
 
                     </a>
 
                 </li>
+
 
                 <li>
 
@@ -1529,6 +1284,7 @@ try {
 
         </div>
 
+
         <!-- Réseaux sociaux -->
 
         <div class="footer-col">
@@ -1545,6 +1301,7 @@ try {
 
             <div class="social-links">
 
+
                 <a
                     href="https://vm.tiktok.com/ZS9kFSarLrbTD-96s9G/"
                     class="social-link"
@@ -1555,6 +1312,7 @@ try {
 
                 </a>
 
+
                 <a
                     href="https://www.facebook.com/hemipcongo"
                     class="social-link"
@@ -1564,6 +1322,7 @@ try {
                     <i class="ri-facebook-fill"></i>
 
                 </a>
+
 
                 <a
                     href="https://wa.me/242055865094"
@@ -1576,11 +1335,13 @@ try {
 
                 </a>
 
+
             </div>
 
         </div>
 
     </div>
+
 
     <!-- Bas du footer -->
 
@@ -1598,7 +1359,9 @@ try {
 
 </footer>
 
-<script src="assets/js/main.js"></script>
+
+<script src="<?= asset('assets/js/main.js') ?>"></script>
+
 
 <script>
 
@@ -1620,10 +1383,11 @@ const news = {
 
   },
 
+
   fraicheur: {
 
     tag:
-      "VIE ÉTUDIANTE — 02 JUIN 2026",
+      "VIE ÉTUDIANTE | 02 JUIN 2026",
 
     title:
       "Journée de fraîcheur à HEMIP",
@@ -1633,20 +1397,22 @@ const news = {
 
   },
 
+
   master: {
 
     tag:
-      "FORMATION — CYCLE MASTER",
+      "FORMATION | CYCLE MASTER",
 
     title:
       "Les inscriptions au Master sont ouvertes",
 
     text:
-      "HEMIP ouvre les inscriptions pour son nouveau cycle Master. La rentrée académique est annoncée pour le 15 septembre 2026 à 17h00. Une opportunité de poursuivre sa formation dans un cadre professionnel et orienté vers l’innovation."
+      "HEMIP ouvre les inscriptions pour son nouveau cycle Master. La rentrée académique est annoncée pour le 12 octobre 2026 à 8h00. Une opportunité de poursuivre sa formation dans un cadre professionnel et orienté vers l’innovation."
 
   }
 
 };
+
 
 /* =========================================================
    MODAL ORIGINAL
@@ -1680,6 +1446,7 @@ function openNews(key) {
   );
 
 }
+
 
 /* =========================================================
    MODAL DES ACTUALITÉS PUBLIÉES PAR L'ADMIN
@@ -1718,6 +1485,7 @@ function openDynamicNews(
 
 }
 
+
 /* =========================================================
    FERMER LE MODAL
    ========================================================= */
@@ -1736,6 +1504,7 @@ function closeNews() {
   );
 
 }
+
 
 /* =========================================================
    FERMETURE EN CLIQUANT À L'EXTÉRIEUR
@@ -1758,56 +1527,11 @@ document
         }
     );
 
-/* =========================================================
-   ONGLETS
-   ========================================================= */
-
-function afficherOnglet(
-    id,
-    bouton
-) {
-
-    const contenus =
-        document.querySelectorAll(
-            ".actu-tab-content"
-        );
-
-    contenus.forEach(
-        function(contenu) {
-
-            contenu.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-    const boutons =
-        document.querySelectorAll(
-            ".actu-tab"
-        );
-
-    boutons.forEach(
-        function(btn) {
-
-            btn.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-    document
-        .getElementById(id)
-        .classList.add("active");
-
-    bouton.classList.add("active");
-
-}
 
 </script>
 
-  <script src="assets/js/pwa.js" defer></script>
+<script src="<?= asset('assets/js/pwa.js') ?>" defer></script>
+
 </body>
 
 </html>

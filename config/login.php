@@ -1,8 +1,20 @@
 <?php
+if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 
 session_start();
 
 require_once "connexion.php";
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+$adminConnecte =
+    isset($_SESSION['admin_connecte']) &&
+    $_SESSION['admin_connecte'] === true;
+
+$messageSucces = '';
+$messageErreur = '';
 
 $message = "";
 
@@ -65,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['email'] = $administrateur['email'];
             $_SESSION['role'] = $administrateur['role'];
 
-            // Redirection vers le tableau de bord
-            header("Location: dashboard.php");
+            // Redirection vers la page d'accueil
+            header("Location: index.php");
             exit();
         }
     }
@@ -78,12 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
 
     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
      <!-- Remix Icon -->
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="<?= asset('assets/vendor/remixicon/remixicon.css') ?>" rel="stylesheet">
    <!--  style css  -->
-     <link rel="stylesheet" href="assets/css/connexion.css?v=2">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?= asset('assets/css/connexion.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/style.css') ?>">
     <style>
         /* Espace entre le header fixe et le formulaire */
         .login {
@@ -92,21 +104,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             padding-block: 8rem 3rem;
         }
 
-        .login__box--error { height: 52px; }
+        .login__box--error { height: auto; min-height: 52px; padding-block: 8px; }
 
         .login__group:has(.login__box--error) + .login__forgot {
             margin-bottom: 1.5rem;
         }
 
-        .login__box--error { border-color: var(--hemip-accent-strong); }
-        .login__box--error .login__icon { color: var(--hemip-accent-strong); }
+        .login__box--error { border-color: #ff6b6b; }
+        .login__box--error .login__icon { color: #ff6b6b; }
         .login__error-text {
             display: block;
             width: 100%;
             padding: 0 1rem 0 3rem;
             font-size: .85rem;
             line-height: 1.3;
-            color: var(--hemip-accent-strong);
+            color: #ff8c8c;
             text-align: left;
         }
     </style>
@@ -120,11 +132,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="HEMIP">
-    <link rel="manifest" href="manifest.json">
+    <script>window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__hemipInstallPrompt=e;});</script>
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
-    <link rel="stylesheet" href="assets/css/pwa.css">
-  <link rel="stylesheet" href="assets/css/hemip-theme.css">
+    <link rel="stylesheet" href="<?= asset('assets/css/pwa.css') ?>">
+  <link rel="stylesheet" href="<?= asset('assets/css/hemip-theme.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/responsive.css') ?>">
 </head>
 <body>
     <header class="header">
@@ -132,14 +146,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <nav class="navbar">
 
         <!-- LOGO -->
-      <a href="#" class="logo">
+      <a href="index.php" class="logo">
     <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
     <span>HEMIP</span>
 </a>
 
 
         <!-- BOUTON MOBILE -->
-        <button class="menu-btn" id="menu-btn">
+        <button class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-list">
             <i class="ri-menu-line"></i>
         </button>
 
@@ -177,6 +191,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <li><a href="RT.html">Réseaux et Télécommunication</a></li>
                             <li><a href="MI.html">Maintenance Industrielle</a></li>
                             <li><a href="AII.html">Automatisation et Informatique Industriel</a></li>
+                            <li><a href="EE.html">Électrotechnique et Électronique</a></li>
+                            <li><a href="GC.html">Génie Chimique</a></li>
+                            <li><a href="RP.html">Raffinage et Pétrochimie</a></li>
+                            <li><a href="ENR.html">Énergies Renouvelables</a></li>
 
 
 
@@ -215,16 +233,47 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             <li>
-                <a href="actualite.html">Actualité</a>
+                <a href="actualite.php">Actualités</a>
             </li>
-
 
             <li>
-                <a href="contact.php#contact">Contact</a>
+                <a href="realisations.php">
+                    Nos réalisations
+                </a>
             </li>
- <li>
-                <a href="login.php"><i class="ri-admin-line"></i></a>
+
+            <li>
+                <a href="contact.php">Contact</a>
             </li>
+
+            <li><a href="faq.php">FAQ</a></li>
+
+            <li><a href="a-propos.php">À propos</a></li>
+            <?php if ($adminConnecte): ?>
+
+            <!-- Accès au tableau de bord -->
+            <li>
+                <a href="dashboard.php" title="Tableau de bord">
+                    <i class="ri-dashboard-line"></i>
+                </a>
+            </li>
+
+            <!-- Administrateur connecté -->
+            <li class="admin-status">
+                <i class="ri-admin-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
+            </li>
+
+           <?php else: ?>
+
+            <!-- Connexion administrateur -->
+            <li>
+                <a href="login.php" title="Connexion administrateur">
+                    <i class="ri-admin-line"></i>
+                </a>
+            </li>
+
+           <?php endif; ?>
 
 
         </ul>
@@ -318,7 +367,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <li>
                     <i class="ri-phone-line"></i>
-                    <a href="tel:+242053560677">
+                    <a href="tel:+242063560677">
                         +242 06 356 06 77
                     </a>
                 </li>
@@ -375,11 +424,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </footer>
 
 <!-- GSAP (hébergé localement) -->
-<script src="assets/vendor/gsap/gsap.min.js"></script>    
+<script src="<?= asset('assets/vendor/gsap/gsap.min.js') ?>"></script>    
 <!-- JS -->
-<script src="assets/js/connexion.js"></script>
-<script src="assets/js/main.js"></script>
-  <script src="assets/js/pwa.js" defer></script>
+<script src="<?= asset('assets/js/connexion.js') ?>"></script>
+<script src="<?= asset('assets/js/main.js') ?>"></script>
+  <script src="<?= asset('assets/js/pwa.js') ?>" defer></script>
+<script>
+/* Filet de sécurité : si une animation (GSAP) ne démarre pas, le bloc de connexion reste visible */
+window.addEventListener("load",function(){setTimeout(function(){
+  document.querySelectorAll(".login__content,.login__image,.login__form,.login__title").forEach(function(el){
+    var cs=getComputedStyle(el);
+    if(parseFloat(cs.opacity)===0||cs.visibility==="hidden"){
+      el.style.setProperty("opacity","1","important");el.style.setProperty("visibility","visible","important");el.style.setProperty("transform","none","important");
+    }
+  });
+},1200);});
+</script>
 </body>
 </html>
 

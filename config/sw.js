@@ -1,7 +1,7 @@
 const CACHE_PREFIX = "hemip-pwa-";
 const SHELL_CACHE = `${CACHE_PREFIX}shell-v12`;
-const PAGES_CACHE = `${CACHE_PREFIX}pages-v6`;
-const ASSETS_CACHE = `${CACHE_PREFIX}assets-v13`;
+const PAGES_CACHE = `${CACHE_PREFIX}pages-v7`;
+const ASSETS_CACHE = `${CACHE_PREFIX}assets-v12`;
 const APP_BASE = new URL("./", self.registration.scope);
 const OFFLINE_URL = new URL("offline.html", APP_BASE).href;
 const SHELL_FILES = [
@@ -9,15 +9,11 @@ const SHELL_FILES = [
   "manifest.json",
   "assets/css/style.css",
   "assets/css/hemip-theme.css",
-  "assets/vendor/remixicon/remixicon.css",
-  "assets/vendor/fonts/fonts.css",
-  "assets/vendor/fonts/inter.css",
-  "assets/vendor/fonts/dm-sans.css",
-  "assets/vendor/fonts/playfair.css",
   "assets/css/pwa.css",
   "assets/css/home-sections.css",
   "assets/css/independent-pages.css",
-  "assets/css/faq.css",
+  "assets/css/responsive.css",
+  "assets/css/filieres.css",
   "assets/js/main.js",
   "assets/js/home-sections.js",
   "assets/js/pwa.js",
@@ -32,9 +28,7 @@ const SHELL_FILES = [
   "assets/img/hemip-vie-ecole.jpg",
   "assets/icons/hemip-180.png",
   "assets/icons/hemip-192.png",
-  "assets/icons/hemip-512.png",
-  "assets/icons/hemip-maskable-192.png",
-  "assets/icons/hemip-maskable-512.png"
+  "assets/icons/hemip-512.png"
 ].map(path => new URL(path, APP_BASE).href);
 
 // Only these same-origin public documents are static, anonymous HTML pages.
@@ -52,7 +46,11 @@ const PUBLIC_HTML_PAGES = new Set([
   "bfa.html",
   "cit.html",
   "gfc.html",
-  "mrh.html"
+  "mrh.html",
+  "ee.html",
+  "gc.html",
+  "rp.html",
+  "enr.html"
 ]);
 const MAX_CACHED_ASSETS = 100;
 const MAX_ASSET_BYTES = 4 * 1024 * 1024;
@@ -108,7 +106,7 @@ async function trimAssetCache(cache) {
 async function cacheFirstAsset(request, url) {
   const cache = await caches.open(ASSETS_CACHE);
   const key = new URL(url.pathname, APP_BASE).href;
-  const cached = await cache.match(key);
+  const cached = await caches.match(key);
   if (cached) return cached;
 
   try {
@@ -134,10 +132,34 @@ async function cacheFirstAsset(request, url) {
   }
 }
 
+async function networkFirstCodeAsset(request, url) {
+  const cache = await caches.open(ASSETS_CACHE);
+  const key = new URL(url.pathname, APP_BASE).href;
+  try {
+    const response = await fetch(request);
+    const contentType = response.headers.get("content-type")?.toLowerCase() || "";
+    const isCode = response.ok
+      && response.type === "basic"
+      && (contentType.startsWith("text/css") || contentType.includes("javascript"));
+    if (isCode) {
+      await cache.put(key, response.clone());
+      return response;
+    }
+    // Réponse inattendue (page de protection de l'hébergeur, erreur...) : on préfère la copie en cache
+    return (await caches.match(key)) || response;
+  } catch {
+    return (await caches.match(key)) || new Response("Ressource indisponible hors ligne.", {
+      status: 503,
+      headers: { "Content-Type": "text/plain; charset=utf-8" }
+    });
+  }
+}
+
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(SHELL_CACHE)
-      .then(cache => cache.addAll(SHELL_FILES))
+      // allSettled : un fichier absent du serveur (404) ne doit pas empêcher l'installation du service worker
+      .then(cache => Promise.allSettled(SHELL_FILES.map(file => cache.add(file))))
       .then(() => self.skipWaiting())
   );
 });
@@ -171,11 +193,13 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  if (path.startsWith("assets/css/")
-      || path.startsWith("assets/js/")
-      || path.startsWith("assets/img/")
-      || path.startsWith("assets/icons/")
-      || path.startsWith("assets/vendor/")) {
+  if (path.startsWith("assets/css/") || path.startsWith("assets/js/")) {
+    event.respondWith(networkFirstCodeAsset(request, url));
+    return;
+  }
+
+  if (path.startsWith("assets/img/")
+      || path.startsWith("assets/icons/")) {
     event.respondWith(cacheFirstAsset(request, url));
   }
 });

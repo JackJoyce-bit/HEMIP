@@ -1,4 +1,5 @@
 <?php
+if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 session_start();
 
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -89,17 +90,17 @@ $notifications = historique_lire(
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <title>Gestion des candidatures | HEMIP</title>
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+    <link rel="stylesheet" href="<?= asset('assets/vendor/fonts/fonts.css') ?>">
 
     <!-- Remix Icon -->
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="<?= asset('assets/vendor/remixicon/remixicon.css') ?>" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/admin-dashboard.css">
+  <link rel="stylesheet" href="<?= asset('assets/css/admin-dashboard.css') ?>">
 
     <style>
 
@@ -387,7 +388,8 @@ $notifications = historique_lire(
     
    <!-- favicon -->
     <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
-  <link rel="stylesheet" href="assets/css/hemip-theme.css">
+  <link rel="stylesheet" href="<?= asset('assets/css/hemip-theme.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/responsive.css') ?>">
 </head>
 
 <body>
@@ -442,7 +444,7 @@ $notifications = historique_lire(
 
             <div style="display:flex; gap:12px; align-items:flex-start;">
 
-                <button class="mobile-menu">
+                <button class="mobile-menu" type="button" aria-label="Ouvrir le menu">
                     <i class="ri-menu-line"></i>
                 </button>
                 
@@ -1093,7 +1095,10 @@ $notifications = historique_lire(
             "Réseaux et Télécommunications",
             "Maintenance Industrielle",
             "Automatisation et Informatique Industriel",
-            "Electrotechnique et Electronique"
+            "Electrotechnique et Electronique",
+            "Génie Chimique",
+        	"Raffinage et Pétrochimie",
+        	"Énergies Renouvelables"
         ];
 
         const filieresCommerciales = [
@@ -2549,5 +2554,31 @@ $notifications = historique_lire(
 
     </script>
 
+<script>
+/* Menu latéral mobile : le bouton hamburger ouvre/ferme « Candidatures » et « Préinscriptions » */
+(function () {
+    var bouton = document.querySelector(".mobile-menu");
+    var menu = document.querySelector(".sidebar");
+    if (!bouton || !menu) return;
+    if (!menu.id) menu.id = "sidebarMenu";
+    bouton.setAttribute("aria-controls", menu.id);
+    bouton.setAttribute("aria-expanded", "false");
+    var fond = document.createElement("div");
+    fond.className = "sidebar-backdrop";
+    document.body.appendChild(fond);
+    function definir(ouvert) {
+        document.body.classList.toggle("sidebar-open", ouvert);
+        bouton.setAttribute("aria-expanded", ouvert ? "true" : "false");
+    }
+    bouton.addEventListener("click", function (e) {
+        e.stopPropagation();
+        definir(!document.body.classList.contains("sidebar-open"));
+    });
+    fond.addEventListener("click", function () { definir(false); });
+    menu.addEventListener("click", function (e) { if (e.target.closest(".menu a")) definir(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") definir(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 992) definir(false); });
+})();
+</script>
 </body>
 </html>

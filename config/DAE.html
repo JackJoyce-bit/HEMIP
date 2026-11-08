@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Droit des affaires et des entreprises</title>
+    <title>Droit des affaires et des entreprises | HEMIP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
      <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/DAE.css?v=2">
@@ -24,11 +24,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="HEMIP">
-    <link rel="manifest" href="manifest.json">
+    <script>window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__hemipInstallPrompt=e;});</script>
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/hemip-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/hemip-192.png">
     <link rel="stylesheet" href="assets/css/pwa.css">
   <link rel="stylesheet" href="assets/css/hemip-theme.css">
+    <link rel="stylesheet" href="assets/css/responsive.css?v=20261010">
+    <link rel="stylesheet" href="assets/css/filieres.css?v=20261010">
+    <link rel="stylesheet" href="assets/css/consent-fix.css?v=20261010">
 </head>
 <body>
 <header class="header">
@@ -36,14 +40,14 @@
     <nav class="navbar">
 
         <!-- LOGO -->
-      <a href="#" class="logo">
+      <a href="index.php" class="logo">
     <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
     <span>HEMIP</span>
 </a>
 
 
         <!-- BOUTON MOBILE -->
-        <button class="menu-btn" id="menu-btn">
+        <button class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-list">
             <i class="ri-menu-line"></i>
         </button>
 
@@ -60,7 +64,7 @@
             <!-- DROPDOWN FORMATION -->
             <li class="dropdown">
 
-                <button class="dropdown-btn">
+                <button class="dropdown-btn" type="button">
                     Formation
                     <i class="ri-arrow-down-s-line"></i>
                 </button>
@@ -70,7 +74,7 @@
                     <!-- SOUS MENU pole technique-->
                     <li class="submenu">
 
-                        <button class="submenu-btn">
+                        <button class="submenu-btn" type="button">
                             Pôle technique
 
                             <i class="ri-arrow-right-s-line"></i>
@@ -82,6 +86,10 @@
                             <li><a href="RT.html">Réseaux et Télécommunication</a></li>
                             <li><a href="MI.html">Maintenance industrielle</a></li>
                             <li><a href="AII.html">Automatisation et informatique industriel</a></li>
+                            <li><a href="EE.html">Électrotechnique et Électronique</a></li>
+                            <li><a href="GC.html">Génie Chimique</a></li>
+                            <li><a href="RP.html">Raffinage et Pétrochimie</a></li>
+                            <li><a href="ENR.html">Énergies Renouvelables</a></li>
                             
                             
                           
@@ -93,7 +101,7 @@
                     <!-- SOUS MENU -->
                     <li class="submenu">
 
-                        <button class="submenu-btn">
+                        <button class="submenu-btn" type="button">
                             Pôle Commercial
                             <i class="ri-arrow-right-s-line"></i>
                         </button>
@@ -113,20 +121,20 @@
 
             </li>
             <li>
-                <a href="Inscription.php" onclick="afficherFormulaire()">Inscription</a>
+                <a href="inscription.php">Inscription</a>
             </li>
             
             <li>
-                <a href="actualite.html">Actualité</a>
+                <a href="actualite.php">Actualité</a>
             </li>
 
 
+            <li><a href="realisations.php">Nos réalisations</a></li>
             <li>
                 <a href="contact.php#contact">Contact</a>
             </li>
- <li>
-                <a href="#"><i class="ri-admin-line"></i></a>
-            </li>
+            <li><a href="a-propos.php">À propos</a></li>
+ <li><a href="login.php" title="Connexion administrateur" aria-label="Connexion administrateur"><i class="ri-admin-line" aria-hidden="true"></i></a></li>
             
 
         </ul>
@@ -134,14 +142,12 @@
     </nav>
 
 </header>
-    <div>
-       <div class="formation-container">
+<div class="formation-container">
   <!-- En-tête principal -->
   <div class="entete-banner">
     <span class="banner-title">Droit des affaires et des entreprises</span>
   </div>
 
-  <!-- Section 1 -->
   <div class="section-block">
     <div class="section-title">Stratégie de l'entreprise</div>
     <div class="section-content">
@@ -149,7 +155,6 @@
     </div>
   </div>
 
-  <!-- Section 2 -->
   <div class="section-block">
     <div class="section-title">Objectifs de formation</div>
     <div class="section-content">
@@ -162,7 +167,6 @@
     </div>
   </div>
 
-  <!-- Section 3 -->
   <div class="section-block">
     <div class="section-title">Évolution</div>
     <div class="section-content">
@@ -176,10 +180,14 @@
         </ul>
     </div>
   </div>
-  
-    </div class="header-titre" >
 
-<div class="table-container">
+  <!-- Tableau des frais et débouchés (image agrandissable) -->
+  <a class="rid-figure tableau-figure" href="assets/img/hemip-tableau-dae.png" target="_blank" rel="noopener" title="Toucher pour agrandir">
+        <img src="assets/img/hemip-tableau-dae.png" alt="Tableau des frais de formation et des débouchés : Droit des affaires et des entreprises" width="1800" height="988" loading="lazy" decoding="async">
+        <span class="rid-zoom"><i class="ri-zoom-in-line" aria-hidden="true"></i> Toucher pour agrandir</span>
+    </a>
+  <div class="tableau-sr">
+    <div class="table-container">
     <table>
 <thead>
             <tr>
@@ -194,7 +202,7 @@
             <tr>
                 <td>1ère année</td>
                 <td>BAC</td>
-                <td rowspan="3" class="centered-large">30000 soit 15000/mois (session ordinaire) <br>Payable avant les examens. <br>(7500FCFA Rattrapage) <br> <br> <br><strong>NB :</strong> scolarité payable en 9 mois</td>
+                <td rowspan="3" class="centered-large">30000 soit 15000/mois (session ordinaire) <br>Payable avant les examens. <br>(7500FCFA Rattrapage) <br> <br> <br><strong>NB :</strong> Scolarité payable en 10 mois</td>
                 <td>500.000FCFA S1 et S2 ou 1ère année 50.000FCFA/mois </td>
                 <td rowspan="3" class="centered-large">Assistant juridique en cabinet juridique. <br><br>Conseiller juridique en entreprise. <br> <br>Conseiller juridique d'assurance d'établissement de crédit. <br> <br>Technicien en réseaux indu</td>
             </tr>
@@ -211,6 +219,8 @@
         </tbody>
     
 </table>
+    </div>
+  </div>
 </div>
 
 <footer class="footer reveal">
@@ -249,7 +259,7 @@
 
                 <li>
                     <i class="ri-phone-line"></i>
-                    <a href="tel:+242053560677">
+                    <a href="tel:+242063560677">
                         +242 06 356 06 77
                     </a>
                 </li>
@@ -292,8 +302,21 @@
         </div>
 
     </div>
-  <script src="assets/js/main.js"></script>
-    
-  <script src="assets/js/pwa.js" defer></script>
+
+    <!-- Bas du footer -->
+    <div class="footer-bottom">
+        <p>
+            © 2026 HEMIP. Tous droits réservés.
+        </p>
+
+        <p>
+            Haute École de Management et d'Ingénierie la Percée
+        </p>
+    </div>
+</footer>
+<script src="assets/js/main.js?v=20261010"></script>
+<script src="assets/js/pwa.js?v=20261010" defer></script>
+<script src="assets/js/consent-style.js?v=20261010" defer></script>
+<script src="assets/js/consent-close.js?v=20261011" defer></script>
 </body>
 </html>

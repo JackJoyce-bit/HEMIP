@@ -1,10 +1,17 @@
 <?php
+if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 
+session_start();
+
+/**$serveur = "sql311.infinityfree.com"; 
+$utilisateur = "if0_43050163"; 
+$motdepasse = "HEMIP2026"; 
+$base = "if0_43050163_hemip";*/
 try {
     $connexion = new PDO(
-        'mysql:host=localhost;dbname=tp_php;charset=utf8',
-        'root',
-        ''
+        'mysql:host=sql311.infinityfree.com;dbname=if0_43050163_hemip;charset=utf8',
+        'if0_43050163',
+        'HEMIP2026'
     );
 
     $connexion->setAttribute(
@@ -670,9 +677,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <li><a href="RT.html">Réseaux et Télécommunication</a></li>
                             <li><a href="MI.html">Maintenance Industrielle</a></li>
                             <li><a href="AII.html">Automatisation et Informatique Industriel</a></li>
-                            
-                            
-                          
+                            <li><a href="EE.html">Électrotechnique et Électronique</a></li>
+                            <li><a href="GC.html">Génie Chimique</a></li>
+                            <li><a href="RP.html">Raffinage et Pétrochimie</a></li>
+                            <li><a href="ENR.html">Énergies Renouvelables</a></li>
+
+
+
                         </ul>
 
                     </li>
@@ -708,18 +719,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             <li>
-                <a href="actualite.php">Actualité</a>
+                <a href="actualite.php">Actualités</a>
             </li>
 
+            <li>
+                <a href="realisations.php">Nos réalisations</a>
+            </li>
 
             <li>
                 <a href="contact.php#contact">Contact</a>
             </li>
 
-            <!-- AJOUT : À PROPOS -->
-
-            
             <li><a href="faq.php">FAQ</a></li>
+
+            <!-- AJOUT : À PROPOS -->
 
             <li>
 
@@ -1054,6 +1067,9 @@ const formations = {
         "Maintenance Industrielle",
         "Automatisation et Informatique Industriel",
         "Electrotechnique et Electronique",
+        "Génie Chimique",
+        "Raffinage et Pétrochimie",
+        "Énergies Renouvelables"
     ],
 
     commercial: [
