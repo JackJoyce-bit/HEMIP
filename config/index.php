@@ -1,4 +1,4 @@
-Essaie avec ça                    <?php
+<?php
 if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 session_start();
 
