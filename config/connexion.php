@@ -1,9 +1,9 @@
 <?php 
 
-$serveur = "sql311.infinityfree.com"; 
-$utilisateur = "if0_43050163"; 
-$motdepasse = "HEMIP2026"; 
-$base = "if0_43050163_hemip"; 
+$serveur = "localhost"; 
+$utilisateur = "root"; 
+$motdepasse = ""; 
+$base = "tp_php"; 
 
 try { 
     $connexion = new PDO(

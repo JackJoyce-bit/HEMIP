@@ -12,6 +12,8 @@ require_once 'connexion.php';
 $adminConnecte =
     isset($_SESSION['admin_connecte']) &&
     $_SESSION['admin_connecte'] === true;
+$etudiantConnecte = isset($_SESSION['etudiant_connecte'])
+    && $_SESSION['etudiant_connecte'] === true;
 
 $messageSucces = '';
 $messageErreur = '';
@@ -683,6 +685,21 @@ try {
             <!-- Administrateur connecté -->
             <li class="admin-status">
                 <i class="ri-admin-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
+            </li>
+
+           <?php elseif ($etudiantConnecte): ?>
+
+            <!-- Accès à l'espace étudiant -->
+            <li>
+                <a href="etudiant.php" title="Mon espace étudiant">
+                    <i class="ri-user-3-line"></i>
+                </a>
+            </li>
+
+            <!-- Étudiant connecté -->
+            <li class="admin-status">
+                <i class="ri-user-line" style="color: var(--hemip-bg);"></i>
                 <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
             </li>
 

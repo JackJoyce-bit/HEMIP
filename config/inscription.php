@@ -3,15 +3,22 @@ if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; r
 
 session_start();
 
+$adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte'] === true;
+$etudiantConnecte = isset($_SESSION['etudiant_connecte'])
+    && $_SESSION['etudiant_connecte'] === true;
+
+$messageSucces = null;
+$codeConfirmation = '';
+
 /**$serveur = "sql311.infinityfree.com"; 
 $utilisateur = "if0_43050163"; 
 $motdepasse = "HEMIP2026"; 
 $base = "if0_43050163_hemip";*/
 try {
     $connexion = new PDO(
-        'mysql:host=sql311.infinityfree.com;dbname=if0_43050163_hemip;charset=utf8',
-        'if0_43050163',
-        'HEMIP2026'
+        'mysql:host=localhost;dbname=tp_php;charset=utf8',
+        'root',
+        ''
     );
 
     $connexion->setAttribute(
@@ -742,9 +749,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             </li>
             
+            <?php if ($adminConnecte): ?>
             <li>
-                <a href="login.php"><i class="ri-admin-line"></i></a>
+                <a href="dashboard.php" title="Tableau de bord"><i class="ri-dashboard-line"></i></a>
             </li>
+            <li class="admin-status">
+                <i class="ri-admin-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
+            </li>
+            <?php elseif ($etudiantConnecte): ?>
+            <li>
+                <a href="etudiant.php" title="Mon espace étudiant"><i class="ri-user-3-line"></i></a>
+            </li>
+            <li class="admin-status">
+                <i class="ri-user-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
+            </li>
+            <?php else: ?>
+            <li>
+                <a href="login.php" title="Connexion"><i class="ri-admin-line"></i></a>
+            </li>
+            <?php endif; ?>
             
 
         </ul>

@@ -2,6 +2,8 @@
 if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 session_start();
 $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte'] === true;
+$etudiantConnecte = isset($_SESSION['etudiant_connecte'])
+    && $_SESSION['etudiant_connecte'] === true;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -339,7 +341,22 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
                     <i class="ri-admin-line" style="color: var(--hemip-bg);"></i>
                     <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
                 </li>
-        <?php else: ?>
+        <?php elseif ($etudiantConnecte): ?>
+
+            <!-- Accès à l'espace étudiant -->
+            <li>
+                <a href="etudiant.php" title="Mon espace étudiant">
+                    <i class="ri-user-3-line"></i>
+                </a>
+            </li>
+
+            <!-- Étudiant connecté -->
+            <li class="admin-status">
+                <i class="ri-user-line" style="color: var(--hemip-bg);"></i>
+                <span style="color: var(--hemip-bg); font-size: 15px;">Connecté</span>
+            </li>
+
+           <?php else: ?>
             <li>
                 <a href="login.php" title="Connexion administrateur">
                     <i class="ri-admin-line"></i>
@@ -762,4 +779,3 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
  <script src="<?= asset('assets/js/pwa.js') ?>" defer></script>
 
 </body></html>
-

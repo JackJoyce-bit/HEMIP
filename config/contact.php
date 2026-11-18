@@ -15,6 +15,7 @@ $contactFlash = isset($_SESSION['contact_flash']) && is_string($_SESSION['contac
     : '';
 unset($_SESSION['contact_flash']);
 $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte'] === true;
+$etudiantConnecte = isset($_SESSION['etudiant_connecte']) && $_SESSION['etudiant_connecte'] === true;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -74,6 +75,9 @@ $adminConnecte = isset($_SESSION['admin_connecte']) && $_SESSION['admin_connecte
             <?php if ($adminConnecte): ?>
                 <li><a href="dashboard.php" title="Tableau de bord"><i class="ri-dashboard-line" aria-hidden="true"></i><span class="visually-hidden">Tableau de bord</span></a></li>
                 <li class="admin-status" style="color: var(--hemip-bg);"><i class="ri-admin-line" aria-hidden="true"></i><span>Connecté</span></li>
+            <?php elseif ($etudiantConnecte): ?>
+                <li><a href="etudiant.php" title="Mon espace étudiant"><i class="ri-user-3-line" aria-hidden="true"></i><span class="visually-hidden">Mon espace étudiant</span></a></li>
+                <li class="admin-status" style="color: var(--hemip-bg);"><i class="ri-user-line" aria-hidden="true"></i><span>Connecté</span></li>
             <?php else: ?>
                 <li><a href="login.php" title="Connexion administrateur"><i class="ri-admin-line" aria-hidden="true"></i><span class="visually-hidden">Connexion administrateur</span></a></li>
             <?php endif; ?>
