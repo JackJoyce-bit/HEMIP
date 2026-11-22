@@ -424,6 +424,14 @@ $notifications = historique_lire(
                 <i class="ri-graduation-cap-line"></i>
                 Préinscriptions
             </a>
+            <a href="#" id="menuProfesseur">
+                <i class="ri-graduation-cap-line"></i>
+                Professeurs
+            </a>
+            <a href="#" id="menuEmploie-du-temps">
+                <i class="ri-graduation-cap-line"></i>
+               Emploie du temps
+            </a>
 
         </nav>
 

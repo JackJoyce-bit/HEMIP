@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Publier un cours | HEMIP</title>
+        <link rel="stylesheet" href="assets/vendor/remixicon/remixicon.css">
+        <link rel="stylesheet" href="assets/css/professeur.css">
+         <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    </head>
+    <body>
+        <aside class="sidebar">
+            <a class="brand" href="professeur-dashboard.html">
+                <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+                <span>
+                    <strong>HEMIP</strong><small>ESPACE PROFESSEUR</small></span>
+                </a>
+                <div class="nav-label">ESPACE DE TRAVAIL</div>
+                <nav class="side-nav">
+                    <a class="side-link " href="professeur-dashboard.html"><i class="ri-dashboard-line"></i> Tableau de bord</a>
+                    <a class="side-link active" href="publier-cours.html"><i class="ri-upload-cloud-2-line"></i> Publier un cours</a>
+                </nav>
+                <div class="sidebar-bottom">
+                    <div class="help-card">
+                        <strong>Besoin d'aide ?</strong>
+                        <p>Contactez l'administration HEMIP pour toute difficulté liée à vos classes ou publications.</p>
+                        <a href="../contact.html">Contacter l'administration →</a>
+                    </div>
+                </div>
+            </aside>
+            
+            <main class="main">
+                <header class="topbar">
+                    <div class="top-left">
+                        <button class="menu-toggle" aria-label="Ouvrir le menu"><i class="ri-menu-line"></i></button>
+                        <div class="crumb">Espace professeur / <b>Publier un cours</b></div>
+                    </div>
+                    <div class="top-right">
+                        <div class="user user-text">
+                            <strong data-prof-name>Nom du professeur</strong>
+                            <small>Enseignant</small>
+                        </div>
+                        <div class="avatar" data-prof-initials>NP</div>
+                    </div>
+                </header>
+                <div class="content">
+<section class="heading">
+    <div>
+        <div class="eyebrow">Partage pédagogique</div>
+        <h1>Publier un cours</h1>
+        <p>Ajoutez un nouveau contenu à l'espace de la classe sélectionnée.</p>
+    </div>
+    <a class="btn btn-light" href="professeur-dashboard.html">
+        <i class="ri-arrow-left-line"></i>
+         Retour au tableau de bord
+    </a>
+</section>
+<div class="notice">
+    <i class="ri-information-line"></i>
+     Le cours sera visible par les étudiants de la classe choisie. Vérifiez le niveau et la filière avant publication. Les classes proposées sont celles attribuées à votre compte.
+    </div>
+<form class="panel" id="publish-form">
+    <div class="section-head" style="margin-top:0">
+        <div>
+            <h2>Informations du cours</h2>
+            <p>Complétez les informations et ajoutez vos ressources.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+<div class="field"><label for="title">Titre du cours *</label>
+    <input id="title" name="title" required maxlength="150" placeholder="Ex. Introduction à la programmation">
+</div>
+<div class="field">
+    <label for="subject">Matière *</label>
+    <input id="subject" name="subject" required maxlength="100" placeholder="Ex. Programmation">
+</div>
+<div class="field full">
+    <label for="description">Description *</label>
+    <textarea id="description" name="description" required maxlength="1200" placeholder="Présentez brièvement le contenu et les objectifs de ce cours..."></textarea>
+</div>
+<div class="field">
+    <label for="cycle">Cycle *</label>
+    <select id="cycle" name="cycle" required>
+        <option value="">Choisir un cycle</option>
+        <option>Licence</option>
+        <option>Master</option>
+    </select>
+</div>
+<div class="field">
+    <label for="program">Filière *</label>
+    <select id="program" name="program" required>
+        <option value="">Choisir une filière</option>
+    </select>
+</div>
+
+<div class="field">
+    <label for="class-select">Classe attribuée *</label>
+    <select id="class-select" name="classId" required>
+        <option value="">Sélectionner une classe attribuée</option>
+    </select>
+    <span class="hint">La classe détermine l'espace étudiant où le cours sera affiché.</span>
+</div>
+<div class="field full">
+    <label for="course-files">Ajouter des fichiers ou vidéos</label>
+    <div class="upload-box">
+        <input id="course-files" name="files" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.jpeg,.png,.mp4,.webm"><p>PDF, Word, PowerPoint, images ou vidéos. Pour les vidéos volumineuses, préférez un lien externe.</p>
+    </div>
+</div>
+<div class="field full">
+    <label for="resourceLinks">Ajouter des liens (vidéo ou ressource externe)</label>
+    <textarea id="resourceLinks" name="resourceLinks" placeholder="Collez un lien par ligne : https://..."></textarea>
+    <span class="hint">Ex. YouTube ou ressource pédagogique. Vérifiez que les étudiants disposent des autorisations nécessaires.</span>
+</div>
+</div>
+<div class="form-actions">
+    <a class="btn btn-light" href="professeur-dashboard.html">Annuler</a>
+    <button class="btn" type="submit">
+        <i class="ri-send-plane-line"></i> Publier le cours</button>
+    </div>
+</form>
+
+<div class="footer">© HEMIP — Espace professeur</div>
+</div>
+</main>
+<script src="assets/js/professeur.js"></script>
+</body>
+</html>

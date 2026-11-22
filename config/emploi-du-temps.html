@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Emploi du temps | HEMIP</title>
+        <link rel="stylesheet" href="assets/vendor/remixicon/remixicon.css">
+        <link rel="stylesheet" href="assets/css/espace-etudiant.css">
+    </head>
+    
+    <body>
+<aside class="sidebar">
+    <a class="brand" href="mon-profil.html">
+        <img src="assets/img/logo-hemip.jpg" alt="HEMIP">
+        <span><strong>HEMIP</strong><small>ESPACE ÉTUDIANT</small></span>
+    </a>
+    <div class="nav-label">MON ESPACE</div>
+    <nav class="side-nav">
+        <a class="side-link " href="mes-cours.html"><i class="ri-book-open-line"></i>Mes cours</a>
+        <a class="side-link active" href="emploi-du-temps.html"><i class="ri-calendar-line"></i>Emploi du temps</a>
+        <a class="side-link " href="mon-profil.html"><i class="ri-user-line"></i>Mon profil</a>
+    </nav>
+    <div class="sidebar-bottom">
+        <div class="help-card">
+            <strong>Besoin d'aide ?</strong>
+            <p>Une question sur votre espace étudiant ?</p>
+            <a href="mailto:hemilaperceeinformation@gmail.com">Contacter HEMIP →</a>
+        </div>
+    </div>
+</aside>
+<main class="main">
+    <header class="topbar">
+        <div class="top-left">
+            <button class="menu-toggle" aria-label="Ouvrir le menu"><i class="ri-menu-line"></i></button>
+            <div class="crumb">Espace étudiant / <b>Emploi du temps</b></div>
+        </div>
+        <div class="top-right">
+            <div class="avatar" data-student-initials>ET</div>
+            <div class="user user-text"><strong data-student="fullName">Nom de l'étudiant</strong><small>Étudiant HEMIP</small></div>
+        </div>
+    </header>
+    
+    <div class="content">
+        <div class="heading">
+            <div>
+                <div class="eyebrow">Portail académique HEMIP</div>
+                <h1>Emploi du temps</h1>
+                <p>Consultez le planning officiel publié par l'administration.</p>
+            </div>
+            <div class="year">Année : <b data-student="academicYear">À connecter</b></div>
+        </div>
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Planning de votre classe</div>
+                <h2>Votre emploi du temps.</h2>
+                <p>L'administration publie ici l'image officielle de l'emploi du temps. Vous pouvez aussi télécharger sa version PDF.</p>
+            </div>
+            <span class="hero-tag"><i class="ri-calendar-check-line"></i> Planning officiel</span>
+        </section>
+<section class="meta">
+    <div class="meta-card">
+        <span>FILIÈRE</span>
+        <strong data-student="program">À connecter</strong>
+    </div>
+    <div class="meta-card">
+        <span>NIVEAU</span>
+        <strong data-student="level">À connecter</strong>
+    </div>
+    <div class="meta-card">
+        <span>ANNÉE ACADÉMIQUE</span>
+        <strong data-student="academicYear">À connecter</strong>
+    </div>
+</section>
+<div class="section-head">
+    <div><h2>Emploi du temps publié</h2><p>Document officiel mis à jour par l'administration.</p></div>
+</div>
+<section class="timetable-card">
+  <!--   texte si l'emploie du temps n'a pas encore été publié -->
+    <div class="empty" id="timetable-empty"><i class="ri-image-line"></i>L'emploi du temps n'a pas encore été publié par l'administration.</div>
+ <!--    image de l'emploie du temps si c'est déjà publié -->
+    <img id="timetable-preview" class="timetable-preview" alt="Emploi du temps publié par l'administration" src="assets/img/essaie emploie du temps.png" alt="Emploi du temps publié par l'administration">
+    <div class="timetable-actions">
+        <a class="action" id="timetable-download" href="#" download="emploi-du-temps.pdf">
+            <i class="ri-file-pdf-2-line"></i> 
+            Télécharger en PDF
+        </a>
+    </div>
+    <p class="note">Le PDF est enregistré sur votre téléphone ou votre ordinateur, pas dans un espace de stockage étudiant sur le site.</p>
+</section>
+<footer class="footer">© 2026 HEMIP · Espace étudiant</footer>
+</div>
+</main>
+<script src="assets/js/espace-etudiant.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Mes cours | HEMIP</title>
+        <link rel="stylesheet" href="assets/vendor/remixicon/remixicon.css">
+        <link rel="stylesheet" href="assets/css/espace-etudiant.css">
+     <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    </head>
+    <body>
+<aside class="sidebar">
+    <a class="brand" href="mon-profil.html">
+        <img src="assets/img/logo-hemip.jpg" alt="HEMIP">
+        <span><strong>HEMIP</strong><small>ESPACE ÉTUDIANT</small></span>
+    </a>
+    <div class="nav-label">MON ESPACE</div>
+    <nav class="side-nav">
+        <a class="side-link active" href="mes-cours.html">
+            <i class="ri-book-open-line"></i>
+            Mes cours
+        </a>
+        <a class="side-link " href="emploi-du-temps.html">
+            <i class="ri-calendar-line"></i>
+            Emploi du temps
+        </a>
+        <a class="side-link " href="mon-profil.html">
+            <i class="ri-user-line"></i>
+            Mon profil
+        </a>
+    </nav>
+    <div class="sidebar-bottom">
+        <div class="help-card">
+            <strong>Besoin d'aide ?</strong>
+            <p>Une question sur votre espace étudiant ?</p>
+            <a href="mailto:hemilaperceeinformation@gmail.com">Contacter HEMIP →</a>
+        </div>
+    </div>
+</aside>
+<main class="main">
+    <header class="topbar">
+        <div class="top-left">
+            <button class="menu-toggle" aria-label="Ouvrir le menu">
+                <i class="ri-menu-line"></i>
+            </button>
+            <div class="crumb">Espace étudiant / <b>Mes cours</b></div>
+        </div>
+        <div class="top-right">
+            <div class="avatar" data-student-initials>ET</div>
+            <div class="user user-text">
+                <strong data-student="fullName">Nom de l'étudiant</strong><small>Étudiant HEMIP</small>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="heading">
+            <div>
+                <div class="eyebrow">Portail académique HEMIP</div>
+                <h1>Mes cours</h1>
+                <p>Consultez les cours publiés pour votre classe.</p>
+            </div>
+            <div class="year">Année : <b data-student="academicYear">À connecter</b></div>
+        </div>
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Espace pédagogique de votre classe</div>
+                <h2>Les ressources de votre classe.</h2>
+                <p>Ouvrez les liens ou téléchargez les fichiers directement sur votre téléphone ou votre ordinateur.</p>
+            </div>
+            <span class="hero-tag">
+                <i class="ri-lock-line"></i> Accès par classe
+            </span>
+        </section>
+<section class="meta">
+    <div class="meta-card"><span>FILIÈRE</span><strong data-student="program">À connecter</strong></div>
+    <div class="meta-card"><span>NIVEAU</span><strong data-student="level">À connecter</strong></div>
+    <div class="meta-card"><span>ANNÉE ACADÉMIQUE</span><strong data-student="academicYear">À connecter</strong></div>
+</section>
+<div class="section-head">
+    <div>
+        <h2>Cours publiés</h2>
+        <p>Les cours de votre filière et de votre niveau.</p>
+    </div>
+</div>
+<div class="toolbar">
+    <label class="search">
+        <i class="ri-search-line"></i>
+        <input id="course-search" type="search" placeholder="Rechercher un cours ou un professeur...">
+    </label>
+    <select class="filter" id="subject-filter">
+        <option value="all">Toutes les matières</option>
+        <option value="Matière à connecter">Matière à connecter</option>
+        <option value="Autre matière">Autre matière</option>
+    </select>
+</div>
+<div class="course-grid" id="course-grid"></div>
+<p class="note">
+    <i class="ri-information-line"></i>
+     Les fichiers sont téléchargés directement sur l'appareil de l'étudiant. Aucun espace de stockage personnel n'est prévu sur le site.
+    </p>
+    <footer class="footer">© 2026 HEMIP · Espace étudiant</footer>
+</div>
+</main>
+<script src="assets/js/espace-etudiant.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tableau de bord | HEMIP</title>
+        <link rel="stylesheet" href="assets/vendor/remixicon/remixicon.css">
+        <link rel="stylesheet" href="assets/css/professeur.css">
+         <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    </head>
+    <body>
+        <aside class="sidebar">
+            <a class="brand" href="professeur-dashboard.html">
+                <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+                <span><strong>HEMIP</strong><small>ESPACE PROFESSEUR</small></span>
+            </a>
+            <div class="nav-label">ESPACE DE TRAVAIL</div>
+            <nav class="side-nav">
+                <a class="side-link active" href="professeur-dashboard.html">
+                    <i class="ri-dashboard-line"></i>
+                     Tableau de bord
+                </a>
+                <a class="side-link " href="publier-cours.html">
+                    <i class="ri-upload-cloud-2-line"></i>
+                     Publier un cours
+                    </a>
+                </nav>
+                <div class="sidebar-bottom">
+                    <div class="help-card">
+                        <strong>Besoin d'aide ?</strong>
+                        <p>Contactez l'administration HEMIP pour toute difficulté liée à vos classes ou publications.</p>
+                        <a href="../contact.html">Contacter l'administration →</a>
+                    </div>
+                </div>
+            </aside>
+            <main class="main">
+                <header class="topbar">
+                    <div class="top-left">
+                        <button class="menu-toggle" aria-label="Ouvrir le menu">
+                            <i class="ri-menu-line"></i>
+                        </button>
+                        <div class="crumb">Espace professeur / <b>Tableau de bord</b></div>
+                    </div>
+                    <div class="top-right">
+                        <div class="user user-text">
+                            <strong data-prof-name>Nom du professeur</strong><small>Enseignant</small>
+                        </div>
+                        <div class="avatar" data-prof-initials>NP</div>
+                    </div>
+                </header>
+                <div class="content">
+<section class="heading">
+    <div>
+        <div class="eyebrow">Votre espace pédagogique</div>
+        <h1>Tableau de bord</h1>
+        <p>Retrouvez vos classes et gérez les cours que vous partagez avec vos étudiants.</p>
+    </div>
+    <a class="btn" href="publier-cours.html">
+        <i class="ri-add-line"></i>
+         Publier un cours
+    </a>
+    </section>
+<section class="hero">
+    <div>
+        <div class="eyebrow">Bienvenue dans votre espace</div>
+        <h2>Enseignez, partagez, accompagnez.</h2>
+        <p>Publiez vos supports pédagogiques dans les espaces correspondant aux classes qui vous sont attribuées. Vos étudiants pourront consulter et télécharger les ressources.</p>
+    </div>
+    <span class="hero-tag">
+        <i class="ri-shield-check-line"></i> 
+        Accès professeur
+    </span>
+</section>
+<section class="stats">
+    <article class="stat">
+        <span class="stat-icon">
+            <i class="ri-group-line"></i>
+        </span>
+        <div>
+            <small>Classes attribuées</small>
+            <strong>3</strong>
+        </div>
+    </article>
+    <article class="stat">
+        <span class="stat-icon">
+            <i class="ri-book-open-line"></i>
+        </span>
+        <div>
+            <small>Cours publiés</small><strong>2</strong>
+        </div>
+    </article>
+    <article class="stat">
+        <span class="stat-icon">
+            <i class="ri-folder-3-line"></i>
+        </span>
+        <div>
+            <small>Ressources partagées</small><strong>3</strong>
+        </div>
+    </article>
+</section>
+<div class="section-head">
+    <div>
+        <h2>Mes classes et niveaux</h2>
+        <p>Uniquement les classes attribuées par l'administration.</p>
+    </div>
+</div>
+<section class="class-grid" id="class-grid">
+</section>
+<div class="section-head">
+    <div>
+        <h2>Mes cours publiés</h2>
+        <p>Gérez les cours disponibles dans les espaces de classe.</p>
+    </div>
+    <a class="btn btn-light" href="publier-cours.html">
+        <i class="ri-add-line"></i>
+         Nouveau cours
+        </a>
+    </div>
+<div class="toolbar">
+    <label class="search">
+        <i class="ri-search-line"></i>
+        <input id="course-search" type="search" placeholder="Rechercher un cours, une matière ou une classe...">
+    </label>
+    <select class="filter" id="class-filter">
+        <option value="all">Toutes les classes</option>
+    </select>
+</div>
+<section class="course-list" id="course-list"></section>
+<div class="footer">© HEMIP — Espace professeur</div>
+</div>
+</main>
+<script src="assets/js/professeur.js"></script>
+</body>
+</html>

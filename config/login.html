@@ -1,0 +1,918 @@
+
+// Interface front-end uniquement.
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/connexion.css?v=2">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    <title>Connexion | HEMIP</title>
+
+    <meta name="theme-color" content="#1094d7">
+    <meta name="application-name" content="HEMIP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="assets/css/pwa.css">
+    <link rel="stylesheet" href="assets/css/hemip-theme.css">
+ <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    <style>
+         /* Espace entre le header fixe et le formulaire */
+        .login {
+            min-height: 100vh;
+            height: auto;
+            padding-block: 8rem 3rem;
+        }
+
+        .login__panel {
+            width: 100%;
+        }
+
+        .login__subtitle {
+            color: #737b87;
+            margin: -.5rem 0 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* Navigation des profils */
+        .account-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: .55rem;
+            margin-bottom: 1.7rem;
+        }
+
+        .account-tab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .45rem;
+            min-height: 48px;
+            padding: .7rem .45rem;
+            border: 1px solid rgba(16,148,215,.22);
+            border-radius: 10px;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-size: .88rem;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .account-tab i {
+            font-size: 1.15rem;
+        }
+
+        .account-tab:hover,
+        .account-tab.is-active {
+            color: #1094d7;
+            border-color: #1094d7;
+            background: rgba(16,148,215,.08);
+        }
+
+        .account-heading {
+            margin: 0 0 .45rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .account-description {
+            margin: 0 0 1.25rem;
+            color: #737b87;
+            font-size: .92rem;
+            line-height: 1.5;
+        }
+
+        .account-panel[hidden],
+        .is-hidden {
+            display: none !important;
+        }
+
+        .account-switch {
+            margin-top: 1.2rem;
+            text-align: center;
+            font-size: .9rem;
+            line-height: 1.6;
+        }
+
+        .text-action {
+            border: 0;
+            padding: 0;
+            background: none;
+            color: #1094d7;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .text-action:hover {
+            text-decoration: underline;
+        }
+
+        /* Information étudiant */
+        .form-notice {
+            display: flex;
+            gap: .6rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: .8rem .9rem;
+            border-radius: 9px;
+            background: rgba(16,148,215,.08);
+            color: #526273;
+            font-size: .83rem;
+            line-height: 1.5;
+        }
+
+        .form-notice i {
+            color: #1094d7;
+            font-size: 1.1rem;
+            flex: 0 0 auto;
+        }
+
+        .form-footnote {
+            margin-top: 1rem;
+            color: #737b87;
+            text-align: center;
+            font-size: .82rem;
+            line-height: 1.5;
+        }
+
+        /* Affichage du mot de passe */
+        .login__box {
+            position: relative;
+        }
+
+        .login__box .login__input {
+            padding-right: 3rem;
+        }
+
+        .password-toggle {
+            position: absolute;
+            z-index: 2;
+            right: .9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: #788391;
+            font-size: 1.15rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .login {
+                padding-inline: 1rem;
+            }
+
+            .account-tab {
+                flex-direction: column;
+                gap: .2rem;
+                font-size: .76rem;
+            }
+
+            .account-tab i {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER HEMIP -->
+<header class="header">
+    <nav class="navbar">
+
+        <a href="#" class="logo">
+            <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+            <span>HEMIP</span>
+        </a>
+
+        <button class="menu-btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+        </button>
+
+        <ul class="nav-list" id="nav-list">
+            <li><a href="index.php">Accueil</a></li>
+
+            <li class="dropdown">
+                <button class="dropdown-btn">
+                    Formation
+                    <i class="ri-arrow-down-s-line"></i>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li class="submenu">
+                        <button class="submenu-btn">
+                            Pôle technique
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+
+                        <ul class="submenu-menu">
+                            <li><a href="GP.html">Génie Pétrolier</a></li>
+                            <li><a href="GL.html">Génie Logiciel</a></li>
+                            <li><a href="RT.html">Réseaux et Télécommunication</a></li>
+                            <li><a href="MI.html">Maintenance Industrielle</a></li>
+                            <li><a href="AII.html">Automatisation et Informatique Industriel</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <button class="submenu-btn">
+                            Pôle Commercial
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+
+                        <ul class="submenu-menu">
+                            <li><a href="DAE.html">Droit des Affaires et des Entreprises</a></li>
+                            <li><a href="GLT.html">Gestion Logistique et Transport</a></li>
+                            <li><a href="BFA.html">Banque et Finance des Assurances</a></li>
+                            <li><a href="CIT.html">Commerce International et Transit</a></li>
+                            <li><a href="GFC.html">Gestion Finance et Comptable</a></li>
+                            <li><a href="MRH.html">Management des Ressources Humaines</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><a href="inscription.php">Inscription</a></li>
+            <li><a href="actualite.html">Actualité</a></li>
+            <li><a href="contact.php#contact">Contact</a></li>
+            <li><a href="login.php"><i class="ri-admin-line"></i></a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- PORTAIL DE CONNEXION -->
+<section class="login">
+    <div class="login__content">
+
+        <div class="login__panel">
+
+            <h2 class="login__title">
+                Bienvenue sur votre espace HEMIP
+            </h2>
+
+            <p class="login__subtitle">
+                Sélectionnez votre profil pour vous connecter.
+            </p>
+
+            <!-- CHOIX DU PROFIL -->
+            <div class="account-tabs" role="tablist">
+
+                <button type="button"
+                        class="account-tab is-active"
+                        data-role="etudiant"
+                        role="tab"
+                        aria-selected="true">
+
+                    <i class="ri-graduation-cap-line"></i>
+                    <span>Étudiant</span>
+                </button>
+
+                <button type="button"
+                        class="account-tab"
+                        data-role="professeur"
+                        role="tab"
+                        aria-selected="false">
+
+                    <i class="ri-user-star-line"></i>
+                    <span>Professeur</span>
+                </button>
+
+                <button type="button"
+                        class="account-tab"
+                        data-role="admin"
+                        role="tab"
+                        aria-selected="false">
+
+                    <i class="ri-shield-user-line"></i>
+                    <span>Admin</span>
+                </button>
+
+            </div>
+
+            <!-- ==================================
+                 ESPACE ÉTUDIANT
+            ================================== -->
+
+            <div class="account-panel is-visible"
+                 data-panel="etudiant">
+
+                <h3 class="account-heading" id="student-heading">
+                    Connexion étudiant
+                </h3>
+
+                <p class="account-description" id="student-description">
+                    Retrouvez vos cours et votre espace étudiant.
+                </p>
+
+                <!-- CONNEXION ÉTUDIANT -->
+                <form action="login.php"
+                      method="post"
+                      class="login__form"
+                      id="student-login-form">
+
+                    <input type="hidden" name="type_compte" value="etudiant">
+                    <input type="hidden" name="action_compte" value="connexion">
+
+                    <div class="login__group">
+
+                        <div class="login__box">
+                            <i class="ri-id-card-line login__icon"></i>
+
+                            <input type="text"
+                                   name="matricule"
+                                   autocomplete="username"
+                                   class="login__input"
+                                   id="student-matricule"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="student-matricule" class="login__label">
+                                Numéro matricule
+                            </label>
+                        </div>
+
+                        <div class="login__box">
+                            <i class="ri-lock-2-fill login__icon"></i>
+
+                            <input type="password"
+                                   name="motdepasse"
+                                   autocomplete="current-password"
+                                   class="login__input"
+                                   id="student-password"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="student-password" class="login__label">
+                                Mot de passe
+                            </label>
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    data-password-toggle="student-password"
+                                    aria-label="Afficher le mot de passe">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <a href="mailto:hemilaperceeinformation@gmail.com?subject=HEMIP%20-%20R%C3%A9initialisation%20mot%20de%20passe"
+                       class="login__forgot">
+                        Mot de passe oublié ?
+                    </a>
+
+                    <button type="submit" class="login__button">
+                        Se connecter
+                        <i class="ri-send-ins-line"></i>
+                    </button>
+
+                    <p class="account-switch">
+                        Vous n'avez pas encore de compte ?
+
+                        <button type="button"
+                                class="text-action"
+                                id="show-student-register">
+                            Créer un compte
+                        </button>
+                    </p>
+
+                </form>
+
+                <!-- CRÉATION DE COMPTE ÉTUDIANT -->
+                <form action="login.php"
+                      method="post"
+                      class="login__form is-hidden"
+                      id="student-register-form">
+
+                    <input type="hidden" name="type_compte" value="etudiant">
+                    <input type="hidden" name="action_compte" value="inscription">
+
+                    <div class="form-notice">
+                        <i class="ri-information-line"></i>
+
+                        <span>
+                            Utilisez le matricule figurant sur votre carte
+                            d'étudiant. Il doit déjà être enregistré dans
+                            les dossiers de HEMIP.
+                        </span>
+                    </div>
+
+                    <div class="login__group">
+
+                        <div class="login__box">
+                            <i class="ri-id-card-line login__icon"></i>
+
+                            <input type="text"
+                                   name="matricule"
+                                   autocomplete="username"
+                                   class="login__input"
+                                   id="register-matricule"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="register-matricule" class="login__label">
+                                Numéro matricule
+                            </label>
+                        </div>
+
+                        <div class="login__box">
+                            <i class="ri-lock-2-fill login__icon"></i>
+
+                            <input type="password"
+                                   name="motdepasse"
+                                   autocomplete="new-password"
+                                   class="login__input"
+                                   id="register-password"
+                                   placeholder=" "
+                                   minlength="8"
+                                   required>
+
+                            <label for="register-password" class="login__label">
+                                Créer un mot de passe
+                            </label>
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    data-password-toggle="register-password"
+                                    aria-label="Afficher le mot de passe">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+
+                        <div class="login__box">
+                            <i class="ri-lock-password-line login__icon"></i>
+
+                            <input type="password"
+                                   name="confirmation_motdepasse"
+                                   autocomplete="new-password"
+                                   class="login__input"
+                                   id="register-password-confirm"
+                                   placeholder=" "
+                                   minlength="8"
+                                   required>
+
+                            <label for="register-password-confirm" class="login__label">
+                                Confirmer le mot de passe
+                            </label>
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    data-password-toggle="register-password-confirm"
+                                    aria-label="Afficher le mot de passe">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="login__button">
+                        Créer mon compte
+                        <i class="ri-user-add-line"></i>
+                    </button>
+
+                    <p class="account-switch">
+                        Vous avez déjà un compte ?
+
+                        <button type="button"
+                                class="text-action"
+                                id="show-student-login">
+                            Se connecter
+                        </button>
+                    </p>
+
+                </form>
+
+            </div>
+
+            <!-- ==================================
+                 ESPACE PROFESSEUR
+            ================================== -->
+
+            <div class="account-panel"
+                 data-panel="professeur"
+                 hidden>
+
+                <h3 class="account-heading">
+                    Connexion professeur
+                </h3>
+
+                <p class="account-description">
+                    Connectez-vous avec les identifiants qui vous ont
+                    été communiqués par l'administration.
+                </p>
+
+                <form action="login.php" method="post" class="login__form">
+
+                    <input type="hidden" name="type_compte" value="professeur">
+                    <input type="hidden" name="action_compte" value="connexion">
+
+                    <div class="login__group">
+
+                        <div class="login__box">
+                            <i class="ri-mail-fill login__icon"></i>
+
+                            <input type="email"
+                                   name="email"
+                                   autocomplete="username"
+                                   class="login__input"
+                                   id="professor-email"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="professor-email" class="login__label">
+                                Adresse e-mail
+                            </label>
+                        </div>
+
+                        <div class="login__box">
+                            <i class="ri-lock-2-fill login__icon"></i>
+
+                            <input type="password"
+                                   name="motdepasse"
+                                   autocomplete="current-password"
+                                   class="login__input"
+                                   id="professor-password"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="professor-password" class="login__label">
+                                Mot de passe
+                            </label>
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    data-password-toggle="professor-password"
+                                    aria-label="Afficher le mot de passe">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <a href="mailto:hemilaperceeinformation@gmail.com?subject=HEMIP%20-%20Aide%20connexion%20professeur"
+                       class="login__forgot">
+                        Besoin d'aide pour vous connecter ?
+                    </a>
+
+                    <button type="submit" class="login__button">
+                        Se connecter
+                        <i class="ri-send-ins-line"></i>
+                    </button>
+
+                    <p class="form-footnote">
+                        Les comptes professeurs sont créés et gérés
+                        par l'administration HEMIP.
+                    </p>
+
+                </form>
+
+            </div>
+
+            <!-- ==================================
+                 ESPACE ADMINISTRATION
+            ================================== -->
+
+            <div class="account-panel"
+                 data-panel="admin"
+                 hidden>
+
+                <h3 class="account-heading">
+                    Espace administration
+                </h3>
+
+                <p class="account-description">
+                    Accès réservé aux administrateurs autorisés de HEMIP.
+                </p>
+
+                <form action="login.php" method="post" class="login__form">
+
+                    <input type="hidden" name="type_compte" value="admin">
+                    <input type="hidden" name="action_compte" value="connexion">
+
+                    <div class="login__group">
+
+                        <div class="login__box">
+                            <i class="ri-mail-fill login__icon"></i>
+
+                            <input type="email"
+                                   name="email"
+                                   autocomplete="username"
+                                   class="login__input"
+                                   id="admin-email"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="admin-email" class="login__label">
+                                Adresse e-mail
+                            </label>
+                        </div>
+
+                        <div class="login__box">
+                            <i class="ri-lock-2-fill login__icon"></i>
+
+                            <input type="password"
+                                   name="motdepasse"
+                                   autocomplete="current-password"
+                                   class="login__input"
+                                   id="admin-password"
+                                   placeholder=" "
+                                   required>
+
+                            <label for="admin-password" class="login__label">
+                                Mot de passe
+                            </label>
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    data-password-toggle="admin-password"
+                                    aria-label="Afficher le mot de passe">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <a href="mailto:hemilaperceeinformation@gmail.com?subject=HEMIP%20-%20R%C3%A9initialisation%20mot%20de%20passe%20administrateur"
+                       class="login__forgot">
+                        Mot de passe oublié ?
+                    </a>
+
+                    <button type="submit" class="login__button">
+                        Se connecter
+                        <i class="ri-send-ins-line"></i>
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- IMAGE DE CONNEXION -->
+        <div class="login__image">
+            <img src="assets/img/login.jpg"
+                 alt="Espace de connexion HEMIP"
+                 class="login__img">
+        </div>
+
+    </div>
+</section>
+<!-- FOOTER -->
+<footer class="footer reveal">
+
+    <div class="footer-container" id="footer">
+
+        <div class="footer-col footer-about">
+            <div class="footer-logo">
+                <img src="assets/img/logo-hemip.jpg" alt="Logo HEMIP">
+                <span>HEMIP</span>
+            </div>
+
+            <p class="footer-slogan">
+                « Nous formons des professionnels qualifiés et chevronnés »
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Contactez-nous</h3>
+
+            <ul class="footer-contact">
+                <li>
+                    <i class="ri-mail-line"></i>
+                    <a href="mailto:hemilaperceeinformation@gmail.com">
+                        hemilaperceeinformation@gmail.com
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+242069149242">
+                        +242 06 914 92 42
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+242053560677">
+                        +242 06 356 06 77
+                    </a>
+                </li>
+
+                <li>
+                    <i class="ri-whatsapp-line"></i>
+                    <a href="https://wa.me/242055865094" target="_blank">
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Suivez-nous</h3>
+
+            <p class="social-text">
+                Retrouvez HEMIP sur nos réseaux sociaux.
+            </p>
+
+            <div class="social-links">
+
+                <a href="https://vm.tiktok.com/ZS9kFSarLrbTD-96s9G/"
+                   class="social-link" aria-label="TikTok">
+                    <i class="ri-tiktok-line"></i>
+                </a>
+
+                <a href="https://www.facebook.com/hemipcongo"
+                   class="social-link" aria-label="Facebook">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+
+                <a href="https://wa.me/242055865094"
+                   class="social-link" aria-label="WhatsApp" target="_blank">
+                    <i class="ri-whatsapp-line"></i>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 HEMIP. Tous droits réservés.</p>
+
+        <p>
+            Haute École de Management et d'Ingénierie la Percée
+        </p>
+    </div>
+
+</footer>
+
+
+<!-- GSAP -->
+<script src="assets/vendor/gsap/gsap.min.js"></script>
+
+<!-- Scripts HEMIP -->
+<script src="assets/js/connexion.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/pwa.js" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // CHANGEMENT DE PROFIL
+    const tabs = document.querySelectorAll('.account-tab');
+    const panels = document.querySelectorAll('.account-panel');
+
+    function showRole(role) {
+
+        tabs.forEach(function (tab) {
+
+            const active = tab.dataset.role === role;
+
+            tab.classList.toggle('is-active', active);
+
+            tab.setAttribute(
+                'aria-selected',
+                active ? 'true' : 'false'
+            );
+
+        });
+
+        panels.forEach(function (panel) {
+
+            const active = panel.dataset.panel === role;
+
+            panel.hidden = !active;
+
+            panel.classList.toggle('is-visible', active);
+
+        });
+    }
+
+    tabs.forEach(function (tab) {
+
+        tab.addEventListener('click', function () {
+
+            showRole(tab.dataset.role);
+
+        });
+
+    });
+
+
+    // AFFICHER LE FORMULAIRE DE CREATION DE COMPTE
+    const studentLogin = document.getElementById('student-login-form');
+
+    const studentRegister = document.getElementById('student-register-form');
+
+    const studentHeading = document.getElementById('student-heading');
+
+    const studentDescription = document.getElementById('student-description');
+
+
+    document.getElementById('show-student-register')
+        .addEventListener('click', function () {
+
+            studentLogin.classList.add('is-hidden');
+
+            studentRegister.classList.remove('is-hidden');
+
+            studentHeading.textContent = 'Créer un compte étudiant';
+
+            studentDescription.textContent =
+                'Créez votre accès personnel à partir de votre matricule étudiant.';
+
+        });
+
+
+    // REVENIR A LA CONNEXION ETUDIANT
+    document.getElementById('show-student-login')
+        .addEventListener('click', function () {
+
+            studentRegister.classList.add('is-hidden');
+
+            studentLogin.classList.remove('is-hidden');
+
+            studentHeading.textContent = 'Connexion étudiant';
+
+            studentDescription.textContent =
+                'Retrouvez vos cours et votre espace étudiant.';
+
+        });
+
+
+    // AFFICHER / MASQUER LES MOTS DE PASSE
+    document.querySelectorAll('[data-password-toggle]')
+        .forEach(function (button) {
+
+            button.addEventListener('click', function () {
+
+                const input = document.getElementById(
+                    button.dataset.passwordToggle
+                );
+
+                const icon = button.querySelector('i');
+
+                const visible = input.type === 'text';
+
+                input.type = visible ? 'password' : 'text';
+
+                icon.classList.toggle('ri-eye-line', visible);
+
+                icon.classList.toggle('ri-eye-off-line', !visible);
+
+                button.setAttribute(
+                    'aria-label',
+                    visible
+                        ? 'Afficher le mot de passe'
+                        : 'Masquer le mot de passe'
+                );
+
+            });
+
+        });
+
+
+    // VERIFICATION DE LA CONFIRMATION DU MOT DE PASSE
+    studentRegister.addEventListener('submit', function (event) {
+
+        const password = document.getElementById('register-password').value;
+
+        const confirmation = document.getElementById(
+            'register-password-confirm'
+        ).value;
+
+        if (password !== confirmation) {
+
+            event.preventDefault();
+
+            const field = document.getElementById(
+                'register-password-confirm'
+            );
+
+            field.setCustomValidity(
+                'Les deux mots de passe ne correspondent pas.'
+            );
+
+            field.reportValidity();
+
+            field.setCustomValidity('');
+
+        }
+
+    });
+
+});
+</script>
+
+</body>
+</html>
+
+

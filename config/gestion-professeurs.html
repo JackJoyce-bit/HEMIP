@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestion des professeurs | HEMIP</title>
+<link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+<link rel="stylesheet" href="assets/vendor/remixicon/remixicon.css">
+<link rel="stylesheet" href="assets/css/hemip-theme.css">
+ <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+<style>
+:root{--p:#6846b5;
+    --p2:#efe9fb;
+    --ink:#242132;
+    --muted:#777487;
+    --line:#eceaf1;
+    --bg:#f7f6fa;
+    --green:#16845b;
+    --red:#c34455}
+*{box-sizing:border-box}
+body{margin:0;
+    background:var(--hemip-bg,var(--bg));
+    color:var(--hemip-text,var(--ink));
+    font-family:Inter,Arial,sans-serif}
+.topbar{background:var(--hemip-text,#242132);
+    color:#fff;
+    padding:14px clamp(16px,4vw,42px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap}
+.topbar a{color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    display:inline-flex;
+    gap:7px;
+    align-items:center}
+.toplinks{display:flex;
+    gap:18px;
+    flex-wrap:wrap}
+main{max-width:1180px;
+    margin:34px auto;
+    padding:0 20px}
+.heading{display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:24px}
+h1{font-size:26px;
+    margin:0 0 7px}
+.sub{color:var(--muted);font-size:14px;margin:0}
+.btn{border:0;
+    border-radius:9px;
+    background:var(--p);
+    color:#fff;
+    padding:10px 15px;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    gap:7px;
+    align-items:center}
+.btn:hover{filter:brightness(.95)}
+.btn.light{background:#f0edf7;
+    color:var(--p)}
+.btn.danger{background:#fff0f1;
+    color:var(--red)}
+.btn.small{padding:7px 10px}
+.stats{display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:20px}
+.stat,.panel{background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:0 5px 18px #241b3510}
+.stat{padding:17px 19px}
+.stat span{font-size:13px;
+    color:var(--muted)}
+.stat strong{display:block;font-size:25px;margin-top:7px}
+.panel{padding:18px}
+.toolbar{display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    margin-bottom:15px}
+.search{position:relative;
+    flex:1;
+    min-width:220px;
+    max-width:380px}
+.search i{position:absolute;
+    left:12px;
+    top:11px;
+    color:#898596}
+.search input,select,.field input,.field textarea{width:100%;
+    border:1px solid #e2dfeb;
+    border-radius:9px;
+    padding:10px 12px;
+    font:14px inherit;
+    background:#fff;
+    color:var(--ink)}
+.search input{padding-left:36px}
+.tablewrap{overflow-x:auto}
+table{width:100%;
+    border-collapse:collapse;
+    min-width:760px}
+th,td{text-align:left;
+    padding:14px 12px;
+    border-bottom:1px solid var(--line);
+    font-size:13px}
+th{font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:#777487;
+    background:#faf9fc}
+tbody tr:last-child td{border:0}
+.person{display:flex;
+    align-items:center;
+    gap:10px}
+.avatar{width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#eee8fa;
+    color:var(--p);
+    display:grid;
+    place-items:center;
+    font-weight:700}
+.person b{display:block;
+    font-size:13px}
+.person small{color:var(--muted);
+    font-size:11px}
+.tag{display:inline-flex;
+    padding:5px 9px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700}
+.tag.on{background:#e8f7f0;
+    color:var(--green)}
+.tag.off{background:#fff0f1;
+    color:var(--red)}
+.actions{display:flex;
+    gap:6px;
+    flex-wrap:wrap}
+.actions .btn{min-width:38px;
+    justify-content:center}
+.actions i{font-size:16px;
+    line-height:1;
+    display:inline-block}
+.class-list{display:flex;
+    gap:5px;
+    flex-wrap:wrap}
+.class-chip{display:inline-flex;
+    background:#f0edf7;
+    color:#6246a0;
+    border-radius:20px;
+    padding:4px 8px;
+    font-size:11px;
+    font-weight:600}
+.empty{padding:32px;text-align:center;color:var(--muted)}
+.modal{position:fixed;
+    inset:0;
+    background:#17132288;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    z-index:5;
+    overflow-y:auto;
+    overflow-x:hidden}
+.modal.show{display:flex}
+.dialog{width:min(680px,100%);
+    background:#fff;
+    border-radius:16px;
+    padding:23px;
+    max-height:calc(100dvh - 32px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    margin:auto;
+    overscroll-behavior:contain}
+.dialoghead{display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px}
+.dialog h2{font-size:19px;margin:0}
+.close{border:0;
+    background:transparent;
+    font-size:23px;
+    cursor:pointer;
+    color:var(--muted)}
+.formgrid{display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px}
+.class-choices{display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:12px;
+    border:1px solid #e2dfeb;
+    border-radius:10px;
+    max-height:170px;
+    overflow-y:auto}
+.class-choices label{display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:500;
+    color:var(--ink)}
+.class-choices input{accent-color:var(--p)}
+.field{display:flex;
+    flex-direction:column;
+    gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;
+    font-weight:700;
+    color:#575365}
+.hint{font-size:11px;
+    color:var(--muted);
+    margin-top:4px}
+.formactions{display:flex;
+    justify-content:flex-end;
+    gap:9px;
+    margin-top:20px}
+.notice{background:#f4f0fc;
+    color:#5d438e;
+    padding:12px 14px;
+    border-radius:9px;
+    font-size:12px;
+    margin-bottom:16px}
+@media(max-width:760px){
+ main{margin:22px auto;padding:0 14px}
+ .topbar{padding:13px 16px;align-items:flex-start}
+ .toplinks{width:100%;gap:10px 16px}
+ .toplinks a{font-size:12px}
+ .heading{align-items:stretch}
+ .heading>.btn{width:100%;justify-content:center}
+ .stats{grid-template-columns:1fr}
+ .panel{padding:13px}
+ .toolbar{align-items:stretch}
+ .search{max-width:none;min-width:0;width:100%}
+ .tablewrap{overflow:visible}
+ table{min-width:0;width:100%;border-collapse:separate;border-spacing:0 12px}
+ thead{display:none}
+ tbody{display:block;width:100%}
+ tbody tr{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px;box-shadow:0 3px 12px #241b3508}
+ tbody tr:last-child td{border-bottom:1px solid var(--line)}
+ tbody td{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;width:100%;padding:10px 2px;border-bottom:1px solid var(--line);font-size:12px;min-width:0;overflow-wrap:anywhere}
+ tbody td::before{content:attr(data-label);flex:0 0 112px;max-width:112px;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.035em;padding-top:2px}
+ tbody td:last-child{border:0;padding-bottom:5px}
+ .person{min-width:0}
+ .person>div:last-child{min-width:0}
+ .person b,.person small{overflow-wrap:anywhere}
+ .class-list{justify-content:flex-end;min-width:0}
+ .actions{justify-content:flex-end;width:100%}
+ .actions .btn{flex:1;min-width:0;padding:8px 9px;font-size:11px}
+ .empty{display:block;text-align:center}
+ .empty::before{display:none}
+ .formgrid,.class-choices{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ h1{font-size:22px}
+ .dialog{padding:18px;width:100%;max-height:calc(100dvh - 20px)}
+ .modal{padding:10px}
+ .formactions{flex-direction:column-reverse}
+ .formactions .btn{width:100%;justify-content:center}
+}
+@media(max-width:380px){
+ tbody td{display:block}
+ tbody td::before{display:block;max-width:none;margin-bottom:6px}
+ .actions{justify-content:stretch}
+ .actions .btn{font-size:10px}
+ .toplinks{gap:9px 12px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+    <a href="dashboard.php">
+        <i class="ri-arrow-left-line"></i>
+       Retour au tableau de bord
+    </a>
+        <nav class="toplinks">
+            <a href="gestion-professeurs.html">
+                <i class="ri-user-settings-line"></i>
+                Professeurs
+            </a>
+            <a href="gestion-emplois-du-temps.html">
+                <i class="ri-calendar-schedule-line"></i>
+                Emplois du temps
+            </a>
+            <a href="deconnexion.php">
+                <i class="ri-logout-box-r-line"></i>
+                Déconnexion
+            </a>
+        </nav>
+    </header>
+<main>
+<section class="heading">
+    <div>
+        <h1>Gestion des professeurs</h1>
+        <p class="sub">Créez les comptes enseignants et gérez leurs accès à la plateforme.</p>
+    </div>
+    <button class="btn" id="addBtn"><i class="ri-user-add-line"></i> Ajouter un professeur</button>
+</section>
+<section class="stats" style="grid-template-columns:1fr">
+    <article class="stat">
+        <span>Total des professeurs</span>
+        <strong id="total">8</strong>
+    </article>
+</section>
+<section class="panel">
+<div class="toolbar">
+    <div class="search">
+        <i class="ri-search-line"></i>
+        <input id="search" placeholder="Rechercher un professeur..." aria-label="Rechercher">
+    </div>
+ </div>
+<div class="tablewrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Professeur</th>
+                <th>Identifiant / Email</th>
+                <th>Spécialité</th>
+                <th>Classes attribuées</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="teacherRows"></tbody>
+    </table>
+</div>
+<p class="hint">Prototype front-end : les ajouts, modifications et changements d’état sont simulés dans cette page. Le raccordement à la base de données et l’authentification seront réalisés côté back-end.</p>
+</section>
+</main>
+<div class="modal" id="teacherModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="dialog">
+        <div class="dialoghead">
+            <h2 id="modalTitle">Ajouter un professeur</h2>
+            <button class="close" id="closeModal" aria-label="Fermer">&times;</button>
+        </div>
+        <div class="notice">Le compte professeur sera créé par l’administration. Le professeur ne crée pas lui-même son compte.</div>
+<form id="teacherForm">
+    <input type="hidden" id="teacherId">
+    <div class="formgrid">
+<div class="field">
+    <label for="first">Prénom *</label>
+    <input id="first" required>
+</div>
+<div class="field">
+    <label for="last">Nom *</label>
+    <input id="last" required>
+</div>
+<div class="field full">
+    <label for="email">Adresse e-mail *</label>
+    <input id="email" type="email" required placeholder="professeur@hemip.cg">
+</div>
+<div class="field">
+    <label for="login">Identifiant *</label>
+    <input id="login" required placeholder="Ex. prof.makaya">
+</div>
+<div class="field">
+    <label for="specialty">Spécialité</label>
+    <input id="specialty" placeholder="Ex. Génie logiciel">
+</div>
+<div class="field full">
+    <label>Classes attribuées *</label>
+    <div id="classChoices" class="class-choices">
+<label><input type="checkbox" value="Licence 1 · Génie Logiciel"> Licence 1 · Génie Logiciel</label>
+<label><input type="checkbox" value="Licence 2 · Génie Logiciel"> Licence 2 · Génie Logiciel</label>
+<label><input type="checkbox" value="Licence 3 · Génie Logiciel"> Licence 3 · Génie Logiciel</label>
+<label><input type="checkbox" value="Master 1 · Réseaux"> Master 1 · Réseaux</label>
+<label><input type="checkbox" value="Master 2 · Réseaux"> Master 2 · Réseaux</label>
+<label><input type="checkbox" value="Licence 1 · Réseaux"> Licence 1 · Réseaux</label>
+<label><input type="checkbox" value="Licence 2 · Maintenance"> Licence 2 · Maintenance</label>
+</div>
+<span class="hint">Sélectionnez une ou plusieurs classes. Un professeur peut intervenir dans plusieurs niveaux et filières.</span>
+</div>
+<div class="field full">
+    <label for="tempPassword">Mot de passe initial</label>
+    <input id="tempPassword" type="password" placeholder="À définir / générer côté serveur">
+    <span class="hint">Ne jamais enregistrer un mot de passe en clair dans le navigateur.</span>
+</div>
+</div>
+<div class="formactions">
+    <button type="button" class="btn light" id="cancelBtn">Annuler</button>
+    <button class="btn" type="submit">Enregistrer</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+const teachers=[
+{id:1,first:"Jean",last:"MOUKOKO",email:"j.moukoko@hemip.cg",login:"prof.moukoko",specialty:"Génie logiciel",classes:["Licence 1 · Génie Logiciel","Licence 2 · Génie Logiciel" ]},
+{id:2,first:"Marie",last:"NGUESSO",email:"m.nguesso@hemip.cg",login:"prof.nguesso",specialty:"Réseaux informatiques",classes:["Master 2 · Réseaux","Master 1 · Réseaux"]},
+{id:3,first:"Patrick",last:"MABIALA",email:"p.mabiala@hemip.cg",login:"prof.mabiala",specialty:"Maintenance",classes:["Licence 2 · Maintenance"]},
+{id:4,first:"Clarisse",last:"LOUFOUA",email:"c.loufoua@hemip.cg",login:"prof.loufoua",specialty:"Mathématiques",classes:["Licence 1 · Génie Logiciel","Licence 1 · Réseaux"]},
+{id:5,first:"Armand",last:"KIMBEMBE",email:"a.kimbembe@hemip.cg",login:"prof.kimbembe",specialty:"Électronique",classes:["Licence 3 · Génie Logiciel"]},
+{id:6,first:"Nadia",last:"MABIKA",email:"n.mabika@hemip.cg",login:"prof.mabika",specialty:"Gestion",classes:["Master 2 · Réseaux"]},
+{id:7,first:"Serge",last:"BOKO",email:"s.boko@hemip.cg",login:"prof.boko",specialty:"Cybersécurité",classes:["Licence 3 · Génie Logiciel","Master 1 · Réseaux"]},
+{id:8,first:"Estelle",last:"TCHICAYA",email:"e.tchicaya@hemip.cg",login:"prof.tchicaya",specialty:"Communication",classes:["Licence 1 · Génie Logiciel"]}];
+const $=id=>document.getElementById(id);let nextId=9;
+function render(){const q=$("search").value.toLowerCase();const filtered=teachers.filter(t=>(`${t.first} ${t.last} ${t.email} ${t.specialty} ${t.login} ${t.classes.join(" ")}`.toLowerCase().includes(q)));$("teacherRows").innerHTML=filtered.length?filtered.map(t=>`<tr><td data-label="Professeur"><div class="person"><div class="avatar">${t.first[0]}${t.last[0]}</div><div><b>${t.first} ${t.last}</b><small>Professeur</small></div></div></td><td data-label="Identifiant / Email">${t.login}<br><small>${t.email}</small></td><td data-label="Spécialité">${t.specialty||"—"}</td><td data-label="Classes attribuées"><div class="class-list">${t.classes.length?t.classes.map(c=>`<span class="class-chip">${c}</span>`).join(""):'<span class="hint">Aucune classe attribuée</span>'}</div></td><td data-label="Actions"><div class="actions"><button class="btn light small" onclick="editTeacher(${t.id})" title="Modifier"><i class="ri-edit-line" aria-hidden="true"></i><span>Modifier</span></button><button class="btn danger small" onclick="deleteTeacher(${t.id})" title="Supprimer"><i class="ri-delete-bin-line" aria-hidden="true"></i><span>Supprimer</span></button></div></td></tr>`).join(""):`<tr><td colspan="5" class="empty">Aucun professeur trouvé.</td></tr>`;$("total").textContent=teachers.length;}
+function setSelectedClasses(values=[]){document.querySelectorAll('#classChoices input[type="checkbox"]').forEach(cb=>cb.checked=values.includes(cb.value))}
+function selectedClasses(){return [...document.querySelectorAll('#classChoices input[type="checkbox"]:checked')].map(cb=>cb.value)}
+function openModal(t){$("teacherForm").reset();$("teacherId").value=t?.id||"";$("modalTitle").textContent=t?"Modifier le professeur":"Ajouter un professeur";if(t){$("first").value=t.first;$("last").value=t.last;$("email").value=t.email;$("login").value=t.login;$("specialty").value=t.specialty;setSelectedClasses(t.classes)}else setSelectedClasses([]);$("teacherModal").classList.add("show")}
+function closeModal(){$("teacherModal").classList.remove("show")}
+window.editTeacher=id=>openModal(teachers.find(t=>t.id===id));window.deleteTeacher=id=>{const t=teachers.find(t=>t.id===id);if(confirm(`Supprimer le compte de ${t.first} ${t.last} ?`)){teachers.splice(teachers.indexOf(t),1);render()}};
+$("addBtn").onclick=()=>openModal();$("closeModal").onclick=$("cancelBtn").onclick=closeModal;$("teacherModal").onclick=e=>{if(e.target===$("teacherModal"))closeModal()};$("search").oninput=render;
+$("teacherForm").onsubmit=e=>{e.preventDefault();const id=Number($("teacherId").value);const classes=selectedClasses();if(!classes.length){alert("Attribuez au moins une classe au professeur.");return}const data={first:$("first").value.trim(),last:$("last").value.trim(),email:$("email").value.trim(),login:$("login").value.trim(),specialty:$("specialty").value.trim(),classes};if(id)Object.assign(teachers.find(t=>t.id===id),data);else teachers.push({id:nextId++,...data});closeModal();render()};
+render();
+</script>
+</body>
+</html>

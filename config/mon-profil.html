@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Mon profil | HEMIP</title>
+        <link rel="stylesheet" href="assets/vendor/remixicon/remixicon.css">
+        <link rel="stylesheet" href="assets/css/espace-etudiant.css">
+     <!-- favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/hemip-192.png">
+    </head>
+    <body>
+<aside class="sidebar">
+    <a class="brand" href="mon-profil.html">
+        <img src="assets/img/logo-hemip.jpg" alt="HEMIP">
+        <span><strong>HEMIP</strong><small>ESPACE ÉTUDIANT</small></span>
+    </a>
+    <div class="nav-label">MON ESPACE</div>
+    <nav class="side-nav">
+        <a class="side-link " href="mes-cours.html">
+            <i class="ri-book-open-line"></i>
+            Mes cours
+        </a>
+        <a class="side-link " href="emploi-du-temps.html">
+            <i class="ri-calendar-line"></i>
+            Emploi du temps
+        </a>
+        <a class="side-link active" href="mon-profil.html">
+            <i class="ri-user-line"></i>
+            Mon profil
+        </a>
+    </nav>
+    <div class="sidebar-bottom">
+        <div class="help-card">
+            <strong>Besoin d'aide ?</strong>
+            <p>Une question sur votre espace étudiant ?</p>
+            <a href="mailto:hemilaperceeinformation@gmail.com">Contacter HEMIP →</a>
+        </div>
+    </div>
+</aside>
+<main class="main">
+    <header class="topbar">
+        <div class="top-left">
+            <button class="menu-toggle" aria-label="Ouvrir le menu">
+                <i class="ri-menu-line"></i>
+            </button>
+            <div class="crumb">
+                Espace étudiant / 
+                <b>Mon profil</b>
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="avatar" data-student-initials>ET</div>
+            <div class="user user-text">
+                <strong data-student="fullName">Nom de l'étudiant</strong>
+                <small>Étudiant HEMIP</small>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="heading">
+            <div>
+                <div class="eyebrow">Portail académique HEMIP</div>
+                <h1>Mon profil</h1>
+                <p>Consultez vos informations académiques.</p>
+            </div>
+            <div class="year">Année : <b data-student="academicYear">À connecter</b>
+            </div>
+        </div>
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Mon espace personnel</div>
+                <h2>Bienvenue dans votre espace étudiant.</h2>
+                <p>Retrouvez vos informations académiques et accédez aux ressources de votre classe.</p>
+            </div>
+            <span class="hero-tag"><i class="ri-user-smile-line"></i> Mon profil</span>
+        </section>
+<div class="section-head">
+    <div>
+        <h2>Mes informations</h2>
+        <p>Informations liées à votre inscription à HEMIP.</p>
+    </div>
+</div>
+<section class="panel">
+    <div class="profile-grid">
+        <div class="profile-item">
+            <small>Nom et prénom</small>
+            <strong data-student="fullName">À connecter</strong>
+        </div>
+        <div class="profile-item"><small>Filière</small><strong data-student="program">À connecter</strong></div>
+        <div class="profile-item"><small>Niveau</small><strong data-student="level">À connecter</strong></div>
+        <div class="profile-item"><small>Année académique</small><strong data-student="academicYear">À connecter</strong></div>
+    </div>
+</section>
+<div class="section-head">
+    <div>
+        <h2>Accès rapides</h2>
+        <p>Consultez les ressources de votre classe.</p>
+    </div>
+</div>
+<section class="panel">
+    <div class="resources">
+        <a class="resource" href="mes-cours.html">
+            <i class="ri-book-open-line"></i> 
+            Accéder à mes cours
+        </a>
+        <a class="resource" href="emploi-du-temps.html">
+            <i class="ri-calendar-line"></i> 
+            Voir mon emploi du temps
+        </a>
+    </div>
+</section>
+<footer class="footer">© 2026 HEMIP · Espace étudiant</footer>
+</div>
+</main>
+<script src="assets/js/espace-etudiant.js"></script>
+</body>
+</html>
