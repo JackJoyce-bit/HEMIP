@@ -1,182 +1,144 @@
 <?php
 if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
 
-session_start();
+require_once __DIR__ . '/includes/role-guard.php';
+require_once __DIR__ . '/includes/csrf.php';
+hemip_start_session();
+require_once __DIR__ . '/connexion.php';
 
-require_once "connexion.php";
-
-/* =========================================================
-   ÉTAT DES SESSIONS
-   ========================================================= */
-
-$adminConnecte =
-    isset($_SESSION['admin_connecte']) &&
-    $_SESSION['admin_connecte'] === true;
-
-$etudiantConnecte =
-    isset($_SESSION['etudiant_connecte']) &&
-    $_SESSION['etudiant_connecte'] === true;
-
-$message = "";
-
-// Onglet affiché : 'admin' (par défaut) ou 'etudiant'
+$adminConnecte = !empty($_SESSION['admin_connecte']);
+$etudiantConnecte = !empty($_SESSION['etudiant_connecte']);
+$message = '';
 $typeConnexion = 'admin';
+$roleAdminDemande = '';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $typeSoumis = $_POST['type_connexion'] ?? '';
+    $typeConnexion = in_array($typeSoumis, ['etudiant', 'enseignant', 'admin'], true) ? $typeSoumis : 'admin';
+    $emailSaisi = $_POST['email'] ?? '';
+    $motdepasseSaisi = $_POST['motdepasse'] ?? '';
+    $email = is_string($emailSaisi) ? trim($emailSaisi) : '';
+    $motdepasse = is_string($motdepasseSaisi) ? $motdepasseSaisi : '';
 
-    $typeConnexion = (($_POST['type_connexion'] ?? '') === 'etudiant')
-        ? 'etudiant'
-        : 'admin';
+    if (!hemip_csrf_valid($_POST['csrf'] ?? null)) {
+        $message = 'Session expirée. Rechargez la page puis réessayez.';
+    } elseif ($typeConnexion === 'etudiant') {
+        $matriculeSaisi = $_POST['matricule'] ?? '';
+        $matricule = is_string($matriculeSaisi) ? trim($matriculeSaisi) : '';
+        $messageErreurEtudiant = 'Identifiant(s) invalide(s). Veuillez réessayer.';
 
-    $email = trim($_POST['email'] ?? '');
-    $motdepasse = $_POST['motdepasse'] ?? '';
-
-    /* =====================================================
-       CONNEXION ÉTUDIANT
-       ===================================================== */
-
-    if ($typeConnexion === 'etudiant') {
-
-        $matricule = trim($_POST['matricule'] ?? '');
-
-        $messageErreurEtudiant = "Identifiant(s) invalide(s). Veuillez réessayer.";
-
-        if ($email === '' || $motdepasse === '' || $matricule === '') {
-
+        if ($email === '' || $motdepasse === '' || $matricule === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $message = $messageErreurEtudiant;
-
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-            $message = $messageErreurEtudiant;
-
         } else {
-
-            // Le candidat est retrouvé par son matricule (attribué à l'inscription
-            // validée) ET par son e-mail
             $requete = $connexion->prepare(
                 "SELECT idCandidat, nom, prenom, email, motdepasse, matricule_ancien
-                 FROM candidat
-                 WHERE matricule_ancien = :matricule
-                   AND email = :email
-                 LIMIT 1"
+                 FROM candidat WHERE matricule_ancien = :matricule AND email = :email LIMIT 1"
             );
-
-            $requete->execute([
-                ':matricule' => $matricule,
-                ':email'     => $email
-            ]);
-
+            $requete->execute([':matricule' => $matricule, ':email' => $email]);
             $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
 
-            // Seul un étudiant réellement inscrit (inscription validée) peut entrer
             $inscrit = false;
-
             if ($etudiant) {
                 $requeteStatut = $connexion->prepare(
-                    "SELECT idPreinscription
-                     FROM preinscription
-                     WHERE idCandidat = :idCandidat
-                       AND statut = 'Validée'
-                     LIMIT 1"
+                    "SELECT idPreinscription FROM preinscription
+                     WHERE idCandidat = :idCandidat AND statut = 'Validée' LIMIT 1"
                 );
                 $requeteStatut->execute([':idCandidat' => $etudiant['idCandidat']]);
                 $inscrit = (bool) $requeteStatut->fetchColumn();
             }
 
-            if (
-                !$etudiant ||
-                !$inscrit ||
-                !password_verify($motdepasse, $etudiant['motdepasse'])
-            ) {
-
-                // Message unique : on ne révèle pas quel identifiant est faux
+            if (!$etudiant || !$inscrit || !password_verify($motdepasse, $etudiant['motdepasse'])) {
                 $message = $messageErreurEtudiant;
-
             } else {
-
+                hemip_clear_identity();
                 session_regenerate_id(true);
-
+                unset($_SESSION['_hemip_csrf']);
                 $_SESSION['etudiant_connecte'] = true;
-                $_SESSION['idCandidat']        = $etudiant['idCandidat'];
-                $_SESSION['etudiant_nom']      = $etudiant['nom'];
-                $_SESSION['etudiant_prenom']   = $etudiant['prenom'];
-                $_SESSION['etudiant_email']    = $etudiant['email'];
-                $_SESSION['etudiant_matricule']= $etudiant['matricule_ancien'];
-
-                header("Location: etudiant.php");
-                exit();
+                $_SESSION['idCandidat'] = (int) $etudiant['idCandidat'];
+                $_SESSION['etudiant_nom'] = $etudiant['nom'];
+                $_SESSION['etudiant_prenom'] = $etudiant['prenom'];
+                $_SESSION['etudiant_email'] = $etudiant['email'];
+                $_SESSION['etudiant_matricule'] = $etudiant['matricule_ancien'];
+                header('Location: etudiant.php');
+                exit;
             }
         }
-
-    /* =====================================================
-       CONNEXION ADMINISTRATEUR (inchangée)
-       ===================================================== */
-
-    } else {
-
-        if (empty($email) || empty($motdepasse)) {
-
-            $message = "Veuillez remplir tous les champs.";
-
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-            $message = "Adresse email invalide.";
-
+    } elseif ($typeConnexion === 'enseignant') {
+        if ($email === '' || $motdepasse === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $message = 'Adresse e-mail ou mot de passe invalide.';
         } else {
+            try {
+                $requete = $connexion->prepare(
+                    'SELECT id_enseignant, nom, prenom, email, motdepasse, actif, force_changement_mdp
+                     FROM enseignant WHERE email = ? LIMIT 1'
+                );
+                $requete->execute([$email]);
+                $enseignant = $requete->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $exception) {
+                $enseignant = false;
+            }
 
-            // Rechercher l'administrateur
+            if (!$enseignant || (int) $enseignant['actif'] !== 1 || !password_verify($motdepasse, $enseignant['motdepasse'])) {
+                $message = 'Adresse e-mail ou mot de passe invalide.';
+            } else {
+                hemip_clear_identity();
+                session_regenerate_id(true);
+                unset($_SESSION['_hemip_csrf']);
+                $_SESSION['enseignant_connecte'] = true;
+                $_SESSION['idEnseignant'] = (int) $enseignant['id_enseignant'];
+                $_SESSION['nom'] = $enseignant['nom'];
+                $_SESSION['prenom'] = $enseignant['prenom'];
+                $_SESSION['email'] = $enseignant['email'];
+                $_SESSION['role'] = 'Enseignant';
+                header('Location: ' . ((int) $enseignant['force_changement_mdp'] === 1 ? 'enseignant-motdepasse.php' : 'enseignant.php'));
+                exit;
+            }
+        }
+    } else {
+        $roleAdminDemande = $_POST['role_admin'] ?? '';
+        $rolesAdmin = ['Administrateur', 'SuperAdmin', 'SAC', 'DAAC'];
+        if (!is_string($roleAdminDemande) || !in_array($roleAdminDemande, $rolesAdmin, true)) {
+            $message = 'Veuillez sélectionner un rôle administratif valide.';
+        } elseif ($email === '' || $motdepasse === '') {
+            $message = 'Veuillez remplir tous les champs.';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $message = 'Adresse e-mail invalide.';
+        } else {
             $requete = $connexion->prepare(
-                "SELECT idAdmin, nom, prenom, email, motdepasse, role
-                 FROM administrateur
-                 WHERE email = ?"
+                'SELECT idAdmin, nom, prenom, email, motdepasse, role
+                 FROM administrateur WHERE email = ? LIMIT 1'
             );
-
             $requete->execute([$email]);
-
             $administrateur = $requete->fetch(PDO::FETCH_ASSOC);
 
-            if (!$administrateur) {
-
-                $message = "Email ou mot de passe incorrect.";
-
-            } elseif (
-                !password_verify(
-                    $motdepasse,
-                    $administrateur['motdepasse']
-                )
-            ) {
-
-                $message = "Email ou mot de passe incorrect.";
-
-            } elseif (
-                $administrateur['role'] !== 'Administrateur' &&
-                $administrateur['role'] !== 'SuperAdmin'
-            ) {
-
-                $message = "Vous n'avez pas les droits administrateur.";
-
+            if (!$administrateur || $administrateur['role'] !== $roleAdminDemande || !password_verify($motdepasse, $administrateur['motdepasse'])) {
+                $message = 'Identifiants ou rôle incorrects.';
             } else {
-
-                // Connexion réussie
+                hemip_clear_identity();
                 session_regenerate_id(true);
-
-                $_SESSION['admin_connecte'] = true;
-
-                $_SESSION['idAdmin'] = $administrateur['idAdmin'];
+                unset($_SESSION['_hemip_csrf']);
+                $_SESSION['idAdmin'] = (int) $administrateur['idAdmin'];
                 $_SESSION['nom'] = $administrateur['nom'];
                 $_SESSION['prenom'] = $administrateur['prenom'];
                 $_SESSION['email'] = $administrateur['email'];
                 $_SESSION['role'] = $administrateur['role'];
 
-                // Redirection vers la page d'accueil
-                header("Location: index.php");
-                exit();
+                if (in_array($roleAdminDemande, ['Administrateur', 'SuperAdmin'], true)) {
+                    $_SESSION['admin_connecte'] = true;
+                    header('Location: dashboard.php');
+                } elseif ($roleAdminDemande === 'SAC') {
+                    $_SESSION['sac_connecte'] = true;
+                    header('Location: sac.php');
+                } else {
+                    $_SESSION['daac_connecte'] = true;
+                    header('Location: daac.php');
+                }
+                exit;
             }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -431,6 +393,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         aria-controls="form-etudiant">
                     Étudiant
                 </button>
+                <button type="button" role="tab" id="tab-enseignant"
+                        class="login__tab<?= $typeConnexion === 'enseignant' ? ' active' : '' ?>"
+                        aria-selected="<?= $typeConnexion === 'enseignant' ? 'true' : 'false' ?>"
+                        aria-controls="form-enseignant">
+                    Enseignant
+                </button>
                 <button type="button" role="tab" id="tab-admin"
                         class="login__tab<?= $typeConnexion === 'admin' ? ' active' : '' ?>"
                         aria-selected="<?= $typeConnexion === 'admin' ? 'true' : 'false' ?>"
@@ -445,6 +413,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                   <?= $typeConnexion === 'etudiant' ? '' : 'hidden' ?>>
 
                 <input type="hidden" name="type_connexion" value="etudiant">
+                <?= hemip_csrf_input() ?>
 
                 <div class="login__group">
 
@@ -482,14 +451,60 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             </form>
 
+            <!-- ================= FORMULAIRE ENSEIGNANT ================= -->
+            <form action="login.php" method="post" class="login__form" id="form-enseignant"
+                  role="tabpanel" aria-labelledby="tab-enseignant"
+                  <?= $typeConnexion === 'enseignant' ? '' : 'hidden' ?>>
+
+                <input type="hidden" name="type_connexion" value="enseignant">
+                <?= hemip_csrf_input() ?>
+
+                <div class="login__group">
+                  <?php if (!empty($message) && $typeConnexion === 'enseignant'): ?>
+                  <div class="login__box login__box--error" role="alert">
+                    <i class="ri-error-warning-fill login__icon"></i>
+                    <span class="login__error-text"><?= htmlspecialchars($message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></span>
+                  </div>
+                  <?php endif; ?>
+
+                  <div class="login__box">
+                    <i class="ri-mail-fill login__icon"></i>
+                    <input type="email" name="email" autocomplete="email" class="login__input" required placeholder="" id="email-enseignant" value="<?= $typeConnexion === 'enseignant' ? htmlspecialchars(is_string($_POST['email'] ?? null) ? $_POST['email'] : '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : '' ?>">
+                    <label for="email-enseignant" class="login__label">Email professionnel</label>
+                  </div>
+
+                  <div class="login__box">
+                    <i class="ri-lock-2-fill login__icon"></i>
+                    <input type="password" name="motdepasse" autocomplete="current-password" class="login__input" required placeholder="" id="motdepasse-enseignant">
+                    <label for="motdepasse-enseignant" class="login__label">Mot de passe</label>
+                  </div>
+                </div>
+
+                <button type="submit" class="login__button">
+                  Se connecter <i class="ri-send-ins-line"></i>
+                </button>
+            </form>
+
             <!-- ================= FORMULAIRE ADMINISTRATEUR ================= -->
             <form action="login.php" method="post" class="login__form" id="form-admin"
                   role="tabpanel" aria-labelledby="tab-admin"
                   <?= $typeConnexion === 'admin' ? '' : 'hidden' ?>>
 
                 <input type="hidden" name="type_connexion" value="admin">
+                <?= hemip_csrf_input() ?>
 
                 <div class="login__group">
+
+                  <div class="login__box">
+                    <i class="ri-admin-line login__icon"></i>
+                    <select name="role_admin" id="role-admin" class="login__input" required>
+                      <option value="" disabled <?= $roleAdminDemande === '' ? 'selected' : '' ?>>Sélectionnez votre rôle</option>
+                      <?php foreach (['Administrateur', 'SuperAdmin', 'SAC', 'DAAC'] as $roleOption): ?>
+                        <option value="<?= htmlspecialchars($roleOption, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" <?= $roleAdminDemande === $roleOption ? 'selected' : '' ?>><?= htmlspecialchars($roleOption, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                    <label for="role-admin" class="login__label">Rôle administratif</label>
+                  </div>
 
                   <?php if (!empty($message) && $typeConnexion === 'admin'): ?>
                   <div class="login__box login__box--error" role="alert">
@@ -632,11 +647,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <script src="<?= asset('assets/js/main.js') ?>"></script>
   <script src="<?= asset('assets/js/pwa.js') ?>" defer></script>
 <script>
-/* Bascule entre la connexion Étudiant et Administrateur */
+/* Bascule entre les trois types de connexion */
 (function () {
   var tabs = {
     etudiant: { btn: document.getElementById("tab-etudiant"), form: document.getElementById("form-etudiant") },
-    admin:    { btn: document.getElementById("tab-admin"),    form: document.getElementById("form-admin") }
+    enseignant: { btn: document.getElementById("tab-enseignant"), form: document.getElementById("form-enseignant") },
+    admin: { btn: document.getElementById("tab-admin"), form: document.getElementById("form-admin") }
   };
 
   function afficher(nom) {
@@ -648,8 +664,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     });
   }
 
-  tabs.etudiant.btn.addEventListener("click", function () { afficher("etudiant"); });
-  tabs.admin.btn.addEventListener("click", function () { afficher("admin"); });
+  Object.keys(tabs).forEach(function (cle) {
+    tabs[cle].btn.addEventListener("click", function () { afficher(cle); });
+  });
 })();
 
 /* Filet de sécurité : si une animation (GSAP) ne démarre pas, le bloc de connexion reste visible */

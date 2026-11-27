@@ -1,31 +1,15 @@
 <?php
 if (!function_exists('asset')) { function asset($p) { $f = __DIR__ . '/' . $p; return $p . '?v=' . (is_file($f) ? filemtime($f) : '1'); } }
-session_start();
-
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-header("Expires: 0");
-
-if (
-    !isset($_SESSION['admin_connecte']) ||
-    $_SESSION['admin_connecte'] !== true
-) {
-    header("Location: login.php");
-    exit();
-}
-
-require_once "connexion.php";
+require_once __DIR__ . '/includes/role-guard.php';
+hemip_start_session();
+hemip_private_headers();
+require_once __DIR__ . '/connexion.php';
+hemip_require_admin($connexion);
 require_once "historique.php";
 
 // Message de résultat (validation / rejet) laissé par traitement.php
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
-
-if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true) {
-    header("Location: login.php");
-    exit();
-}
 
 $requete = $connexion->prepare("
     SELECT
@@ -476,6 +460,12 @@ $notifications = historique_lire(
                 <button class="notification">
                     <i class="ri-notification-3-line"></i>
                 </button>
+
+                <?php if (($_SESSION['role'] ?? '') === 'SuperAdmin'): ?>
+                <a href="enseignants.php" class="connexion" title="Gérer les comptes enseignants" aria-label="Gérer les comptes enseignants">
+                    <i class="ri-user-add-line"></i>
+                </a>
+                <?php endif; ?>
 
                 <div class="avatar">
              <?php if (($_SESSION['role'] ?? '') === 'SuperAdmin'): ?>

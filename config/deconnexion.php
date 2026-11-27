@@ -1,11 +1,22 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/role-guard.php';
+hemip_start_session();
 
 // Supprimer toutes les données de session
 $_SESSION = [];
 
-// Détruire complètement la session
-session_unset();
+// Expirer le cookie avant de détruire la session côté serveur.
+if (ini_get('session.use_cookies')) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', [
+        'expires' => time() - 42000,
+        'path' => $params['path'],
+        'domain' => $params['domain'],
+        'secure' => $params['secure'],
+        'httponly' => $params['httponly'],
+        'samesite' => $params['samesite'] ?? 'Lax',
+    ]);
+}
 session_destroy();
 
 // Empêcher le navigateur de conserver les pages en cache

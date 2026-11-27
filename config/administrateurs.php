@@ -1,10 +1,11 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/role-guard.php';
+hemip_start_session();
+require_once __DIR__ . '/includes/csrf.php';
 
 require_once "connexion.php";
 
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Pragma: no-cache");
+hemip_private_headers();
 
 /* ==========================================
    ACCÈS : SuperAdmin uniquement
@@ -12,31 +13,8 @@ header("Pragma: no-cache");
    pour qu'un changement de rôle soit immédiat)
 ========================================== */
 
-if (empty($_SESSION['admin_connecte']) || empty($_SESSION['idAdmin'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$idMoi = (int) $_SESSION['idAdmin'];
-
-$requete = $connexion->prepare("SELECT role FROM administrateur WHERE idAdmin = ?");
-$requete->execute([$idMoi]);
-$roleReel = $requete->fetchColumn();
-
-if ($roleReel === false) {
-    // Le compte n'existe plus
-    session_unset();
-    session_destroy();
-    header("Location: login.php");
-    exit();
-}
-
-$_SESSION['role'] = $roleReel;
-
-if ($roleReel !== 'SuperAdmin') {
-    header("Location: dashboard.php");
-    exit();
-}
+$compteSuperAdmin = hemip_require_superadmin($connexion);
+$idMoi = (int) $compteSuperAdmin['idAdmin'];
 
 /* ==========================================
    JETON CSRF
@@ -46,7 +24,7 @@ if (empty($_SESSION['csrf'])) {
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
 }
 
-$rolesAutorises = ['Administrateur', 'SuperAdmin'];
+$rolesAutorises = ['Administrateur', 'SAC', 'DAAC'];
 
 /* ==========================================
    ACTIONS (modifier le rôle / supprimer)
@@ -63,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = $_POST['action'] ?? '';
     $idCible = (int) ($_POST['idAdmin'] ?? 0);
 
-    if (!hash_equals($_SESSION['csrf'], $token)) {
+    if (!is_string($token) || !hash_equals($_SESSION['csrf'], $token)) {
 
         flash('erreur', "Session expirée. Veuillez réessayer.");
 
@@ -73,13 +51,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } else {
 
-        $verif = $connexion->prepare("SELECT idAdmin, prenom, nom FROM administrateur WHERE idAdmin = ?");
+        $verif = $connexion->prepare("SELECT idAdmin, prenom, nom, role FROM administrateur WHERE idAdmin = ?");
         $verif->execute([$idCible]);
         $cible = $verif->fetch(PDO::FETCH_ASSOC);
 
         if (!$cible) {
 
             flash('erreur', "Administrateur introuvable.");
+
+        } elseif ($action === 'role' && $cible['role'] === 'SuperAdmin') {
+
+            flash('erreur', "Un compte SuperAdmin ne peut pas être rétrogradé depuis cette page.");
 
         } elseif ($action === 'role') {
 
@@ -349,6 +331,8 @@ $liste = $connexion->query(
                         <div class="actions">
 
                             <!-- Modifier le rôle -->
+                            <!-- Modifier le rôle -->
+                            <?php if ($admin['role'] !== 'SuperAdmin'): ?>
                             <form method="POST">
                                 <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
                                 <input type="hidden" name="action" value="role">
@@ -364,6 +348,9 @@ $liste = $connexion->query(
 
                                 <button type="submit" class="btn btn-small">Modifier</button>
                             </form>
+                            <?php else: ?>
+                                <span class="badge SuperAdmin">Rôle SuperAdmin protégé</span>
+                            <?php endif; ?>
 
                             <!-- Supprimer -->
                             <form method="POST"

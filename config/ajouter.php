@@ -3,27 +3,18 @@
 session_start();
 
 require_once "connexion.php";
+require_once __DIR__ . '/includes/role-guard.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 // Accès réservé aux SuperAdmin connectés (rôle relu en base)
-$roleReel = false;
+$superadmin = hemip_require_superadmin($connexion);
 
-if (!empty($_SESSION['admin_connecte']) && !empty($_SESSION['idAdmin'])) {
-    $r = $connexion->prepare("SELECT role FROM administrateur WHERE idAdmin = ?");
-    $r->execute([(int) $_SESSION['idAdmin']]);
-    $roleReel = $r->fetchColumn();
-}
-
-if ($roleReel !== 'SuperAdmin') {
-    header("Location: login.php");
-    exit();
-}
-
-$rolesAutorises = ['Administrateur', 'SuperAdmin'];
+$rolesAutorises = ['Administrateur', 'SuperAdmin', 'SAC', 'DAAC'];
 
 $message = "";
 $succes = "";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && hemip_csrf_valid($_POST['csrf'] ?? null)) {
 
     $nom = trim($_POST['nom'] ?? '');
     $prenom = trim($_POST['prenom'] ?? '');
@@ -91,6 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_POST = [];
         }
     }
+} elseif ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $message = "Session expirée. Rechargez la page puis réessayez.";
 }
 
 ?>
@@ -526,6 +519,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             <form method="POST">
+                <?= hemip_csrf_input() ?>
 
                 <!-- NOM -->
 
@@ -594,8 +588,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <label for="role">Rôle</label>
 
                     <select name="role" id="role" required>
-                        <option value="Administrateur">Administrateur</option>
-                        <option value="SuperAdmin">SuperAdmin</option>
+                        <?php foreach ($rolesAutorises as $roleOption): ?>
+                            <option value="<?= htmlspecialchars($roleOption, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" <?= ($_POST['role'] ?? 'Administrateur') === $roleOption ? 'selected' : '' ?>><?= htmlspecialchars($roleOption, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></option>
+                        <?php endforeach; ?>
                     </select>
 
                 </div>

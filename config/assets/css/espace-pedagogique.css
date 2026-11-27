@@ -1,0 +1,64 @@
+/* Styles ciblés pour les espaces pédagogique SAC et enseignant. */
+.pedag-page {
+  min-height: calc(100vh - 68px);
+  padding: 32px clamp(16px, 4vw, 56px) 56px;
+  background: var(--hemip-neutral-soft, #f3f1f2);
+  color: var(--hemip-text, #1d1e1e);
+  font-family: Inter, Arial, sans-serif;
+}
+.pedag-wrap { width: min(1180px, 100%); margin: 0 auto; }
+.pedag-topbar {
+  min-height: 68px; padding: 12px clamp(16px, 4vw, 56px);
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  background: var(--hemip-text, #1d1e1e); color: var(--hemip-bg, #fdfdfd);
+}
+.pedag-brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; }
+.pedag-brand img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.pedag-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.pedag-nav a, .pedag-topbar > a:last-child {
+  color: inherit; text-decoration: none; padding: 9px 12px; border-radius: 9px;
+}
+.pedag-nav a:hover, .pedag-topbar > a:last-child:hover { background: rgba(255,255,255,.12); }
+.pedag-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; margin: 0 0 22px; }
+.pedag-head h1 { margin: 0; font-size: clamp(1.55rem, 3vw, 2.2rem); letter-spacing: -.03em; }
+.pedag-head p { margin: 7px 0 0; color: var(--hemip-muted, #655f61); }
+.pedag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.pedag-card, .pedag-panel {
+  background: var(--hemip-bg, #fff); border: 1px solid rgba(29,30,30,.08); border-radius: 16px;
+  padding: 20px; box-shadow: 0 8px 26px rgba(29,30,30,.05);
+}
+.pedag-card h2, .pedag-panel h2 { margin: 0 0 12px; font-size: 1.05rem; }
+.pedag-card p { margin: 0; color: var(--hemip-muted, #655f61); line-height: 1.55; }
+.pedag-kpi { display: block; margin: 4px 0 8px; color: var(--hemip-primary-strong, #0a6fa5); font-size: 2rem; font-weight: 750; }
+.pedag-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+.pedag-button, .pedag-button:visited {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 40px; padding: 9px 14px; border: 0; border-radius: 10px;
+  background: var(--hemip-primary-strong, #0a6fa5); color: #fff; font: inherit; font-weight: 650;
+  text-decoration: none; cursor: pointer;
+}
+.pedag-button:hover { background: var(--hemip-text, #1d1e1e); }
+.pedag-button--muted { background: var(--hemip-neutral-soft, #f3f1f2); color: var(--hemip-text, #1d1e1e); }
+.pedag-button--danger { background: var(--hemip-accent-strong, #a8241e); }
+.pedag-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; align-items: end; }
+.pedag-field { display: grid; gap: 6px; }
+.pedag-field label { font-size: .9rem; font-weight: 650; }
+.pedag-field input, .pedag-field select, .pedag-field textarea {
+  width: 100%; min-height: 42px; padding: 10px 12px; border: 1px solid #c9c5c6;
+  border-radius: 9px; background: #fff; color: var(--hemip-text, #1d1e1e); font: inherit;
+}
+.pedag-field textarea { min-height: 100px; resize: vertical; }
+.pedag-table-wrap { overflow-x: auto; }
+.pedag-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.pedag-table th, .pedag-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #e8e5e6; vertical-align: top; }
+.pedag-table th { color: var(--hemip-primary-strong, #0a6fa5); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
+.pedag-alert { margin: 0 0 16px; padding: 12px 14px; border-radius: 10px; background: var(--hemip-primary-soft, #e8f4fb); }
+.pedag-alert--error { background: var(--hemip-accent-soft, #fbe9e8); color: var(--hemip-accent-strong, #a8241e); }
+.pedag-muted { color: var(--hemip-muted, #655f61); }
+.pedag-tag { display: inline-block; padding: 4px 9px; border-radius: 99px; background: var(--hemip-primary-soft, #e8f4fb); color: var(--hemip-primary-strong, #0a6fa5); font-size: .8rem; font-weight: 650; }
+@media (max-width: 680px) {
+  .pedag-topbar { align-items: flex-start; flex-direction: column; }
+  .pedag-nav { width: 100%; }
+  .pedag-head { align-items: flex-start; flex-direction: column; }
+  .pedag-page { padding: 22px 14px 38px; }
+}
